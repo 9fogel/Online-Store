@@ -1,170 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Online store</title>
 </head>
+
 <body>
 
   <header>
     <div class="wrapper">
-        <div class="header_wrapper">
-            <h1 class="logo">Store</h1>
-            <section class="nav">
-                <button class="header_btn to_store">Shop</button>
-                <button class="header_btn to_item_page">Item card</button> <!-- для разработки, в итоге этой ссылки тут не будет -->
-                <button class="header_btn to_payment">Payment</button> <!-- для разработки, в итоге этой ссылки тут не будет -->
-                <button class="header_btn to_page_404">404</button> <!-- для разработки, в итоге этой ссылки тут не будет -->
-                <button class="header_btn to_about">About</button>
-                <div class="header_btn to_cart">
-                    <span class="cart_amount">0 $</span>
-                    <div class="cart_ico"></div>
-                    <span class="cart_items">0</span>
-                </div>
-            </section>
-        </div>
+      <div class="header_wrapper">
+        <h1 class="logo">Store</h1>
+        <section class="nav">
+          <a class="nav_link to_store">Shop</a>
+          <a class="nav_link to_item_page">Item card</a>
+          <a class="nav_link to_payment">Payment</a>
+          <a class="nav_link to_page_404">404</a>
+          <a class="nav_link to_about">About</a>
+          <button class="cart_btn to_cart">
+            <span class="cart_amount">0 $</span>
+            <div class="cart_ico"></div>
+            <span class="cart_items">0</span>
+          </button>
+        </section>
+      </div>
     </div>
   </header>
 
   <main>
-      <div class="wrapper">
-          <div class="main_wrapper">
-              <div class="store">
-                  <aside class="filtres">
-                      <div class="filter_1">Check</div>
-                      <div class="filter_2">Check</div>
-                      <div class="filter_3">Range</div>
-                      <div class="filter_4">Range</div>
-                      <button class="reset_filtres">Reset</button>
-                      <button class="copy_link">Copy</button>
-                  </aside>
-                  <section class="gallery">
-                      <div class="gallery_head">
-                          <div class="items_amount">100 items found</div>
-                          <div class="search">Search</div>
-                          <div class="sorting">Sort by</div>
-                          <div class="view">Big/Small</div>
-                      </div>
-                      <div class="gallery_body">
-                          <div class="gallery_wrapper">
-                              <div class="item_template">
-                                  <h4 class="item_name">Item name</h4>
-                                  <div class="item_pic">
-                                      <img class="ilem_pic_img">
-                                  </div>
-                                  <div class="item_parameters">
-                                      <span class="item_category">socks</span>
-                                      <span class="item_color">red</span>
-                                      <span class="item_count">2</span>
-                                      <span class="item_count">2</span>
-                                  </div>
-                                  <div class="item_price">50 $</div>
-                              </div>
-                          </div>
-                      </div>
-                  </section>
-              </div>
-
-              <div class="item_page invisible">
-                  <div class="breadcrumbs">store >> category >> subcategory >> item </div>
-                  <div class="card_wrapper">
-                      <h4 class="item_name">Item name</h4>
-                          <div class="item_pic">
-                              <img class="ilem_pic_img">
-                          </div>
-                          <div class="item_parameters">
-                              <span class="item_category">socks</span>
-                              <span class="item_color">red</span>
-                              <span class="item_count">2</span>
-                              <span class="item_count">2</span>
-                              <p class="irem_description">cozy socks. 2 socks in pack. red color. add it to cart. please</p>
-                          </div>
-                          <div class="item_price">50 $</div>
+    <div class="wrapper">
+      <div class="main_wrapper">
+        <div class="store">
+          <aside class="filters">
+            <fieldset class="filters_fieldset">
+              <legend>Filters</legend>
+              <ul class="filters_list">
+                <li class="filter_item">
+                  <span>Category</span>
+                  <ul class="filter_ul">
+                    <li class="filter_li">
+                      <input id="cat1" type="checkbox">
+                      <label for="cat1">Category1</label>
+                    </li>
+                    <li class="filter_li">
+                        <input id="cat2" type="checkbox">
+                        <label for="cat2">Category2</label>
+                    </li>
+                    <li class="filter_li">
+                        <input id="cat3" type="checkbox">
+                        <label for="cat3">Category3</label>
+                    </li>
+                  </ul>
+                </li>
+                <li class="filter_item">
+                  <span>Subcategory</span>
+                  <ul class="filter_ul">
+                    <li class="filter_li">
+                      <input id="cat1" type="checkbox">
+                      <label for="cat1">Subcategory1</label>
+                    </li>
+                    <li class="filter_li">
+                        <input id="cat2" type="checkbox">
+                        <label for="cat2">Subcategory2</label>
+                    </li>
+                    <li class="filter_li">
+                        <input id="cat3" type="checkbox">
+                        <label for="cat3">Subcategory3</label>
+                    </li>
+                  </ul>
+                </li>
+                <li class="filter_item">
+                  <span>Amount</span>
+                  <div class="filter_from">0</div>
+                  <div class="filter_range">
+                      <input type="range" id="filter_range_min" min="0" step="1" max="10" value="3">
+                      <input type="range" id="filter_range_max" min="0" step="1" max="10" value="7">
                   </div>
-                  <div class="item_page_buttons">
-                      <button class="item_add">Add to cart</button>
-                      <button class="item_buy">Buy now</button>
+                  <div class="filter_to">100</div>
+                </li>
+                <li class="filter_item">
+                  <span>Price</span>
+                  <div class="filter_from">0 $</div>
+                  <div class="filter_range">
+                      <input type="range" id="filter_range_min" min="0" step="10" max="100" value="25">
+                      <input type="range" id="filter_range_max" min="0" step="10" max="100" value="75">
                   </div>
-              </div>
-
-              <div class="cart invisible">
-                  <div class="cart_items">
-                      <div class="cart_items_header">
-                          <span>Products in cart</span>
-                          <div class="cart_total_items">
-                              <span>0 items in cart</span>
-                          </div>
-                          <div class="cart_pagination">
-                              <div class="cart_pagination_prev">prev</div>
-                              <div class="cart_pagination_current">current</div>
-                              <div class="cart_pagination_next">next</div>
-                          </div>
-                      </div>
-                      <div class="carr_items_body">
-                          <div class="cart_item_template">
-                              <div class="cart_item_number">1</div>
-                              <div class="cart_item_picture">pictire</div>
-                              <div class="cart_item_description">description</div>
-                              <div class="cart_item_piece_price">5 $</div>
-                              <div class="cart_item_amount">
-                                  <div class="cart_item_amount_less">-</div>
-                                  <div class="cart_item_amount">current</div>
-                                  <div class="cart_item_amount_more">+</div>
-                              </div>
-                          </div>
-                      </div>
+                  <div class="filter_to">100 $</div>
+                </li>
+              </ul>
+              <button class="reset_filters">Reset</button>
+              <button class="copy_link">Copy</button>
+            </fieldset>
+          </aside>
+          <section class="gallery">
+            <div class="gallery_head">
+              <div class="items_amount">100 items found</div>
+              <div class="search">Search</div>
+              <div class="sorting">Sort by</div>
+              <div class="view">Big/Small</div>
+            </div>
+            <div class="gallery_body">
+              <div class="gallery_wrapper">
+                <div class="item_template">
+                  <h4 class="item_name">Item name</h4>
+                  <div class="item_pic">
+                    <img class="ilem_pic_img">
                   </div>
-                  <div class="cart_summary">
-                      <div class="cart_summary_products">Total products: 4</div>
-                      <div class="cart_summary_price">Total price: 6 $</div>
-                      <div class="cart_summary_coupon">
-                          <span>Enter promo code</span>
-                          <input type="input" class="coupon_input"></input>
-                          <button class="coupon_btn"></button>
-                      </div>
-                      <button class="item_buy">Buy now</button>
+                  <div class="item_parameters">
+                    <span class="item_category">socks</span>
+                    <span class="item_color">red</span>
+                    <span class="item_count">2</span>
+                    <span class="item_count">2</span>
                   </div>
+                  <div class="item_price">50 $</div>
+                </div>
               </div>
+            </div>
+          </section>
+        </div>
 
-              <div class="payment invisible">
-                  <h5 class="payment_details">Payment details</h5>
-                  <form>
-                      <div>Name</div>
-                      <div>Phone</div>
-                      <div>e-mail</div>
-                      <div>Payment card</div>
-                      <button class="payment_confirm">Confirm</button>
-                  </form>
-              </div>
-
-              <div class="about invisible">
-                  <span>Descroption about store. Some story about brand. Maby team info</span>
-              </div>
-
-              <div class="page_404 invisible">
-                  <h2>Not Found (404)</h2>
-                  <p>The requested URL was not found on this server.</p>
-              </div>
-
+        <div class="item_page invisible">
+          <div class="breadcrumbs">store >> category >> subcategory >> item </div>
+          <div class="card_wrapper">
+            <h4 class="item_name">Item name</h4>
+            <div class="item_pic">
+              <img class="ilem_pic_img">
+            </div>
+            <div class="item_parameters">
+              <span class="item_category">socks</span>
+              <span class="item_color">red</span>
+              <span class="item_count">2</span>
+              <span class="item_count">2</span>
+              <p class="irem_description">cozy socks. 2 socks in pack. red color. add it to cart. please</p>
+            </div>
+            <div class="item_price">50 $</div>
           </div>
+          <div class="item_page_buttons">
+            <button class="item_add">Add to cart</button>
+            <button class="item_buy">Buy now</button>
+          </div>
+        </div>
+
+        <div class="cart invisible">
+          <div class="cart_items">
+            <div class="cart_items_header">
+              <h4>Products in cart</h4>
+              <div class="cart_total_items">
+                <span>0 items in cart</span>
+              </div>
+              <div class="cart_pagination">
+                <div class="cart_pagination_prev">prev</div>
+                <div class="cart_pagination_current">current</div>
+                <div class="cart_pagination_next">next</div>
+              </div>
+            </div>
+            <div class="cart_items_body">
+              <div class="cart_item_template">
+                <div class="cart_item_number">1</div>
+                <div class="cart_item_picture">pictire</div>
+                <div class="cart_item_description">description</div>
+                <div class="cart_item_piece_price">5 $</div>
+                <div class="cart_item_amount">
+                  <div class="cart_item_amount_less">-</div>
+                  <div class="cart_item_amount">current</div>
+                  <div class="cart_item_amount_more">+</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cart_summary">
+            <div class="cart_summary_products">Total products: 4</div>
+            <div class="cart_summary_price">Total price: 6 $</div>
+            <div class="cart_summary_coupon">
+              <span>Enter promo code</span>
+              <input type="input" class="coupon_input"></input>
+              <button class="coupon_btn"></button>
+            </div>
+            <button class="item_buy">Buy now</button>
+          </div>
+        </div>
+
+        <div class="payment invisible">
+          <div class="modal_wrapper">
+            <span class="close" id="closeModal">X</span>
+            <h3 class="payment_details"> Payment details </h3>
+            <form action="#" method="post" class="payment_form">
+              <div class="form_field">
+                <label for="name">name: </label>
+                <input type="text" name="name" id="name" placeholder="Name" required>
+              </div>
+              <div class="form_field">
+                <label for="phone">phone: </label>
+                <input type="tel" name="phone" id="phone" placeholder="+7(999)999-99-99" required>
+              </div>
+              <div class="form_field">
+                <label for="name">delivery address: </label>
+                <input type="input" name="address" id="address" placeholder="Berlin" required>
+              </div>
+              <div class="form_field">
+                <label for="email">e-mail: </label>
+                <input type="email" name="email" id="email" placeholder="online-store@store.com" required>
+              </div>
+              <div class="payment_card">
+                <h5>Payment card</h5>
+                <div class="payment_card_field">
+                  <label for="card_number">Number</label>
+                  <input type="number" name="card_number" id="card_number" placeholder="0000 0000 0000 0000" required>
+                </div>
+                <div class="payment_card_field">
+                  <label for="card_valid">Valid:</label>
+                  <input type="input" name="card_valid" id="card_valid" placeholder="01/24" required>
+                </div>
+                <div class="payment_card_field">
+                  <label for="card_CVV">CVV</label>
+                  <input type="number" name="card_CVV" id="card_CVV" placeholder="000" required>
+                </div>
+              </div>
+              <div class="payment_confirm">
+                <input type="submit" value="Confirm">
+              </div>
+            </form>
+          </div>
+        </div>
+
+
+        <div class="about invisible">
+          <span>Descroption about store. Some story about brand. Maby team info</span>
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        </div>
+
+        <div class="page_404 invisible">
+          <h2>Not Found (404)</h2>
+          <p>The requested URL was not found on this server.</p>
+        </div>
+
       </div>
+    </div>
   </main>
 
   <footer>
-      <div class="wrapper">
-          <div class="footer_info_wrapper">
-              <div class="made_by">
-                  <span class="made-by">Made by </span>
-                  <a href="https://github.com/9fogel" class="github_logo">9fogel</a>
-                  <a href="https://github.com/4Quark" class="github_logo">4Quark</a>
-              </div>
-              <a href="https://rs.school/js/" class="RSS_logo">RSSchool</a>
-              <span>© Rolling Scopes School, 2022</span>
-          </div>
+    <div class="wrapper">
+      <div class="footer_info_wrapper">
+        <div class="made_by">
+          <span class="made-by">Made by </span>
+          <a href="https://github.com/9fogel" target=_blank class="github_logo">9fogel</a>
+          <a href="https://github.com/4Quark" target=_blank class="github_logo">4Quark</a>
+        </div>
+        <a href="https://rs.school/js/" target=_blank class="RSS_logo">RSSchool</a>
+        <span>© Rolling Scopes School, 2022</span>
       </div>
+    </div>
   </footer>
 
 </body>
+
 </html>

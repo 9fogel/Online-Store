@@ -8,10 +8,10 @@ console.log('Hello World!');
 const pages: string[] = ['store', 'item_page', 'cart', 'payment', 'about', 'page_404'];
 const pagesLinks: NodeListOf<Element>[] = [];
 const pagesView: Element[] = [];
-pages.forEach((el: string): void => {
+pages.forEach((el) => {
   pagesLinks.push(document.querySelectorAll(`.to_${el}`));
 });
-pages.forEach((el: string): void => {
+pages.forEach((el) => {
   const temp = document.querySelector(`.${el}`);
   if (temp !== null) pagesView.push(temp);
 });
@@ -19,9 +19,10 @@ pages.forEach((el: string): void => {
 const changeView = function (view: number) {
   pagesView.forEach((el) => {
     el.classList.add('invisible');
-    console.log('add invisible', el);
   });
   pagesView[view].classList.remove('invisible');
 };
 
 pagesLinks.forEach((item, iter) => item.forEach((el) => el.addEventListener('click', () => changeView(iter))));
+
+// document.addEventListener("DOMContentLoaded", app);

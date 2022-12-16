@@ -1,4 +1,12 @@
 //general styles here
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   background-color: aqua;
@@ -9,9 +17,36 @@ h1 {
   color: green;
 }
 
-.test-img {
-  width: 300px;
-  height: 600px;
-  background-image: url('img/brock-wegner.jpg');
-  background-size: cover;
+li {
+  list-style-type: none;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 1200px; 
+  margin: 0 auto;
+}
+
+.invisible {
+  display: none;
 }
