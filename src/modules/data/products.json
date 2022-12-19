@@ -1,0 +1,634 @@
+{
+  "products": [
+      {
+          "id": 1,
+          "key": "10875",
+          "title": "Cargo Train",
+          "description": "The LEGO® DUPLO® Cargo Train is now even easier for your toddler to control and interact with in multiple ways",
+          "priceByn": 450.00,
+          "stock": 10,
+          "theme": "Duplo",
+          "interests": "Trains",
+          "detailsCount": 105,
+          "age": {
+            "minAge": 2,
+            "maxAge": 5
+          },
+          "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/10875-1/26518.jpg/1000x800p.jpg",
+          "images": [
+              "https://cdn.rebrickable.com/media/thumbs/sets/10875-1/26518.jpg/1000x800p.jpg",
+              "https://cdn.rebrickable.com/media/thumbs/sets/10875-1/3825.jpg/1000x800p.jpg",
+              "https://cdn.rebrickable.com/media/thumbs/sets/10875-1/26520.jpg/1000x800p.jpg"
+          ]
+      },
+      {
+        "id": 2,
+        "key": "75192",
+        "title": "Millennium Falcon",
+        "description": "Construct one of the biggest LEGO® sets ever made - the most famous starship in the galaxy",
+        "priceByn": 2599.00,
+        "stock": 2,
+        "theme": "Stars Wars",
+        "interests": "Space",
+        "detailsCount": 7541,
+        "age": {
+          "minAge": 16,
+          "maxAge": 99
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/75192-1/30882.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/75192-1/30882.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/75192-1/30881.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/75192-1/30888.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 3,
+        "key": "42123",
+        "title": "McLaren Senna GTR",
+        "description": "Recreate the stunning looks of this iconic supercar. Makes a perfect gift for any McLaren fan",
+        "priceByn": 210.00,
+        "stock": 49,
+        "theme": "Technic",
+        "interests": "Cars",
+        "detailsCount": 830,
+        "age": {
+          "minAge": 10,
+          "maxAge": 99
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/42123-1/75922.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/42123-1/75922.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/42123-1/75923.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/42123-1/75934.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 4,
+        "key": "60350",
+        "title": "Lunar Research Base",
+        "description": "Kids step into the future of space exploration with this authentically detailed, NASA-inspired Lunar Research Base playset",
+        "priceByn": 399.00,
+        "stock": 25,
+        "theme": "City",
+        "interests": "Space",
+        "detailsCount": 786,
+        "age": {
+          "minAge": 7,
+          "maxAge": 99
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/60350-1/95419.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/60350-1/95419.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/60350-1/95418.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/60350-1/95423.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 5,
+        "key": "76956",
+        "title": "T. rex Breakout",
+        "description": "Relive your first sighting of the T. rex in Jurassic Park as you recreate the famous film scene in LEGO® style",
+        "priceByn": 499.00,
+        "stock": 7,
+        "theme": "Jurassic World",
+        "interests": "Dinosaurs",
+        "detailsCount": 1212,
+        "age": {
+          "minAge": 18,
+          "maxAge": 99
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/76956-1/98642.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/76956-1/98642.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/76956-1/106643.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/76956-1/98646.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 6,
+        "key": "10954",
+        "title": "Number Train - Learn To Count",
+        "description": "This push-along train introduces toddlers to colours and counting, while friendly characters boost social-emotional skills",
+        "priceByn": 84.00,
+        "stock": 41,
+        "theme": "Duplo",
+        "interests": "Trains",
+        "detailsCount": 23,
+        "age": {
+          "minAge": 1,
+          "maxAge": 3
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/10954-1/87888.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/10954-1/87888.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/10954-1/87887.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/10954-1/87891.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 7,
+        "key": "75310",
+        "title": "Duel on Mandalore",
+        "description": "Young fans can reimagine thrilling action from Star Wars: The Clone Wars with this portable Duel on Mandalore buildable playset",
+        "priceByn": 399.00,
+        "stock": 25,
+        "theme": "City",
+        "interests": "Space",
+        "detailsCount": 147,
+        "age": {
+          "minAge": 7,
+          "maxAge": 99
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/75310-1/88972.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/75310-1/88972.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/75310-1/88971.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/75310-1/88973.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 8,
+        "key": "42128",
+        "title": "Heavy-duty Tow Truck",
+        "description": "A rewarding build and a perfect gift idea for any fan of powerful vehicles and trucks",
+        "priceByn": 553.00,
+        "stock": 17,
+        "theme": "Technic",
+        "interests": "Cars",
+        "detailsCount": 2017,
+        "age": {
+          "minAge": 11,
+          "maxAge": 99
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/42128-1/89869.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/42128-1/89869.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/42128-1/89870.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/42128-1/89871.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 9,
+        "key": "60253",
+        "title": "Ice-Cream Truck",
+        "description": "This brightly colored ice-cream truck is packed with exciting features that will inspire endless imaginative play",
+        "priceByn": 399.00,
+        "stock": 25,
+        "theme": "City",
+        "interests": "Cars",
+        "detailsCount": 200,
+        "age": {
+          "minAge": 5,
+          "maxAge": 99
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/60253-1/18455.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/60253-1/18455.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/60253-1/15150.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/60253-1/18456.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 10,
+        "key": "76946",
+        "title": "Blue & Beta Velociraptor Capture",
+        "description": "Action-packed dinosaur and truck toy playset to play out epic adventures inspired by Jurassic World Dominion",
+        "priceByn": 165.00,
+        "stock": 32,
+        "theme": "Jurassic World",
+        "interests": "Dinosaurs",
+        "detailsCount": 181,
+        "age": {
+          "minAge": 6,
+          "maxAge": 99
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/76946-1/98873.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/76946-1/98873.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/76946-1/98872.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/76946-1/98875.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 11,
+        "key": "75318",
+        "title": "The Child",
+        "description": "The Child, affectionately known as ‘Baby Yoda’, is the cutest character in the galaxy and can now adorn every fan’s home",
+        "priceByn": 345.00,
+        "stock": 9,
+        "theme": "Stars Wars",
+        "interests": "Space",
+        "detailsCount": 1075,
+        "age": {
+          "minAge": 10,
+          "maxAge": 99
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/75318-1/72782.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/75318-1/72782.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/75318-1/72781.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/75318-1/72786.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 12,
+        "key": "10931",
+        "title": "Truck & Tracked Excavator",
+        "description": "Develop preschoolers’ fine motor skills and problem-solving abilities with this open-ended role-play toy",
+        "priceByn": 99.00,
+        "stock": 59,
+        "theme": "Duplo",
+        "interests": "Cars",
+        "detailsCount": 20,
+        "age": {
+          "minAge": 2,
+          "maxAge": 5
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/10931-1/64793.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/10931-1/64793.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/10931-1/64794.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/10931-1/64792.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 13,
+        "key": "60348",
+        "title": "Lunar Roving Vehicle",
+        "description": "Exciting space missions await with this NASA-inspired lunar rover – packed with realistic features for imaginative play",
+        "priceByn": 179.00,
+        "stock": 47,
+        "theme": "City",
+        "interests": "Space",
+        "detailsCount": 275,
+        "age": {
+          "minAge": 6,
+          "maxAge": 99
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/60348-1/98068.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/60348-1/98068.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/60348-1/98067.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/60348-1/98070.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 14,
+        "key": "76949",
+        "title": "Giganotosaurus & Therizinosaurus Attack",
+        "description": "Fans can relive Jurassic World Dominion film action and play out dinosaur duels with this exciting building set",
+        "priceByn": 766.66,
+        "stock": 4,
+        "theme": "Jurassic World",
+        "interests": "Dinosaurs",
+        "detailsCount": 810,
+        "age": {
+          "minAge": 10,
+          "maxAge": 99
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/76949-1/100891.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/76949-1/100891.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/76949-1/100890.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/76949-1/100893.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 15,
+        "key": "42132",
+        "title": "Motorcycle",
+        "description": "Give kids twice the fun with this 2-in-1 LEGO® Technic Motorbike model that rebuilds into a cool Adventure Bike",
+        "priceByn": 59.70,
+        "stock": 60,
+        "theme": "Technic",
+        "interests": "Moto",
+        "detailsCount": 163,
+        "age": {
+          "minAge": 7,
+          "maxAge": 99
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/42132-1/95822.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/42132-1/95822.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/42132-1/95821.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/42132-1/95823.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 16,
+        "key": "60352",
+        "title": "LEGO® City Advent Calendar",
+        "description": "Kids can count down to the big day with the LEGO® City Advent Calendar, featuring a fun surprise behind every door",
+        "priceByn": 199.00,
+        "stock": 5,
+        "theme": "City",
+        "interests": "City",
+        "detailsCount": 287,
+        "age": {
+          "minAge": 5,
+          "maxAge": 99
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/60352-1/106857.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/60352-1/106857.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/60352-1/106856.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/60352-1/106858.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 17,
+        "key": "10929",
+        "title": "Modular Playhouse",
+        "description": "Kids love to play house! And, with this easy-to-build, open and accessible dollhouse, you can join in the fun too!",
+        "priceByn": 359.00,
+        "stock": 16,
+        "theme": "Duplo",
+        "interests": "Space",
+        "detailsCount": 129,
+        "age": {
+          "minAge": 2,
+          "maxAge": 7
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/10929-1/18411.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/10929-1/18411.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/10929-1/18410.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/10929-1/18419.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 18,
+        "key": "75333",
+        "title": "Obi-Wan Kenobi’s Jedi Starfighter",
+        "description": "May the Force be with Star Wars: Attack of the Clones fans as they build this LEGO® brick model of an iconic starfighter",
+        "priceByn": 180.40,
+        "stock": 11,
+        "theme": "Stars Wars",
+        "interests": "Space",
+        "detailsCount": 282,
+        "age": {
+          "minAge": 7,
+          "maxAge": 99
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/75333-1/103051.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/75333-1/103051.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/75333-1/103049.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/75333-1/103056.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 19,
+        "key": "76951",
+        "title": "Pyroraptor & Dilophosaurus Transport",
+        "description": "Kids can track, trace and capture dinosaurs with this exciting set, inspired by the Jurassic World Dominion film",
+        "priceByn": 399.00,
+        "stock": 25,
+        "theme": "Jurassic World",
+        "interests": "Dinosaurs",
+        "detailsCount": 254,
+        "age": {
+          "minAge": 7,
+          "maxAge": 99
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/76951-1/98618.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/76951-1/98618.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/76951-1/98617.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/76951-1/98619.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 20,
+        "key": "42122",
+        "title": "Jeep® Wrangler",
+        "description": "Create endless off-road adventures with this feature-packed model. It’s a perfect gift for any Jeep® fan",
+        "priceByn": 207.00,
+        "stock": 22,
+        "theme": "Technic",
+        "interests": "Cars",
+        "detailsCount": 665,
+        "age": {
+          "minAge": 9,
+          "maxAge": 99
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/42122-1/76697.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/42122-1/76697.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/42122-1/76696.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/42122-1/76700.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 21,
+        "key": "42145",
+        "title": "Airbus H175 Rescue Helicopter",
+        "description": "This Airbus H175 rescue model helicopter is packed with features – just like those that appear on the real-life version",
+        "priceByn": 724.00,
+        "stock": 44,
+        "theme": "Technic",
+        "interests": "Aircrafts",
+        "detailsCount": 2001,
+        "age": {
+          "minAge": 11,
+          "maxAge": 99
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/42145-1/104363.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/42145-1/104363.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/42145-1/104362.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/42145-1/104367.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 22,
+        "key": "10956",
+        "title": "Amusement Park",
+        "description": "This impressive playset features a Ferris wheel, 7 DUPLO® characters and many other amazing hands-on features",
+        "priceByn": 299.00,
+        "stock": 11,
+        "theme": "Duplo",
+        "interests": "City",
+        "detailsCount": 95,
+        "age": {
+          "minAge": 2,
+          "maxAge": 7
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/10956-1/87356.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/10956-1/87356.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/10956-1/87355.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/10956-1/87359.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 23,
+        "key": "60197",
+        "title": "Passenger Train",
+        "description": "Climb aboard the Passenger Train! This fun set features a motorized engine with 10-speed Bluetooth remote control",
+        "priceByn": 399.00,
+        "stock": 25,
+        "theme": "City",
+        "interests": "Trains",
+        "detailsCount": 677,
+        "age": {
+          "minAge": 6,
+          "maxAge": 12
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/60197-1/24161.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/60197-1/24161.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/60197-1/11610.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/60197-1/24163.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 24,
+        "key": "76939",
+        "title": "Stygimoloch Dinosaur Escape",
+        "description": "This toy playset features a Stygimoloch and Bumpy the baby Ankylosaurus toy figure, an off-roader and a detailed tree house",
+        "priceByn": 165.00,
+        "stock": 17,
+        "theme": "Jurassic World",
+        "interests": "Dinosaurs",
+        "detailsCount": 129,
+        "age": {
+          "minAge": 4,
+          "maxAge": 99
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/76939-1/88752.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/76939-1/88752.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/76939-1/88751.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/76939-1/88754.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 25,
+        "key": "76942",
+        "title": "Baryonyx Dinosaur Boat Escape",
+        "description": "This is the first LEGO® Jurassic World set ever to feature boats – and both the brick-built boat and speedboat really float!",
+        "priceByn": 399.00,
+        "stock": 1,
+        "theme": "Jurassic World",
+        "interests": "Space",
+        "detailsCount": 308,
+        "age": {
+          "minAge": 8,
+          "maxAge": 99
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/76942-1/88712.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/76942-1/88712.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/76942-1/88711.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/76942-1/88714.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 26,
+        "key": "75288",
+        "title": "AT-AT",
+        "description": "Mark the 40th anniversary of Star Wars: The Empire Strikes Back and relive the Battle of Hoth with this cool set for kids",
+        "priceByn": 639.00,
+        "stock": 8,
+        "theme": "Stars Wars",
+        "interests": "Space",
+        "detailsCount": 1267,
+        "age": {
+          "minAge": 10,
+          "maxAge": 99
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/75288-1/70067.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/75288-1/70067.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/75288-1/70066.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/75288-1/70072.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 27,
+        "key": "10969",
+        "title": "Fire Engine",
+        "description": "Fun missions and developmental play with a feature-packed fire engine and a tree-climbing cat with a habit of getting stuck",
+        "priceByn": 156.00,
+        "stock": 33,
+        "theme": "Duplo",
+        "interests": "Cars",
+        "detailsCount": 21,
+        "age": {
+          "minAge": 2,
+          "maxAge": 5
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/10969-1/98061.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/10969-1/98061.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/10969-1/98060.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/10969-1/98062.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 28,
+        "key": "75304",
+        "title": "Darth Vader Helmet",
+        "description": "Pay homage to the Dark Lord of the Sith with the new Darth Vader Helmet",
+        "priceByn": 299.00,
+        "stock": 19,
+        "theme": "Stars Wars",
+        "interests": "Space",
+        "detailsCount": 834,
+        "age": {
+          "minAge": 18,
+          "maxAge": 99
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/75304-1/85225.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/75304-1/85225.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/75304-1/85224.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/75304-1/85229.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 29,
+        "key": "60262",
+        "title": "Passenger Airplane",
+        "description": "Creative play will take flight with this awesome airplane playset including LEGO City Adventures TV series singer Poppy Starr",
+        "priceByn": 449.00,
+        "stock": 27,
+        "theme": "City",
+        "interests": "Aircrafts",
+        "detailsCount": 669,
+        "age": {
+          "minAge": 6,
+          "maxAge": 99
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/60262-1/66161.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/60262-1/66161.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/60262-1/66160.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/60262-1/66164.jpg/1000x800p.jpg"
+        ]
+      },
+      {
+        "id": 30,
+        "key": "42135",
+        "title": "Monster Jam El Toro Loco",
+        "description": "A 2-in-1 build for Monster Jam fans",
+        "priceByn": 110.00,
+        "stock": 52,
+        "theme": "Technic",
+        "interests": "Cars",
+        "detailsCount": 247,
+        "age": {
+          "minAge": 7,
+          "maxAge": 99
+        },
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/42135-1/95708.jpg/1000x800p.jpg",
+        "images": [
+            "https://cdn.rebrickable.com/media/thumbs/sets/42135-1/95708.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/42135-1/95707.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/42135-1/95710.jpg/1000x800p.jpg"
+        ]
+      }
+  ]
+}
