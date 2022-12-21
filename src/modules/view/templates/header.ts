@@ -1,4 +1,4 @@
-import { pageIDs } from '../../app';
+import { pageIDs } from '../../view/appView';
 import Component from '../templates/components';
 
 const Buttons = [
