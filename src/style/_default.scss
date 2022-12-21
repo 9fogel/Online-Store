@@ -9,7 +9,7 @@ html {
 }
 
 body {
-  background-color: aqua;
+  background-color: rgb(255, 255, 255);
 
 }
 
@@ -49,4 +49,31 @@ h1, h2, h3, h4, h5, h6, p {
 
 .invisible {
   display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+.filters_list, .gallery_wrapper, .cart_items_body {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.item_pic_img, .cart_item_pic_img {
+  width: 100px;
+}
+
+.item_template, .cart_item_template {
+  width: 200px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  margin: 5px;
+  text-align: center;
 }
