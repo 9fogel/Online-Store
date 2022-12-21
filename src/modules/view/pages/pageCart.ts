@@ -1,5 +1,5 @@
 import Cart from '../../controller/cart';
-import Page from '../templates/pageTemlate';
+import Page from '../templates/pageTemplate';
 
 class CartPage extends Page {
   static textObj = {

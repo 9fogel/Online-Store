@@ -1,4 +1,4 @@
-import Page from '../templates/pageTemlate';
+import Page from '../templates/pageTemplate';
 
 export const enum ErrorTypes {
   Error_404 = 404,

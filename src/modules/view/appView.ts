@@ -1,4 +1,4 @@
-import Page from './templates/pageTemlate';
+import Page from './templates/pageTemplate';
 import Header from './templates/header';
 import StorePage from './pages/pageStore';
 import CartPage from './pages/pageCart';

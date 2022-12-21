@@ -1,6 +1,6 @@
 import Cart from '../../controller/cart';
 import gallery from '../../controller/gallery';
-import Page from '../templates/pageTemlate';
+import Page from '../templates/pageTemplate';
 
 class StorePage extends Page {
   static textObj = {

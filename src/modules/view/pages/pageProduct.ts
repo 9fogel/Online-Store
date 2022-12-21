@@ -1,4 +1,4 @@
-import Page from '../templates/pageTemlate';
+import Page from '../templates/pageTemplate';
 
 class ProductPage extends Page {
   static textObj = {

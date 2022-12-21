@@ -1,7 +1,7 @@
 import { pageIDs } from '../../view/appView';
 import Component from '../templates/components';
 
-const Buttons = [
+const NavLinks = [
   {
     id: pageIDs.StorePage,
     text: ' _toStore_ ',
@@ -25,24 +25,28 @@ class Header extends Component {
     super(tagName, className);
   }
   private static defaultLogo = 'LEGO online';
+
   renderLogo() {
     const title = document.createElement('h1');
     title.innerText = Header.defaultLogo;
     this.container.append(title);
   }
-  renderButtons() {
-    const pageBtns = document.createElement('div');
-    Buttons.forEach((button) => {
-      const buttonHTML = document.createElement('a');
-      buttonHTML.href = `#${button.id}`;
-      buttonHTML.innerText = button.text;
-      pageBtns.append(buttonHTML);
+
+  renderNavLinks() {
+    const navLinksWrap = document.createElement('nav');
+
+    NavLinks.forEach((navLink) => {
+      const linkHTML: HTMLAnchorElement = document.createElement('a');
+      linkHTML.href = `#${navLink.id}`;
+      linkHTML.innerText = navLink.text;
+      navLinksWrap.append(linkHTML);
     });
-    this.container.append(pageBtns);
+    this.container.append(navLinksWrap);
   }
+
   render() {
     this.renderLogo();
-    this.renderButtons();
+    this.renderNavLinks();
     return this.container;
   }
 }
