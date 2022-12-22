@@ -53,24 +53,27 @@
     </div>
   </div>
 
-  <div class="item_template invisible">
-    <h4 class="item_name"></h4>
-    <div class="item_pic">
-      <img class="item_pic_img">
+  <template class="item_template">
+    <div class="store_item">
+      <h4 class="item_name"></h4>
+      <div class="item_pic">
+        <img class="item_pic_img">
+      </div>
+      <div class="item_parameters">
+        <span class="item_category"></span>
+        <span class="item_subcategory"></span>
+        <span class="item_brand"></span>
+        <span class="item_count"></span>
+        <span class="item_amount"></span>
+        <span class="item_age"></span>
+      </div>
+      <div class="item_price"></div>
+      <button class="add_item_to_cart">Add to cart</button>
     </div>
-    <div class="item_parameters">
-      <span class="item_category"></span>
-      <span class="item_subcategory"></span>
-      <span class="item_brand"></span>
-      <span class="item_count"></span>
-      <span class="item_amount"></span>
-      <span class="item_age"></span>
-    </div>
-    <div class="item_price"></div>
-    <button class="add_item_to_cart">Add to cart</button>
-  </div>
+  </template>
 
-  <div class="cart_item_template invisible">
+<template class="cart_item_template">
+  <div class="cart_item">
     <h4 class="cart_item_name"></h4>
     <div class="cart_item_pic">
       <img class="cart_item_pic_img">
@@ -85,11 +88,13 @@
     </div>
     <div class="cart_item_price"></div>
     <div class="cart_item_amount">
-      <div class="cart_item_amount_less">-</div> 
+      <div class="cart_item_amount_less">-</div>
       <div class="cart_item_amount">current</div>
       <div class="cart_item_amount_more">+</div>
     </div>
   </div>
+
+</template>
 
 </body>
 

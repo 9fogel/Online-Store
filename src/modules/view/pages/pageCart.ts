@@ -1,5 +1,6 @@
 import Cart from '../../controller/cart';
 import Page from '../templates/pageTemplate';
+import Product from '../../controller/product';
 
 class CartPage extends Page {
   static textObj = {
@@ -44,40 +45,72 @@ class CartPage extends Page {
   }
 
   drawCardCart() {
-    const items = Cart.getUniqueItems();
+    const items: Product[] = Cart.getUniqueItems();
 
-    const fragment = document.createDocumentFragment();
-    const template = document.querySelector('.cart_item_template') as HTMLTemplateElement;
+    const fragment: DocumentFragment = document.createDocumentFragment();
+    const template: HTMLTemplateElement | null = document.querySelector('.cart_item_template') as HTMLTemplateElement;
     // const cardBlock = document.querySelector('.cart_items_body') as HTMLElement;
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    items.forEach((item: any) => {
-      const itemClone = template.cloneNode(true) as HTMLTemplateElement;
-      itemClone.classList.remove('invisible');
-      const itemName = itemClone.querySelector('.cart_item_name') as HTMLElement;
-      const itemPicture = itemClone.querySelector('.cart_item_pic_img') as HTMLImageElement;
-      const itemCategory = itemClone.querySelector('.cart_item_category') as HTMLElement;
-      const itemSubCategory = itemClone.querySelector('.item_subcategory') as HTMLElement;
-      const itemBrand = itemClone.querySelector('.item_brand') as HTMLElement;
-      const itemCount = itemClone.querySelector('.item_count') as HTMLElement;
-      const itemAmount = itemClone.querySelector('.item_amount') as HTMLElement;
-      const itemAge = itemClone.querySelector('.item_age') as HTMLElement;
-      const itemPrice = itemClone.querySelector('.cart_item_price') as HTMLElement;
-      // const addBtn = itemClone.querySelector('.cart_item_amount_less') as HTMLElement;
+    if (template) {
+      items.forEach((item: Product) => {
+        const itemClone: DocumentFragment | Node = template.content.cloneNode(true);
+        if (itemClone instanceof DocumentFragment && itemClone) {
+          // itemClone.classList.remove('invisible');
 
-      itemName.textContent = `Name: ${item.title}`;
-      itemPicture.src = item.thumbnail;
-      itemCategory.textContent = `Category: ${item.theme}`;
-      itemSubCategory.textContent = `SubCategory: ${item.interests}`;
-      itemBrand.textContent = `Brand: LEGO`;
-      itemCount.textContent = `Count: ${item.detailsCount}`;
-      itemAmount.textContent = `Amount: ${item.stock}`;
-      itemAge.textContent = `Age: ${item.minAge} to ${item.maxAge}`;
-      itemPrice.textContent = `Price: ${item.priceByn} BYN`;
-      fragment.append(itemClone);
-      // addBtn.addEventListener('click', () => Cart.addItem(item.id));
-    });
+          const itemName: HTMLElement | null = itemClone.querySelector('.cart_item_name');
+          if (itemName) {
+            itemName.textContent = `Name: ${item.title}`;
+          }
 
+          const itemPicture: HTMLImageElement | null = itemClone.querySelector('.cart_item_pic_img');
+          if (itemPicture) {
+            itemPicture.src = item.thumbnail;
+          }
+
+          const itemCategory: HTMLElement | null = itemClone.querySelector('.cart_item_category');
+          if (itemCategory) {
+            itemCategory.textContent = `Category: ${item.theme}`;
+          }
+
+          const itemSubCategory: HTMLElement | null = itemClone.querySelector('.item_subcategory');
+          if (itemSubCategory) {
+            itemSubCategory.textContent = `SubCategory: ${item.interests}`;
+          }
+
+          const itemBrand: HTMLElement | null = itemClone.querySelector('.item_brand');
+          if (itemBrand) {
+            itemBrand.textContent = `Brand: LEGO`;
+          }
+
+          const itemCount: HTMLElement | null = itemClone.querySelector('.item_count');
+          if (itemCount) {
+            itemCount.textContent = `Count: ${item.detailsCount}`;
+          }
+
+          const itemAmount: HTMLElement | null = itemClone.querySelector('.item_amount');
+          if (itemAmount) {
+            itemAmount.textContent = `Amount: ${item.stock}`;
+          }
+
+          const itemAge: HTMLElement | null = itemClone.querySelector('.item_age');
+          if (itemAge) {
+            itemAge.textContent = `Age: ${item.minAge} to ${item.maxAge}`;
+          }
+
+          const itemPrice: HTMLElement | null = itemClone.querySelector('.cart_item_price');
+          if (itemPrice) {
+            itemPrice.textContent = `Price: ${item.priceByn} BYN`;
+          }
+
+          // const addBtn: HTMLButtonElement | null = itemClone.querySelector('.cart_item_amount_less');
+          // if (addBtn) {
+          //   addBtn.addEventListener('click', () => Cart.addItem(item));
+          //   // addBtn.addEventListener('click', () => Cart.addItem(item.id));
+          // }
+          fragment.append(itemClone);
+        }
+      });
+    }
     // cardBlock.innerHTML = '';
     // cardBlock.appendChild(fragment);
     this.container.append(fragment);

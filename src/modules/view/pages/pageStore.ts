@@ -1,6 +1,8 @@
 import Cart from '../../controller/cart';
-import gallery from '../../controller/gallery';
+// import gallery from '../../controller/gallery';
+import Gallery from '../../controller/gallery';
 import Page from '../templates/pageTemplate';
+import Product from '../../controller/product';
 
 class StorePage extends Page {
   static textObj = {
@@ -97,42 +99,87 @@ class StorePage extends Page {
   }
 
   drawCardStore() {
-    const items = gallery();
-    const fragment = document.createDocumentFragment();
-    const productCardTemplate = document.querySelector('.item_template') as HTMLTemplateElement;
+    const items: Product[] = Gallery.getUniqueItems();
+    // const items = gallery();
+    const fragment: DocumentFragment = document.createDocumentFragment();
+    const productCardTemplate: HTMLTemplateElement | null = document.querySelector('.item_template');
     // const cardBlock = document.querySelector('.gallery_wrapper') as HTMLElement;
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    items.forEach((item: any) => {
-      const itemClone = productCardTemplate.cloneNode(true) as HTMLTemplateElement;
-      itemClone.classList.remove('invisible');
-      const itemName = itemClone.querySelector('.item_name') as HTMLElement;
-      const itemPicture = itemClone.querySelector('.item_pic_img') as HTMLImageElement;
-      const itemCategory = itemClone.querySelector('.item_category') as HTMLElement;
-      const itemSubCategory = itemClone.querySelector('.item_subcategory') as HTMLElement;
-      const itemBrand = itemClone.querySelector('.item_brand') as HTMLElement;
-      const itemCount = itemClone.querySelector('.item_count') as HTMLElement;
-      const itemAmount = itemClone.querySelector('.item_amount') as HTMLElement;
-      const itemAge = itemClone.querySelector('.item_age') as HTMLElement;
-      const itemPrice = itemClone.querySelector('.item_price') as HTMLElement;
-      const addBtn = itemClone.querySelector('.add_item_to_cart') as HTMLElement;
+    if (productCardTemplate) {
+      items.forEach((item: Product) => {
+        const itemClone: DocumentFragment | Node = productCardTemplate.content.cloneNode(true);
+        if (itemClone instanceof DocumentFragment && itemClone) {
+          // itemClone.classList.remove('invisible');
 
-      itemName.textContent = `Name: ${item.title}`;
-      itemPicture.src = item.thumbnail;
-      itemCategory.textContent = `Category: ${item.theme}`;
-      itemSubCategory.textContent = `SubCategory: ${item.interests}`;
-      itemBrand.textContent = `Brand: LEGO`;
-      itemCount.textContent = `Count: ${item.detailsCount}`;
-      itemAmount.textContent = `Amount: ${item.stock}`;
-      itemAge.textContent = `Age: ${item.minAge} to ${item.maxAge}`;
-      itemPrice.textContent = `Price: ${item.priceByn} BYN`;
-      fragment.append(itemClone);
-      addBtn.addEventListener('click', () => Cart.addItem(item));
-    });
+          const itemName: HTMLElement | null = itemClone.querySelector('.item_name');
+          if (itemName) {
+            itemName.textContent = `Name: ${item.title}`;
+          }
+
+          const itemPicture: HTMLImageElement | null = itemClone.querySelector('.item_pic_img');
+          if (itemPicture) {
+            itemPicture.src = item.thumbnail;
+          }
+
+          const itemCategory: HTMLElement | null = itemClone.querySelector('.item_category');
+          if (itemCategory) {
+            itemCategory.textContent = `Category: ${item.theme}`;
+          }
+
+          const itemSubCategory: HTMLElement | null = itemClone.querySelector('.item_subcategory');
+          if (itemSubCategory) {
+            itemSubCategory.textContent = `SubCategory: ${item.interests}`;
+          }
+
+          const itemBrand: HTMLElement | null = itemClone.querySelector('.item_brand');
+          if (itemBrand) {
+            itemBrand.textContent = `Brand: LEGO`;
+          }
+
+          const itemCount: HTMLElement | null = itemClone.querySelector('.item_count');
+          if (itemCount) {
+            itemCount.textContent = `Count: ${item.detailsCount}`;
+          }
+
+          const itemAmount: HTMLElement | null = itemClone.querySelector('.item_amount');
+          if (itemAmount) {
+            itemAmount.textContent = `Amount: ${item.stock}`;
+          }
+
+          const itemAge: HTMLElement | null = itemClone.querySelector('.item_age');
+          if (itemAge) {
+            itemAge.textContent = `Age: ${item.minAge} to ${item.maxAge}`;
+          }
+
+          const itemPrice: HTMLElement | null = itemClone.querySelector('.item_price');
+          if (itemPrice) {
+            itemPrice.textContent = `Price: ${item.priceByn} BYN`;
+          }
+          const addBtn: HTMLButtonElement | null = itemClone.querySelector('.add_item_to_cart');
+
+          // const addBtn = itemClone.querySelector('.add_item_to_cart') as HTMLElement;
+          // fragment.append(itemClone);
+          if (addBtn) {
+            addBtn.addEventListener('click', () => Cart.addItem(item));
+          }
+          fragment.append(itemClone);
+          console.log('append');
+        }
+      });
+    }
 
     // cardBlock.innerHTML = '';
     // cardBlock.appendChild(fragment);
+
+    // const galleryWrap: HTMLElement | null = document.querySelector('.gallery_wrapper');
+    // console.log('gellery wrap', galleryWrap);
+    // if (galleryWrap) {
+    //   console.log('gellery wrap');
+    //   galleryWrap.append(fragment);
+    // }
+
     this.container.append(fragment);
+    console.log(this.container); //div current-page
   }
 
   render() {
