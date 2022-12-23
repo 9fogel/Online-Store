@@ -81,21 +81,36 @@ class StorePage extends Page {
   }
 
   renderGallery() {
-    const gallery = document.createElement('div');
-    gallery.innerHTML = `
-          <section class="gallery">
-            <div class="gallery_head">
-              <div class="items_amount">100 items found</div>
-              <div class="search">Search</div>
-              <div class="sorting">Sort by</div>
-              <div class="view">Big/Small</div>
-            </div>
-            <div class="gallery_body">
-              <div class="gallery_wrapper">
-              </div>
-            </div>
-          </section>`;
+    const gallery = document.createElement('section');
+    gallery.classList.add('gallery');
+
+    const galleryHeader = document.createElement('div');
+    galleryHeader.classList.add('gallery_head');
+    gallery.append(galleryHeader);
+
+    const galleryBody = document.createElement('div');
+    galleryBody.classList.add('gallery_body');
+    gallery.append(galleryBody);
+
+    const galleryWrap = document.createElement('div');
+    galleryWrap.classList.add('gallery_wrapper');
+    galleryBody.append(galleryWrap);
+    // const gallery = document.createElement('div');
+    // gallery.innerHTML = `
+    //       <section class="gallery">
+    //         <div class="gallery_head">
+    //           <div class="items_amount">100 items found</div>
+    //           <div class="search">Search</div>
+    //           <div class="sorting">Sort by</div>
+    //           <div class="view">Big/Small</div>
+    //         </div>
+    //         <div class="gallery_body">
+    //           <div class="gallery_wrapper">
+    //           </div>
+    //         </div>
+    //       </section>`;
     this.container.append(gallery);
+    return galleryWrap;
   }
 
   drawCardStore() {
@@ -103,14 +118,11 @@ class StorePage extends Page {
     // const items = gallery();
     const fragment: DocumentFragment = document.createDocumentFragment();
     const productCardTemplate: HTMLTemplateElement | null = document.querySelector('.item_template');
-    // const cardBlock = document.querySelector('.gallery_wrapper') as HTMLElement;
 
     if (productCardTemplate) {
       items.forEach((item: Product) => {
         const itemClone: DocumentFragment | Node = productCardTemplate.content.cloneNode(true);
         if (itemClone instanceof DocumentFragment && itemClone) {
-          // itemClone.classList.remove('invisible');
-
           const itemName: HTMLElement | null = itemClone.querySelector('.item_name');
           if (itemName) {
             itemName.textContent = `Name: ${item.title}`;
@@ -157,8 +169,6 @@ class StorePage extends Page {
           }
           const addBtn: HTMLButtonElement | null = itemClone.querySelector('.add_item_to_cart');
 
-          // const addBtn = itemClone.querySelector('.add_item_to_cart') as HTMLElement;
-          // fragment.append(itemClone);
           if (addBtn) {
             addBtn.addEventListener('click', () => Cart.addItem(item));
           }
@@ -168,24 +178,20 @@ class StorePage extends Page {
       });
     }
 
-    // cardBlock.innerHTML = '';
-    // cardBlock.appendChild(fragment);
-
-    // const galleryWrap: HTMLElement | null = document.querySelector('.gallery_wrapper');
-    // console.log('gellery wrap', galleryWrap);
-    // if (galleryWrap) {
-    //   console.log('gellery wrap');
-    //   galleryWrap.append(fragment);
-    // }
+    const galleryWrap: HTMLElement | null = document.querySelector('.gallery_wrapper');
+    console.log('gallery wrap', galleryWrap);
+    if (galleryWrap) {
+      galleryWrap.append(fragment);
+    }
 
     this.container.append(fragment);
-    console.log(this.container); //div current-page
   }
 
   render() {
     this.renderFilters();
     this.renderGallery();
-    this.drawCardStore();
+    // this.drawCardStore();
+
     // const title = this.createHeaderTitle(StorePage.textObj.mainTitle);
     // this.container.append(title);
     return this.container;

@@ -43,6 +43,11 @@ class AppView {
       pageHTML.id = AppView.defaultPageID;
       AppView.container.append(pageHTML);
     }
+
+    if (page instanceof StorePage) {
+      console.log(page);
+      page.drawCardStore();
+    }
   }
 
   private enableRoughtChange() {
