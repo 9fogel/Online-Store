@@ -53,7 +53,6 @@ class AppView {
   private enableRoughtChange() {
     window.addEventListener('hashchange', () => {
       const hash = window.location.hash.slice(1);
-      console.log(hash);
       AppView.renderNewPage(hash);
     });
   }
