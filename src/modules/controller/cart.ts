@@ -26,8 +26,18 @@ class Cart {
     const uniqueItems = Array.from(new Set(this.items));
     return uniqueItems.length;
   }
-  // setTotal() {}
-  // getTotal() {}
+  static getProductAmount(product: Product) {
+    let amount = 0;
+    Cart.items.forEach((el) => {
+      if (el === product) amount++;
+    });
+    return amount;
+  }
+  static getTotal() {
+    let total = 0;
+    Cart.items.forEach((el) => (total += el.priceByn));
+    return total;
+  }
 }
 
 export default Cart;
