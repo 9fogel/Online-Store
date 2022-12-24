@@ -14,33 +14,34 @@ class CartPage extends Page {
   renderCart() {
     const cart = document.createElement('div');
     cart.innerHTML = `
-        <div class="cart">
-          <div class="cart_items">
-            <div class="cart_items_header">
-              <h4>Products in cart</h4>
-              <div class="cart_total_items">
-                <span>0 items in cart</span>
-              </div>
-              <div class="cart_pagination">
-                <div class="cart_pagination_prev">prev</div>
-                <div class="cart_pagination_current">current</div>
-                <div class="cart_pagination_next">next</div>
-              </div>
-            </div>
-            <div class="cart_items_body">
-            </div>
+    <div class="cart">
+    <div class="cart_items">
+      <div class="cart_items_header">
+        <h4>Products in cart</h4>
+        <div class="cart_pagination">
+          <div class="cart_items_on_page">
+            <input type="number" class="cart_items_on_page_input">
+            <span>5 items on page</span>
           </div>
-          <div class="cart_summary">
-            <div class="cart_summary_products">Total products: 4</div>
-            <div class="cart_summary_price">Total price: 6 $</div>
-            <div class="cart_summary_coupon">
-              <span>Enter promo code</span>
-              <input type="input" class="coupon_input"></input>
-              <button class="coupon_btn"></button>
-            </div>
-            <button class="item_buy">Buy now</button>
-          </div>
-        </div>`;
+          <div class="cart_pagination_prev">prev</div>
+          <div class="cart_pagination_current">current</div>
+          <div class="cart_pagination_next">next</div>
+        </div>
+      </div>
+      <div class="cart_items_body">
+      </div>
+    </div>
+    <div class="cart_summary">
+      <div class="cart_summary_products">Total products: ${Cart.getAmount()}</div>
+      <div class="cart_summary_price">Total price: ${Cart.getTotal()} BYN</div>
+      <div class="cart_summary_coupon">
+        <span>Enter promo code</span>
+        <input type="input" class="coupon_input"></input>
+        <button class="coupon_btn"></button>
+      </div>
+      <button class="item_buy">Buy now</button>
+    </div>
+  </div>`;
     this.container.append(cart);
   }
 
@@ -102,11 +103,22 @@ class CartPage extends Page {
             itemPrice.textContent = `Price: ${item.priceByn} BYN`;
           }
 
-          // const addBtn: HTMLButtonElement | null = itemClone.querySelector('.cart_item_amount_less');
-          // if (addBtn) {
-          //   addBtn.addEventListener('click', () => Cart.addItem(item));
-          //   // addBtn.addEventListener('click', () => Cart.addItem(item.id));
-          // }
+          const removeItem: HTMLElement | null = itemClone.querySelector('.cart_item_amount_less');
+          if (removeItem) {
+            removeItem.textContent = `-`;
+            removeItem.addEventListener('click', () => Cart.removeItem(item));
+          }
+
+          const countItem: HTMLElement | null = itemClone.querySelector('.cart_count');
+          if (countItem) {
+            countItem.textContent = `${Cart.getProductAmount(item)}`;
+          }
+
+          const addItem: HTMLElement | null = itemClone.querySelector('.cart_item_amount_more');
+          if (addItem) {
+            addItem.textContent = `+`;
+            addItem.addEventListener('click', () => Cart.addItem(item));
+          }
           fragment.append(itemClone);
         }
       });
