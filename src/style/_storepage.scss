@@ -1,0 +1,42 @@
+.store-page {
+  display: grid;
+  grid-template-columns: 20% 1fr;
+}
+
+.filters_wrapper {
+  width: 240px;
+}
+
+.filters_list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.filter_name {
+  display: block;
+  padding-bottom: 4px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.filter_inner_item {
+  display: flex;
+  gap: 4px;
+}
+
+#filter_range_min,
+#filter_range_max {
+  width: 100%;
+}
+
+.range_values {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter_btn_wrapper {
+  display: flex;
+  gap: 24px;
+}
