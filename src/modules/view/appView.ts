@@ -6,6 +6,7 @@ import AboutPage from './pages/pageAbout';
 import ErrorPage, { ErrorTypes } from './pages/page404';
 import ProductPage from './pages/pageProduct';
 import Footer from './templates/footer';
+import Main from './templates/main';
 
 export const enum pageIDs {
   StorePage = 'main-page',
@@ -18,9 +19,16 @@ class AppView {
   private static container: HTMLElement = document.body;
   private static defaultPageID = 'current-page';
   private header: Header;
+  private main: Main;
   private footer: Footer;
 
-  static renderNewPage(pageID: string) {
+  constructor() {
+    this.header = new Header('header', 'header-container');
+    this.main = new Main('main', 'main-conainer');
+    this.footer = new Footer('footer', 'footer-container');
+  }
+
+  private renderNewPage(pageID: string) {
     const currentPageHTML = document.querySelector(`#${AppView.defaultPageID}`);
     if (currentPageHTML) {
       currentPageHTML.remove();
@@ -41,25 +49,21 @@ class AppView {
     if (page) {
       const pageHTML = page.render();
       pageHTML.id = AppView.defaultPageID;
-      AppView.container.append(pageHTML);
+      this.main.append(pageHTML);
     }
   }
 
   private enableRoughtChange() {
     window.addEventListener('hashchange', () => {
       const hash = window.location.hash.slice(1);
-      AppView.renderNewPage(hash);
+      this.renderNewPage(hash);
     });
-  }
-
-  constructor() {
-    this.header = new Header('header', 'header-container');
-    this.footer = new Footer('footer', 'footer-container');
   }
 
   renderApp() {
     AppView.container.append(this.header.render());
-    AppView.renderNewPage('main-page');
+    AppView.container.append(this.main.render());
+    this.renderNewPage('main-page');
     AppView.container.append(this.footer.render());
     this.enableRoughtChange();
   }
