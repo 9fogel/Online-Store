@@ -23,9 +23,9 @@ class AppView {
   private footer: Footer;
 
   constructor() {
-    this.header = new Header('header', 'header-container');
-    this.main = new Main('main', 'main-conainer');
-    this.footer = new Footer('footer', 'footer-container');
+    this.header = new Header('header', 'header container');
+    this.main = new Main('main', 'main container');
+    this.footer = new Footer('footer', 'footer container');
   }
 
   private renderNewPage(pageID: string) {
