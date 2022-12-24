@@ -7,6 +7,7 @@ import ErrorPage, { ErrorTypes } from './pages/page404';
 import ProductPage from './pages/pageProduct';
 import Footer from './templates/footer';
 import Main from './templates/main';
+import Gallery from '../controller/gallery';
 
 export const enum pageIDs {
   StorePage = 'main-page',
@@ -42,7 +43,7 @@ class AppView {
       page = new CartPage(pageID);
     } else if (pageID === pageIDs.AboutPage) {
       page = new AboutPage(pageID);
-    } else if (pageID === pageIDs.ProductPage) {
+    } else if (pageID.includes(pageIDs.ProductPage)) {
       page = new ProductPage(pageID);
     } else page = new ErrorPage(pageID, ErrorTypes.Error_404);
 
@@ -59,6 +60,14 @@ class AppView {
         pageWrap.classList.add('store-page');
       }
       page.drawCardStore();
+    }
+
+    if (page instanceof ProductPage) {
+      const id = +pageID.slice(13);
+      // console.log(id);
+      const product = Gallery.items[id - 1];
+      // console.log(product);
+      page.renderProduct(product);
     }
   }
 

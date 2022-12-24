@@ -170,6 +170,11 @@ class StorePage extends Page {
       items.forEach((item: Product) => {
         const itemClone: DocumentFragment | Node = productCardTemplate.content.cloneNode(true);
         if (itemClone instanceof DocumentFragment && itemClone) {
+          const info: HTMLElement | null = itemClone.querySelector('.item_info');
+          if (info) {
+            info.addEventListener('click', () => (window.location.hash = `#product-page_${item.id}`));
+          }
+
           const itemName: HTMLElement | null = itemClone.querySelector('.item_name');
           if (itemName) {
             itemName.textContent = `Name: ${item.title}`;
@@ -219,6 +224,7 @@ class StorePage extends Page {
           if (addBtn) {
             addBtn.addEventListener('click', () => Cart.addItem(item));
           }
+
           fragment.append(itemClone);
         }
       });
