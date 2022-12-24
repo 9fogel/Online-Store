@@ -3,7 +3,7 @@ abstract class Page {
   static textObj = {};
 
   constructor(id: string) {
-    this.container = document.createElement('div');
+    this.container = document.createElement('main');
     this.container.id = id;
   }
 
