@@ -41,7 +41,7 @@ h1, h2, h3, h4, h5, h6, p {
   margin: 0;
 }
 
-.wrapper {
+.wrapper, .container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
@@ -78,7 +78,7 @@ h1, h2, h3, h4, h5, h6, p {
   text-align: center;
 }
 
-.header-container, .footer_wrapper {
+.header, .footer {
   display: flex;
   justify-content: space-between;
 }
