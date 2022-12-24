@@ -1,83 +1,131 @@
 import Cart from '../../controller/cart';
-// import gallery from '../../controller/gallery';
 import Gallery from '../../controller/gallery';
 import Page from '../templates/pageTemplate';
 import Product from '../../controller/product';
+import Filters from '../../controller/filters';
 
 class StorePage extends Page {
   static textObj = {
     mainTitle: 'LEGO Store',
   };
+  filtersPart = new Filters();
 
   constructor(id: string) {
     super(id);
   }
 
   renderFilters() {
-    const filters = document.createElement('div');
-    filters.innerHTML = `
-          <aside class="filters">
-            <fieldset class="filters_fieldset">
-              <legend>Filters</legend>
-              <ul class="filters_list">
-                <li class="filter_item">
-                  <span>Category</span>
-                  <ul class="filter_ul">
-                    <li class="filter_li">
-                      <input id="cat1" type="checkbox">
-                      <label for="cat1">Category1</label>
-                    </li>
-                    <li class="filter_li">
-                        <input id="cat2" type="checkbox">
-                        <label for="cat2">Category2</label>
-                    </li>
-                    <li class="filter_li">
-                        <input id="cat3" type="checkbox">
-                        <label for="cat3">Category3</label>
-                    </li>
-                  </ul>
-                </li>
-                <li class="filter_item">
-                  <span>Subcategory</span>
-                  <ul class="filter_ul">
-                    <li class="filter_li">
-                      <input id="cat1" type="checkbox">
-                      <label for="cat1">Subcategory1</label>
-                    </li>
-                    <li class="filter_li">
-                        <input id="cat2" type="checkbox">
-                        <label for="cat2">Subcategory2</label>
-                    </li>
-                    <li class="filter_li">
-                        <input id="cat3" type="checkbox">
-                        <label for="cat3">Subcategory3</label>
-                    </li>
-                  </ul>
-                </li>
-                <li class="filter_item">
-                  <span>Amount</span>
-                  <div class="filter_from">0</div>
-                  <div class="filter_range">
-                      <input type="range" id="filter_range_min" min="0" step="1" max="10" value="3">
-                      <input type="range" id="filter_range_max" min="0" step="1" max="10" value="7">
-                  </div>
-                  <div class="filter_to">100</div>
-                </li>
-                <li class="filter_item">
-                  <span>Price</span>
-                  <div class="filter_from">0 $</div>
-                  <div class="filter_range">
-                      <input type="range" id="filter_range_min" min="0" step="10" max="100" value="25">
-                      <input type="range" id="filter_range_max" min="0" step="10" max="100" value="75">
-                  </div>
-                  <div class="filter_to">100 $</div>
-                </li>
-              </ul>
-              <button class="reset_filters">Reset</button>
-              <button class="copy_link">Copy</button>
-            </fieldset>
-          </aside>`;
-    this.container.append(filters);
+    this.filtersPart.fillFilters();
+    // console.log(Filters.filters);
+
+    const filtersWrap = document.createElement('aside');
+    filtersWrap.classList.add('filters_wrapper');
+    this.container.append(filtersWrap);
+
+    const filterFieldset = document.createElement('fieldset');
+    filterFieldset.classList.add('filters_fieldset');
+    filtersWrap.append(filterFieldset);
+
+    const filterLegend = document.createElement('legend');
+    filterLegend.classList.add('filters_legend');
+    filterLegend.textContent = 'Filters';
+    filterFieldset.append(filterLegend);
+
+    const filtersList = document.createElement('ul');
+    filtersList.classList.add('filters_list');
+    filterFieldset.append(filtersList);
+
+    console.log(Object.keys(Filters.filters));
+
+    Object.keys(Filters.filters).forEach((key, index) => {
+      console.log('key', key);
+      const filterItem = document.createElement('li');
+      filterItem.classList.add('filter_item');
+      filtersList.append(filterItem);
+
+      const filterName = document.createElement('span');
+      filterName.classList.add('filter_name');
+      filterName.textContent = `${key}`;
+      filterItem.append(filterName);
+
+      if (index < 2) {
+        const filterInnerList = document.createElement('ul');
+        filterInnerList.classList.add('filter_inner_list');
+        filterItem.append(filterInnerList);
+
+        Filters.filters[key as keyof typeof Filters.filters].forEach((elem) => {
+          const filterInnerItem = document.createElement('li');
+          filterInnerItem.classList.add('filter_inner_item');
+          filterInnerList.append(filterInnerItem);
+
+          const filterCheckbox = document.createElement('input');
+          filterCheckbox.classList.add('filter_checkbox');
+          filterCheckbox.setAttribute('id', `${elem}`);
+          filterCheckbox.setAttribute('type', 'checkbox');
+          filterInnerItem.append(filterCheckbox);
+
+          const filterLabel = document.createElement('label');
+          filterLabel.setAttribute('for', `${elem}`);
+          filterLabel.textContent = `${elem}`;
+          filterInnerItem.append(filterLabel);
+        });
+      } else {
+        const rangeWrap = document.createElement('div');
+        rangeWrap.classList.add('filter_range_wrapper');
+        filterItem.append(rangeWrap);
+
+        const dualRange = document.createElement('div');
+        dualRange.classList.add('dual_range_wrapper');
+        rangeWrap.append(dualRange);
+
+        const rangeMin = document.createElement('input');
+        rangeMin.setAttribute('type', 'range');
+        rangeMin.setAttribute('id', 'filter_range_min');
+        rangeMin.setAttribute('min', '0');
+        rangeMin.setAttribute('step', '1');
+        rangeMin.setAttribute('max', '10');
+        dualRange.append(rangeMin);
+
+        const rangeMax = document.createElement('input');
+        rangeMax.setAttribute('type', 'range');
+        rangeMax.setAttribute('id', 'filter_range_max');
+        rangeMax.setAttribute('min', '0');
+        rangeMax.setAttribute('step', '1');
+        rangeMax.setAttribute('max', '10');
+        dualRange.append(rangeMax);
+
+        const rangeValues = document.createElement('div');
+        rangeValues.classList.add('range_values');
+        rangeWrap.append(rangeValues);
+
+        const rangeValueMin = document.createElement('span');
+        rangeValueMin.classList.add('range_value_min');
+        const values = Filters.filters[key as keyof typeof Filters.filters];
+        const minValue = values[0];
+        rangeValueMin.textContent = `${minValue}`;
+        rangeValues.append(rangeValueMin);
+
+        const rangeValueMax = document.createElement('span');
+        rangeValueMax.classList.add('range_value_max');
+        const maxValue = values[values.length - 1];
+        rangeValueMax.textContent = `${maxValue}`;
+        rangeValues.append(rangeValueMax);
+      }
+    });
+
+    const filterBtnWrap = document.createElement('div');
+    filterBtnWrap.classList.add('filter_btn_wrapper');
+    filterFieldset.append(filterBtnWrap);
+
+    const resetButton = document.createElement('button');
+    resetButton.classList.add('reset_btn');
+    resetButton.textContent = 'Reset';
+    filterBtnWrap.append(resetButton);
+
+    const copyLinkButton = document.createElement('button');
+    copyLinkButton.classList.add('copy_link_btn');
+    copyLinkButton.textContent = 'Copy';
+    filterBtnWrap.append(copyLinkButton);
   }
 
   renderGallery() {
@@ -115,7 +163,6 @@ class StorePage extends Page {
 
   drawCardStore() {
     const items: Product[] = Gallery.getUniqueItems();
-    // const items = gallery();
     const fragment: DocumentFragment = document.createDocumentFragment();
     const productCardTemplate: HTMLTemplateElement | null = document.querySelector('.item_template');
 
@@ -173,13 +220,11 @@ class StorePage extends Page {
             addBtn.addEventListener('click', () => Cart.addItem(item));
           }
           fragment.append(itemClone);
-          console.log('append');
         }
       });
     }
 
     const galleryWrap: HTMLElement | null = document.querySelector('.gallery_wrapper');
-    console.log('gallery wrap', galleryWrap);
     if (galleryWrap) {
       galleryWrap.append(fragment);
     }
@@ -191,9 +236,6 @@ class StorePage extends Page {
     this.renderFilters();
     this.renderGallery();
     // this.drawCardStore();
-
-    // const title = this.createHeaderTitle(StorePage.textObj.mainTitle);
-    // this.container.append(title);
     return this.container;
   }
 }
