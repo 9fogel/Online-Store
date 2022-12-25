@@ -79,8 +79,8 @@ class StorePage extends Page {
         rangeWrap.append(dualRange);
 
         const values = Filters.filters[key as keyof typeof Filters.filters];
-        const minValue = values[0];
-        const maxValue = values[values.length - 1];
+        const minValue = Math.floor(+values[0]);
+        const maxValue = Math.ceil(+values[values.length - 1]);
 
         const rangeMin = document.createElement('input');
         rangeMin.setAttribute('type', 'range');
@@ -112,6 +112,15 @@ class StorePage extends Page {
         rangeValueMax.classList.add('range_value_max');
         rangeValueMax.textContent = `${maxValue}`;
         rangeValues.append(rangeValueMax);
+
+        rangeMin.addEventListener('input', () => {
+          this.filtersPart.enableDualSliders(rangeMin, rangeMax, minValue);
+          this.filtersPart.handleSliderMin(rangeMin, rangeMax, rangeValueMin);
+        });
+        rangeMax.addEventListener('input', () => {
+          this.filtersPart.enableDualSliders(rangeMin, rangeMax, minValue);
+          this.filtersPart.handleSliderMax(rangeMin, rangeMax, rangeValueMax, minValue);
+        });
       }
     });
 
