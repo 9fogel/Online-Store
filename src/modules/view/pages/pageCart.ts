@@ -11,37 +11,108 @@ class CartPage extends Page {
     super(id);
   }
 
+  renderCartGalleryHeader() {
+    const title = document.createElement('h4');
+    title.classList.add('cart_title');
+    title.innerText = 'Products in cart';
+
+    const paginationInput = document.createElement('input');
+    paginationInput.classList.add('cart_pagination_input');
+    paginationInput.type = 'number';
+    paginationInput.min = '1';
+    paginationInput.max = `${Cart.getAmount()}`;
+    paginationInput.value = '10';
+    paginationInput.step = '1';
+    paginationInput.addEventListener('change', () => console.log(paginationInput.value));
+
+    const paginationSpan = document.createElement('span');
+    paginationSpan.classList.add('cart_pagination_span');
+    paginationSpan.innerText = 'items on page. Page';
+
+    const paginationPrev = document.createElement('button');
+    paginationPrev.classList.add('cart_pagination_prev');
+    paginationPrev.innerText = '‹';
+    paginationPrev.addEventListener('click', () => console.log('prev'));
+
+    const paginationCurrent = document.createElement('span');
+    paginationCurrent.classList.add('cart_pagination_prev');
+    paginationCurrent.innerText = '1'; // TODO
+
+    const paginationNext = document.createElement('button');
+    paginationNext.classList.add('cart_pagination_prev');
+    paginationNext.innerText = '›';
+    paginationNext.addEventListener('click', () => console.log('hext'));
+
+    const pagination = document.createElement('div');
+    pagination.classList.add('cart_pagination');
+    pagination.append(paginationInput);
+    pagination.append(paginationSpan);
+    pagination.append(paginationPrev);
+    pagination.append(paginationCurrent);
+    pagination.append(paginationNext);
+
+    const cartGalleryHeader = document.createElement('div');
+    cartGalleryHeader.classList.add('cart_gallary_header');
+    cartGalleryHeader.append(title);
+    cartGalleryHeader.append(pagination);
+    return cartGalleryHeader;
+  }
+  renderCartGalleryBody() {
+    const cartGalleryBody = document.createElement('div');
+    cartGalleryBody.classList.add('cart_gallery_body');
+    return cartGalleryBody;
+  }
+  renderCartGallery() {
+    const cartGallery = document.createElement('div');
+    cartGallery.classList.add('cart_gallary');
+    cartGallery.append(this.renderCartGalleryHeader());
+    cartGallery.append(this.renderCartGalleryBody());
+    return cartGallery;
+  }
+  renderCartSummary() {
+    const amount = document.createElement('div');
+    amount.classList.add('summary_products');
+    amount.innerText = `Total products: ${Cart.getAmount()}`;
+
+    const price = document.createElement('div');
+    price.classList.add('summary_price');
+    price.innerText = `Total price: ${Cart.getTotal()} BYN`;
+
+    const couponSpan = document.createElement('div');
+    couponSpan.classList.add('coupon_span');
+    couponSpan.innerText = 'Enter promo code';
+
+    const couponInput = document.createElement('input');
+    couponInput.classList.add('coupon_input');
+    couponInput.type = 'text';
+
+    const couponButton = document.createElement('button');
+    couponButton.classList.add('coupon_btn');
+    couponButton.innerText = `Total price: ${Cart.getTotal()} BYN`;
+
+    const coupon = document.createElement('div');
+    coupon.classList.add('cart_summary_coupon');
+    coupon.append();
+
+    const button = document.createElement('button');
+    button.classList.add('button_buy');
+    button.innerText = 'Buy now';
+    button.addEventListener('click', () => console.log('buy'));
+
+    const cartSummary = document.createElement('div');
+    cartSummary.classList.add('cart_summary');
+    cartSummary.append(amount);
+    cartSummary.append(price);
+    cartSummary.append(coupon);
+    cartSummary.append(button);
+    return cartSummary;
+  }
+
   renderCart() {
     const cart = document.createElement('div');
-    cart.innerHTML = `
-    <div class="cart">
-    <div class="cart_items">
-      <div class="cart_items_header">
-        <h4>Products in cart</h4>
-        <div class="cart_pagination">
-          <div class="cart_items_on_page">
-            <input type="number" class="cart_items_on_page_input">
-            <span>5 items on page</span>
-          </div>
-          <div class="cart_pagination_prev">prev</div>
-          <div class="cart_pagination_current">current</div>
-          <div class="cart_pagination_next">next</div>
-        </div>
-      </div>
-      <div class="cart_items_body">
-      </div>
-    </div>
-    <div class="cart_summary">
-      <div class="cart_summary_products">Total products: ${Cart.getAmount()}</div>
-      <div class="cart_summary_price">Total price: ${Cart.getTotal()} BYN</div>
-      <div class="cart_summary_coupon">
-        <span>Enter promo code</span>
-        <input type="input" class="coupon_input"></input>
-        <button class="coupon_btn"></button>
-      </div>
-      <button class="item_buy">Buy now</button>
-    </div>
-  </div>`;
+    cart.classList.add('cart');
+    cart.append(this.renderCartGallery());
+    cart.append(this.renderCartSummary());
     this.container.append(cart);
   }
 
@@ -50,7 +121,6 @@ class CartPage extends Page {
 
     const fragment: DocumentFragment = document.createDocumentFragment();
     const template: HTMLTemplateElement | null = document.querySelector('.cart_item_template') as HTMLTemplateElement;
-    // const cardBlock = document.querySelector('.cart_items_body') as HTMLElement;
 
     if (template) {
       items.forEach((item: Product) => {
@@ -123,14 +193,17 @@ class CartPage extends Page {
         }
       });
     }
-    // cardBlock.innerHTML = '';
-    // cardBlock.appendChild(fragment);
+
+    const cartWrap: HTMLElement | null = document.querySelector('.cart_gallery_body');
+    if (cartWrap) {
+      cartWrap.append(fragment);
+    }
+
     this.container.append(fragment);
   }
 
   render() {
     this.renderCart();
-    this.drawCardCart();
     return this.container;
   }
 }
