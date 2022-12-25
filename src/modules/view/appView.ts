@@ -54,7 +54,6 @@ class AppView {
     }
 
     if (page instanceof StorePage) {
-      console.log(page);
       const pageWrap = document.querySelector('#current-page');
       if (pageWrap) {
         pageWrap.classList.add('store-page');
@@ -64,10 +63,16 @@ class AppView {
 
     if (page instanceof ProductPage) {
       const id = +pageID.slice(13);
-      // console.log(id);
       const product = Gallery.items[id - 1];
-      // console.log(product);
       page.renderProduct(product);
+    }
+
+    if (page instanceof CartPage) {
+      const pageWrap = document.querySelector('#current-page');
+      if (pageWrap) {
+        pageWrap.classList.add('cart-page');
+      }
+      page.drawCardCart();
     }
   }
 
