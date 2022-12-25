@@ -35,10 +35,10 @@ class StorePage extends Page {
     filtersList.classList.add('filters_list');
     filterFieldset.append(filtersList);
 
-    console.log(Object.keys(Filters.filters));
+    // console.log(Object.keys(Filters.filters));
 
     Object.keys(Filters.filters).forEach((key, index) => {
-      console.log('key', key);
+      // console.log('key', key);
       const filterItem = document.createElement('li');
       filterItem.classList.add('filter_item');
       filtersList.append(filterItem);
@@ -78,20 +78,25 @@ class StorePage extends Page {
         dualRange.classList.add('dual_range_wrapper');
         rangeWrap.append(dualRange);
 
+        const values = Filters.filters[key as keyof typeof Filters.filters];
+        const minValue = values[0];
+        const maxValue = values[values.length - 1];
+
         const rangeMin = document.createElement('input');
         rangeMin.setAttribute('type', 'range');
         rangeMin.setAttribute('id', 'filter_range_min');
-        rangeMin.setAttribute('min', '0');
+        rangeMin.setAttribute('min', `${minValue}`);
         rangeMin.setAttribute('step', '1');
-        rangeMin.setAttribute('max', '10');
+        rangeMin.setAttribute('max', `${maxValue}`);
         dualRange.append(rangeMin);
 
         const rangeMax = document.createElement('input');
         rangeMax.setAttribute('type', 'range');
         rangeMax.setAttribute('id', 'filter_range_max');
-        rangeMax.setAttribute('min', '0');
+        rangeMax.setAttribute('min', `${minValue}`);
         rangeMax.setAttribute('step', '1');
-        rangeMax.setAttribute('max', '10');
+        rangeMax.setAttribute('max', `${maxValue}`);
+        rangeMax.setAttribute('value', `${maxValue}`);
         dualRange.append(rangeMax);
 
         const rangeValues = document.createElement('div');
@@ -100,14 +105,11 @@ class StorePage extends Page {
 
         const rangeValueMin = document.createElement('span');
         rangeValueMin.classList.add('range_value_min');
-        const values = Filters.filters[key as keyof typeof Filters.filters];
-        const minValue = values[0];
         rangeValueMin.textContent = `${minValue}`;
         rangeValues.append(rangeValueMin);
 
         const rangeValueMax = document.createElement('span');
         rangeValueMax.classList.add('range_value_max');
-        const maxValue = values[values.length - 1];
         rangeValueMax.textContent = `${maxValue}`;
         rangeValues.append(rangeValueMax);
       }
