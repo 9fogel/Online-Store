@@ -57,7 +57,7 @@ class AppView {
       console.log(page);
       const pageWrap = document.querySelector('#current-page');
       if (pageWrap) {
-        pageWrap.classList.add('store-page');
+        pageWrap.classList.add('store_page');
       }
       page.drawCardStore();
     }

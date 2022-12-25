@@ -18,6 +18,6 @@ export type AgeT = { minAge: number; maxAge: number };
 export type filtersT = {
   theme: Array<string>;
   interests: Array<string>;
-  age: Array<number>;
+  details: Array<number>;
   price: Array<number>;
 };
