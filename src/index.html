@@ -12,67 +12,68 @@
 
   <div class="payment invisible">
     <div class="modal_wrapper">
-      <span class="close" id="closeModal">X</span>
-      <h3 class="payment_details"> Payment details </h3>
-      <form action="#" method="post" class="payment_form">
-        <div class="form_field">
-          <label for="name">name: </label>
-          <input type="text" name="name" id="name" placeholder="Name" required>
-        </div>
-        <div class="form_field">
-          <label for="phone">phone: </label>
-          <input type="tel" name="phone" id="phone" placeholder="+7(999)999-99-99" required>
-        </div>
-        <div class="form_field">
-          <label for="name">delivery address: </label>
-          <input type="input" name="address" id="address" placeholder="Berlin" required>
-        </div>
-        <div class="form_field">
-          <label for="email">e-mail: </label>
-          <input type="email" name="email" id="email" placeholder="online-store@store.com" required>
-        </div>
-        <div class="payment_card">
-          <h5>Payment card</h5>
-          <div class="payment_card_field">
-            <label for="card_number">Number</label>
-            <input type="number" name="card_number" id="card_number" placeholder="0000 0000 0000 0000" required>
+      <div class="modal_window">
+        <span class="close" id="closeModal">𐄂</span>
+        <h3 class="payment_details"> Payment details </h3>
+        <form action="#" method="post" class="payment_form">
+          <div class="form_field">
+            <label for="name">name: </label>
+            <input type="text" name="name" id="name" placeholder="Name" required>
           </div>
-          <div class="payment_card_field">
-            <label for="card_valid">Valid:</label>
-            <input type="input" name="card_valid" id="card_valid" placeholder="01/24" required>
+          <div class="form_field">
+            <label for="phone">phone: </label>
+            <input type="tel" name="phone" id="phone" placeholder="+7(999)999-99-99" required>
           </div>
-          <div class="payment_card_field">
-            <label for="card_CVV">CVV</label>
-            <input type="number" name="card_CVV" id="card_CVV" placeholder="000" required>
+          <div class="form_field">
+            <label for="name">delivery address: </label>
+            <input type="input" name="address" id="address" placeholder="Berlin" required>
           </div>
-        </div>
-        <div class="payment_confirm">
-          <input type="submit" value="Confirm">
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <template class="item_template">
-    <div class="store_item">
-      <div class="item_info">
-        <h4 class="item_name"></h4>
-        <div class="item_pic">
-          <img class="item_pic_img">
-        </div>
-        <div class="item_parameters">
-          <span class="item_category"></span>
-          <span class="item_subcategory"></span>
-          <span class="item_brand"></span>
-          <span class="item_count"></span>
-          <span class="item_amount"></span>
-          <span class="item_age"></span>
-        </div>
-        <div class="item_price"></div>
+          <div class="form_field">
+            <label for="email">e-mail: </label>
+            <input type="email" name="email" id="email" placeholder="online-store@store.com" required>
+          </div>
+          <div class="payment_card">
+            <h5>Payment card</h5>
+            <div class="payment_card_field">
+              <label for="card_number">Number</label>
+              <input type="number" name="card_number" id="card_number" placeholder="0000 0000 0000 0000" required>
+            </div>
+            <div class="payment_card_field">
+              <label for="card_valid">Valid:</label>
+              <input type="input" name="card_valid" id="card_valid" placeholder="01/24" required>
+            </div>
+            <div class="payment_card_field">
+              <label for="card_CVV">CVV</label>
+              <input type="number" name="card_CVV" id="card_CVV" placeholder="000" required>
+            </div>
+          </div>
+          <div class="payment_confirm">
+            <input type="submit" value="Confirm">
+          </div>
+        </form>
       </div>
-      <button class="add_item_to_cart">Add to cart</button>
     </div>
-  </template>
+
+    <template class="item_template">
+      <div class="store_item">
+        <div class="item_info">
+          <h4 class="item_name"></h4>
+          <div class="item_pic">
+            <img class="item_pic_img">
+          </div>
+          <div class="item_parameters">
+            <span class="item_category"></span>
+            <span class="item_subcategory"></span>
+            <span class="item_brand"></span>
+            <span class="item_count"></span>
+            <span class="item_amount"></span>
+            <span class="item_age"></span>
+          </div>
+          <div class="item_price"></div>
+        </div>
+        <button class="add_item_to_cart">Add to cart</button>
+      </div>
+    </template>
 
 <template class="cart_item_template">
   <div class="cart_item">
