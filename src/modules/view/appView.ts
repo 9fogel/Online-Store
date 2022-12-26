@@ -67,7 +67,7 @@ class AppView {
       // console.log(id);
       const product = Gallery.items[id - 1];
       // console.log(product);
-      page.renderProduct(product);
+      page.render(product);
     }
   }
 
