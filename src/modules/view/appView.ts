@@ -64,7 +64,7 @@ class AppView {
     if (page instanceof ProductPage) {
       const id = +pageID.slice(13);
       const product = Gallery.items[id - 1];
-      page.renderProduct(product);
+      page.render(product);
     }
 
     if (page instanceof CartPage) {

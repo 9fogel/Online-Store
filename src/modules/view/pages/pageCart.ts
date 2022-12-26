@@ -128,6 +128,10 @@ class CartPage extends Page {
         const itemClone: DocumentFragment | Node = template.content.cloneNode(true);
         if (itemClone instanceof DocumentFragment && itemClone) {
           // itemClone.classList.remove('invisible');
+          const info: HTMLElement | null = itemClone.querySelector('.cart_item_info');
+          if (info) {
+            info.addEventListener('click', () => (window.location.hash = `#product-page_${item.id}`));
+          }
 
           const itemName: HTMLElement | null = itemClone.querySelector('.cart_item_name');
           if (itemName) {
