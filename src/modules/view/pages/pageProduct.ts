@@ -63,7 +63,6 @@ class ProductPage extends Page {
   }
 
   renderProduct(item?: Product) {
-    console.log(item);
     const product = document.createElement('div');
     if (item) {
       const title = document.createElement('h3');

@@ -38,6 +38,13 @@ class Cart {
     Cart.items.forEach((el) => (total += el.priceByn));
     return total;
   }
+  // static productsOnPage() {
+  //   const input: Element | null = document.querySelector('.cart_pagination_input');
+  //   if (input) {
+  //     const count = input.ariaValueMax;
+  //     return count;
+  //   }
+  // }
 }
 
 export default Cart;
