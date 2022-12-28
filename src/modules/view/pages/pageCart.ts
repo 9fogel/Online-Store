@@ -1,7 +1,7 @@
 import Cart from '../../controller/cart';
 import Page from '../templates/pageTemplate';
-import Product from '../../controller/product';
 import openModal from '../../controller/modal/openModal';
+import { IProduct } from '../../types/types';
 
 class CartPage extends Page {
   static textObj = {
@@ -66,8 +66,13 @@ class CartPage extends Page {
   renderCartGallery() {
     const cartGallery = document.createElement('div');
     cartGallery.classList.add('cart_gallary');
+    const clearBtn = document.createElement('button');
+    clearBtn.classList.add('clear_cart');
+    clearBtn.innerText = 'Clear all';
+    clearBtn.addEventListener('click', Cart.removeAll);
     cartGallery.append(this.renderCartGalleryHeader());
     cartGallery.append(this.renderCartGalleryBody());
+    cartGallery.append(clearBtn);
     return cartGallery;
   }
   renderCartSummary() {
@@ -118,13 +123,13 @@ class CartPage extends Page {
   }
 
   drawCardCart() {
-    const items: Product[] = Cart.getUniqueItems();
+    const items: IProduct[] = Cart.getUniqueItems();
 
     const fragment: DocumentFragment = document.createDocumentFragment();
     const template: HTMLTemplateElement | null = document.querySelector('.cart_item_template') as HTMLTemplateElement;
 
     if (template) {
-      items.forEach((item: Product) => {
+      items.forEach((item: IProduct) => {
         const itemClone: DocumentFragment | Node = template.content.cloneNode(true);
         if (itemClone instanceof DocumentFragment && itemClone) {
           // itemClone.classList.remove('invisible');
@@ -170,7 +175,7 @@ class CartPage extends Page {
 
           const itemAge: HTMLElement | null = itemClone.querySelector('.item_age');
           if (itemAge) {
-            itemAge.textContent = `Age: ${item.minAge} to ${item.maxAge}`;
+            itemAge.textContent = `Age: ${item.age.minAge} to ${item.age.maxAge}`;
           }
 
           const itemPrice: HTMLElement | null = itemClone.querySelector('.cart_item_price');
@@ -181,18 +186,18 @@ class CartPage extends Page {
           const removeItem: HTMLElement | null = itemClone.querySelector('.cart_item_amount_less');
           if (removeItem) {
             removeItem.textContent = `-`;
-            removeItem.addEventListener('click', () => Cart.removeItem(item));
+            removeItem.addEventListener('click', () => Cart.removeItem(item.id));
           }
 
           const countItem: HTMLElement | null = itemClone.querySelector('.cart_count');
           if (countItem) {
-            countItem.textContent = `${Cart.getProductAmount(item)}`;
+            countItem.textContent = `${Cart.getProductAmount(item.id)}`;
           }
 
           const addItem: HTMLElement | null = itemClone.querySelector('.cart_item_amount_more');
           if (addItem) {
             addItem.textContent = `+`;
-            addItem.addEventListener('click', () => Cart.addItem(item));
+            addItem.addEventListener('click', () => Cart.addItem(item.id));
           }
           fragment.append(itemClone);
         }
