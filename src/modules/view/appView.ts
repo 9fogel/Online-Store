@@ -8,6 +8,7 @@ import ProductPage from './pages/pageProduct';
 import Footer from './templates/footer';
 import Main from './templates/main';
 import Gallery from '../controller/gallery';
+import { IProduct } from '../types/types';
 
 export const enum pageIDs {
   StorePage = 'main-page',
@@ -58,12 +59,14 @@ class AppView {
       if (pageWrap) {
         pageWrap.classList.add('store_page');
       }
-      page.drawCardStore();
+      // const items: Array<IProduct> = Gallery.getUniqueItems();
+      // page.drawCardStore(items);
+      page.drawCardStore(Gallery.items);
     }
 
     if (page instanceof ProductPage) {
       const id = +pageID.slice(13);
-      const product = Gallery.items[id - 1];
+      const product: IProduct = Gallery.items[id - 1];
       page.render(product);
     }
 

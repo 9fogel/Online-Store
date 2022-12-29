@@ -1,7 +1,8 @@
 import Cart from '../../controller/cart';
 import Page from '../templates/pageTemplate';
-import Product from '../../controller/product';
+// import Product from '../../controller/product';
 import openModal from '../../controller/modal/openModal';
+import { IProduct } from '../../types/types';
 
 class CartPage extends Page {
   static textObj = {
@@ -118,13 +119,14 @@ class CartPage extends Page {
   }
 
   drawCardCart() {
-    const items: Product[] = Cart.getUniqueItems();
+    // const items: Product[] = Cart.getUniqueItems();
+    const items: Array<IProduct> = Cart.getUniqueItems();
 
     const fragment: DocumentFragment = document.createDocumentFragment();
     const template: HTMLTemplateElement | null = document.querySelector('.cart_item_template') as HTMLTemplateElement;
 
     if (template) {
-      items.forEach((item: Product) => {
+      items.forEach((item: IProduct) => {
         const itemClone: DocumentFragment | Node = template.content.cloneNode(true);
         if (itemClone instanceof DocumentFragment && itemClone) {
           // itemClone.classList.remove('invisible');

@@ -24,6 +24,7 @@
 .filter_inner_item {
   display: flex;
   gap: 4px;
+  align-self: flex-start;
 }
 
 .filter_range_wrapper {

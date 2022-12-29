@@ -1,6 +1,7 @@
 import Cart from '../../controller/cart';
-import Product from '../../controller/product';
+// import Product from '../../controller/product';
 import Page from '../templates/pageTemplate';
+import { IProduct } from '../../types/types';
 
 class ProductPage extends Page {
   static textObj = {
@@ -11,7 +12,7 @@ class ProductPage extends Page {
     super(id);
   }
 
-  breadcrumbs(item?: Product) {
+  breadcrumbs(item?: IProduct) {
     if (item) {
       const store = document.createElement('a');
       store.href = '#main-page';
@@ -42,7 +43,7 @@ class ProductPage extends Page {
     }
   }
 
-  renderButtons(item?: Product) {
+  renderButtons(item?: IProduct) {
     if (item) {
       const addBtn = document.createElement('button');
       addBtn.classList.add('button_buy');
@@ -62,7 +63,7 @@ class ProductPage extends Page {
     }
   }
 
-  renderProduct(item?: Product) {
+  renderProduct(item?: IProduct) {
     const product = document.createElement('div');
     if (item) {
       const title = document.createElement('h3');
@@ -159,7 +160,7 @@ class ProductPage extends Page {
     this.container.append(product);
   }
 
-  render(item?: Product) {
+  render(item?: IProduct) {
     this.breadcrumbs(item);
     this.renderProduct(item);
     this.renderButtons(item);

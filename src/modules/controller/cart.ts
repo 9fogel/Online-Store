@@ -1,11 +1,13 @@
-import Product from './product';
+// import Product from './product';
+import { IProduct } from '../types/types';
 
 class Cart {
-  static items: Array<Product> = [];
-  static addItem(item: Product): void {
+  // static items: Array<Product> = [];
+  static items: Array<IProduct> = [];
+  static addItem(item: IProduct): void {
     this.items.push(item);
   }
-  static removeItem(item: Product) {
+  static removeItem(item: IProduct) {
     const index = this.items.indexOf(item);
     this.items.splice(index, 1);
   }
@@ -26,7 +28,7 @@ class Cart {
     const uniqueItems = Array.from(new Set(this.items));
     return uniqueItems.length;
   }
-  static getProductAmount(product: Product) {
+  static getProductAmount(product: IProduct) {
     let amount = 0;
     Cart.items.forEach((el) => {
       if (el === product) amount++;

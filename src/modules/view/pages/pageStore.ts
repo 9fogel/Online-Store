@@ -1,8 +1,9 @@
 import Cart from '../../controller/cart';
-import Gallery from '../../controller/gallery';
+// import Gallery from '../../controller/gallery';
 import Page from '../templates/pageTemplate';
-import Product from '../../controller/product';
+// import Product from '../../controller/product';
 import Filters from '../../controller/filters';
+import { IProduct } from '../../types/types';
 
 class StorePage extends Page {
   static textObj = {
@@ -60,7 +61,7 @@ class StorePage extends Page {
 
           const filterCheckbox = document.createElement('input');
           filterCheckbox.classList.add('filter_checkbox');
-          filterCheckbox.setAttribute('id', `${elem}`);
+          filterCheckbox.setAttribute('id', `${key}-${elem}`);
           filterCheckbox.setAttribute('type', 'checkbox');
           filterInnerItem.append(filterCheckbox);
 
@@ -68,6 +69,12 @@ class StorePage extends Page {
           filterLabel.setAttribute('for', `${elem}`);
           filterLabel.textContent = `${elem}`;
           filterInnerItem.append(filterLabel);
+
+          filterCheckbox.addEventListener('change', (event: Event) => {
+            this.clearGallery();
+            // console.log(window.location.href);
+            return this.drawCardStore(this.filtersPart.getStoreFiltered(event) ?? []);
+          });
         });
       } else {
         const rangeWrap = document.createElement('div');
@@ -139,6 +146,13 @@ class StorePage extends Page {
     filterBtnWrap.append(copyLinkButton);
   }
 
+  clearGallery() {
+    const galleryWrap: HTMLElement | null = document.querySelector('.gallery_wrapper');
+    if (galleryWrap) {
+      galleryWrap.innerHTML = ' ';
+    }
+  }
+
   renderGallery() {
     const gallery = document.createElement('section');
     gallery.classList.add('gallery');
@@ -172,13 +186,15 @@ class StorePage extends Page {
     return galleryWrap;
   }
 
-  drawCardStore() {
-    const items: Product[] = Gallery.getUniqueItems();
+  drawCardStore(items: Array<IProduct>) {
+    // const items: Product[] = Gallery.getUniqueItems();
+    // const items: Array<IProduct> = Gallery.getUniqueItems();
     const fragment: DocumentFragment = document.createDocumentFragment();
     const productCardTemplate: HTMLTemplateElement | null = document.querySelector('.item_template');
 
     if (productCardTemplate) {
-      items.forEach((item: Product) => {
+      // items.forEach((item: Product) => {
+      items.forEach((item: IProduct) => {
         const itemClone: DocumentFragment | Node = productCardTemplate.content.cloneNode(true);
         if (itemClone instanceof DocumentFragment && itemClone) {
           const info: HTMLElement | null = itemClone.querySelector('.item_info');
@@ -223,7 +239,7 @@ class StorePage extends Page {
 
           const itemAge: HTMLElement | null = itemClone.querySelector('.item_age');
           if (itemAge) {
-            itemAge.textContent = `Age: ${item.minAge} to ${item.maxAge}`;
+            itemAge.textContent = `Age: ${item.age.minAge} to ${item.age.maxAge}`;
           }
 
           const itemPrice: HTMLElement | null = itemClone.querySelector('.item_price');
@@ -233,6 +249,7 @@ class StorePage extends Page {
           const addBtn: HTMLButtonElement | null = itemClone.querySelector('.add_item_to_cart');
 
           if (addBtn) {
+            // addBtn.addEventListener('click', () => Cart.addItem(item));
             addBtn.addEventListener('click', () => Cart.addItem(item));
           }
 
