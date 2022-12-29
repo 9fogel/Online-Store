@@ -18,13 +18,15 @@ class Gallery {
     const [filterName, filterValue] = filterData;
     console.log(filterName, filterValue);
 
-    return this.getFilteredByCheckbox();
+    return this.getFilteredByRange();
+
+    // return this.getFilteredByCheckbox();
   }
 
   static getFilteredByCheckbox() {
     const checkboxes = document.getElementsByClassName('filter_checkbox');
     const checkedItems = Array.from(checkboxes).filter((el) => el.hasAttribute('checked'));
-    const firstFilterChecked = checkedItems.filter((el) => el.id.startsWith('theme')).map((el) => el.id.split('-')[1]);
+    const firstFilterChecked = checkedItems.filter((el) => el.id.startsWith('theme')).map((el) => el.id.split('_')[1]);
     // console.log('first', firstFilterChecked);
 
     const firstRes: Array<IProduct> = [];
@@ -44,12 +46,12 @@ class Gallery {
 
     const secondFilterChecked = checkedItems
       .filter((el) => el.id.startsWith('interests'))
-      .map((el) => el.id.split('-')[1]);
+      .map((el) => el.id.split('_')[1]);
     console.log('second', secondFilterChecked);
 
     const secondRes: Array<IProduct> = [];
     if (secondFilterChecked.length !== 0) {
-      console.log('not zero length');
+      // console.log('not zero length');
       console.log('second2', secondFilterChecked);
       secondFilterChecked.forEach((item) => {
         console.log('item', item);
@@ -61,6 +63,53 @@ class Gallery {
     } else {
       secondRes.push(...firstRes);
     }
+    return secondRes;
+  }
+
+  static getFilteredByRange() {
+    const [firstMin, secondMin] = document.getElementsByClassName('range_value_min');
+    const [firstMax, secondMax] = document.getElementsByClassName('range_value_max');
+    console.log(firstMin, firstMax);
+    console.log(secondMin, secondMax);
+
+    const firstRange: Array<number> = [];
+    if (firstMin.textContent && firstMax.textContent) {
+      firstRange.push(+firstMin.textContent);
+      firstRange.push(+firstMax.textContent);
+    }
+
+    const secondRange: Array<number> = [];
+    if (secondMin.textContent && secondMax.textContent) {
+      secondRange.push(+secondMin.textContent);
+      secondRange.push(+secondMax.textContent);
+    }
+
+    console.log(firstRange);
+    console.log(secondRange);
+
+    const firstRes: Array<IProduct> = [];
+    const itemsToFilter = this.getFilteredByCheckbox();
+    const filteredPortion = itemsToFilter.filter(
+      (el) => el.detailsCount >= firstRange[0] && el.detailsCount <= firstRange[1],
+    );
+    firstRes.push(...filteredPortion);
+
+    // return firstRes;
+
+    const secondRes: Array<IProduct> = [];
+    const itemsToFinalFilter = firstRes;
+    const filteredPortionFinal = itemsToFinalFilter.filter(
+      (el) => el.priceByn >= secondRange[0] && el.priceByn <= secondRange[1],
+    );
+    secondRes.push(...filteredPortionFinal);
+
+    if (secondRes.length === 0) {
+      const galleryWrap: HTMLElement | null = document.querySelector('.gallery_wrapper');
+      if (galleryWrap) {
+        galleryWrap.textContent = 'Sorry. Nothing was found';
+      }
+    }
+
     return secondRes;
   }
 }

@@ -61,7 +61,7 @@ class StorePage extends Page {
 
           const filterCheckbox = document.createElement('input');
           filterCheckbox.classList.add('filter_checkbox');
-          filterCheckbox.setAttribute('id', `${key}-${elem}`);
+          filterCheckbox.setAttribute('id', `${key}_${elem}`);
           filterCheckbox.setAttribute('type', 'checkbox');
           filterInnerItem.append(filterCheckbox);
 
@@ -90,16 +90,18 @@ class StorePage extends Page {
         const maxValue = Math.ceil(+values[values.length - 1]);
 
         const rangeMin = document.createElement('input');
+        rangeMin.classList.add('filter_range_min');
         rangeMin.setAttribute('type', 'range');
-        rangeMin.setAttribute('id', 'filter_range_min');
+        rangeMin.setAttribute('id', `filter_range_min_${key}`);
         rangeMin.setAttribute('min', `${minValue}`);
         rangeMin.setAttribute('step', '1');
         rangeMin.setAttribute('max', `${maxValue}`);
         dualRange.append(rangeMin);
 
         const rangeMax = document.createElement('input');
+        rangeMax.classList.add('filter_range_max');
         rangeMax.setAttribute('type', 'range');
-        rangeMax.setAttribute('id', 'filter_range_max');
+        rangeMax.setAttribute('id', `filter_range_max_${key}`);
         rangeMax.setAttribute('min', `${minValue}`);
         rangeMax.setAttribute('step', '1');
         rangeMax.setAttribute('max', `${maxValue}`);
@@ -124,9 +126,19 @@ class StorePage extends Page {
           this.filtersPart.enableDualSliders(rangeMin, rangeMax, minValue);
           this.filtersPart.handleSliderMin(rangeMin, rangeMax, rangeValueMin);
         });
+        rangeMin.addEventListener('change', (event) => {
+          console.log(rangeValueMin.textContent);
+          this.clearGallery();
+          return this.drawCardStore(this.filtersPart.getStoreFiltered(event) ?? []);
+        });
         rangeMax.addEventListener('input', () => {
           this.filtersPart.enableDualSliders(rangeMin, rangeMax, minValue);
           this.filtersPart.handleSliderMax(rangeMin, rangeMax, rangeValueMax, minValue);
+        });
+        rangeMax.addEventListener('change', (event) => {
+          console.log('rangeValueMax', rangeValueMax);
+          this.clearGallery();
+          return this.drawCardStore(this.filtersPart.getStoreFiltered(event) ?? []);
         });
       }
     });
