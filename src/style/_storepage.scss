@@ -4,6 +4,7 @@
 }
 
 .filters_wrapper {
+  margin-top: 48px;
   width: 240px;
 }
 
@@ -101,6 +102,22 @@
 .filter_btn_wrapper {
   display: flex;
   gap: 24px;
+}
+
+.gallery_body {
+  padding: 0 36px;
+}
+
+.gallery_wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.gallery_head {
+  padding: 16px;
+  text-align: center;
+  font-weight: bold;
 }
 
 .item_parameters {

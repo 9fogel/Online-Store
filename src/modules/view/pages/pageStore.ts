@@ -173,6 +173,11 @@ class StorePage extends Page {
     galleryHeader.classList.add('gallery_head');
     gallery.append(galleryHeader);
 
+    const itemsFound = document.createElement('div');
+    itemsFound.classList.add('items_found');
+    itemsFound.textContent = `All items:`;
+    galleryHeader.append(itemsFound);
+
     const galleryBody = document.createElement('div');
     galleryBody.classList.add('gallery_body');
     gallery.append(galleryBody);

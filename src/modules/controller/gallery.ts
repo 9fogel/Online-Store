@@ -103,13 +103,18 @@ class Gallery {
     );
     secondRes.push(...filteredPortionFinal);
 
-    if (secondRes.length === 0) {
-      const galleryWrap: HTMLElement | null = document.querySelector('.gallery_wrapper');
-      if (galleryWrap) {
-        galleryWrap.textContent = 'Sorry. Nothing was found';
+    const itemsFound: HTMLElement | null = document.querySelector('.items_found');
+    if (itemsFound) {
+      if (secondRes.length === 0) {
+        itemsFound.textContent = 'Sorry. Nothing was found.';
+      } else {
+        if (secondRes.length === 1) {
+          itemsFound.textContent = `${secondRes.length} item found.`;
+        } else {
+          itemsFound.textContent = `${secondRes.length} items found.`;
+        }
       }
     }
-
     return secondRes;
   }
 }
