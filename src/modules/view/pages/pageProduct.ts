@@ -1,5 +1,6 @@
 import Cart from '../../controller/cart';
-// import Product from '../../controller/product';
+import openModal from '../../controller/modal/openModal';
+import Product from '../../controller/product';
 import Page from '../templates/pageTemplate';
 import { IProduct } from '../../types/types';
 
@@ -48,12 +49,12 @@ class ProductPage extends Page {
       const addBtn = document.createElement('button');
       addBtn.classList.add('button_buy');
       addBtn.innerText = 'Add to cart';
-      addBtn.addEventListener('click', () => Cart.addItem(item));
+      addBtn.addEventListener('click', () => Cart.addItem(item.id));
 
       const buyBtn = document.createElement('button');
       buyBtn.classList.add('button_buy');
       buyBtn.innerText = 'Buy now';
-      buyBtn.addEventListener('click', () => Cart.addItem(item));
+      buyBtn.addEventListener('click', () => openModal());
 
       const buttons = document.createElement('div');
       buttons.append(addBtn);

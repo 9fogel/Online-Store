@@ -31,10 +31,12 @@ export default class Product {
     this.images = products.products[index].images;
   }
 
-  // static getProduct(searchID: number) {
-  //   const product = Array.from(new Set(products.products.filter((el) => el.id == searchID)));
-  //   return product[0];
-  // }
+  static getProduct(searchID: number) {
+    const product = Array.from(new Set(products.products.filter((el) => el.id == searchID)));
+    console.log('getProduct' + searchID);
+    console.log(product);
+    return product[0];
+  }
 
   // static amount = products.total;
 }

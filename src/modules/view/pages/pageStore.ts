@@ -307,8 +307,7 @@ class StorePage extends Page {
           const addBtn: HTMLButtonElement | null = itemClone.querySelector('.add_item_to_cart');
 
           if (addBtn) {
-            // addBtn.addEventListener('click', () => Cart.addItem(item));
-            addBtn.addEventListener('click', () => Cart.addItem(item));
+            addBtn.addEventListener('click', () => Cart.addItem(item.id));
           }
 
           fragment.append(itemClone);
