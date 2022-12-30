@@ -1,6 +1,6 @@
 import Cart from '../../controller/cart';
 import openModal from '../../controller/modal/openModal';
-import Product from '../../controller/product';
+// import Product from '../../controller/product';
 import Page from '../templates/pageTemplate';
 import { IProduct } from '../../types/types';
 
