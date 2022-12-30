@@ -1,4 +1,5 @@
 export interface IProduct {
+  [key: string]: number | string | AgeT | Array<string>;
   id: number;
   key: string;
   title: string;
@@ -21,3 +22,8 @@ export type filtersT = {
   details: Array<number>;
   price: Array<number>;
 };
+
+export enum Actions {
+  Add = 'add',
+  Delete = 'delete',
+}

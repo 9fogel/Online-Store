@@ -1,3 +1,4 @@
+
 import { IProduct } from '../types/types';
 import products from '../data/products.json';
 

@@ -1,8 +1,9 @@
 import Cart from '../../controller/cart';
-import Gallery from '../../controller/gallery';
+// import Gallery from '../../controller/gallery';
 import Page from '../templates/pageTemplate';
-import Product from '../../controller/product';
+// import Product from '../../controller/product';
 import Filters from '../../controller/filters';
+import { IProduct } from '../../types/types';
 
 class StorePage extends Page {
   static textObj = {
@@ -60,7 +61,7 @@ class StorePage extends Page {
 
           const filterCheckbox = document.createElement('input');
           filterCheckbox.classList.add('filter_checkbox');
-          filterCheckbox.setAttribute('id', `${elem}`);
+          filterCheckbox.setAttribute('id', `${key}_${elem}`);
           filterCheckbox.setAttribute('type', 'checkbox');
           filterInnerItem.append(filterCheckbox);
 
@@ -68,6 +69,12 @@ class StorePage extends Page {
           filterLabel.setAttribute('for', `${elem}`);
           filterLabel.textContent = `${elem}`;
           filterInnerItem.append(filterLabel);
+
+          filterCheckbox.addEventListener('change', (event: Event) => {
+            this.clearGallery();
+            // console.log(window.location.href);
+            return this.drawCardStore(this.filtersPart.getStoreFiltered(event) ?? []);
+          });
         });
       } else {
         const rangeWrap = document.createElement('div');
@@ -83,16 +90,18 @@ class StorePage extends Page {
         const maxValue = Math.ceil(+values[values.length - 1]);
 
         const rangeMin = document.createElement('input');
+        rangeMin.classList.add('filter_range_min');
         rangeMin.setAttribute('type', 'range');
-        rangeMin.setAttribute('id', 'filter_range_min');
+        rangeMin.setAttribute('id', `filter_range_min_${key}`);
         rangeMin.setAttribute('min', `${minValue}`);
         rangeMin.setAttribute('step', '1');
         rangeMin.setAttribute('max', `${maxValue}`);
         dualRange.append(rangeMin);
 
         const rangeMax = document.createElement('input');
+        rangeMax.classList.add('filter_range_max');
         rangeMax.setAttribute('type', 'range');
-        rangeMax.setAttribute('id', 'filter_range_max');
+        rangeMax.setAttribute('id', `filter_range_max_${key}`);
         rangeMax.setAttribute('min', `${minValue}`);
         rangeMax.setAttribute('step', '1');
         rangeMax.setAttribute('max', `${maxValue}`);
@@ -117,9 +126,19 @@ class StorePage extends Page {
           this.filtersPart.enableDualSliders(rangeMin, rangeMax, minValue);
           this.filtersPart.handleSliderMin(rangeMin, rangeMax, rangeValueMin);
         });
+        rangeMin.addEventListener('change', (event) => {
+          console.log(rangeValueMin.textContent);
+          this.clearGallery();
+          return this.drawCardStore(this.filtersPart.getStoreFiltered(event) ?? []);
+        });
         rangeMax.addEventListener('input', () => {
           this.filtersPart.enableDualSliders(rangeMin, rangeMax, minValue);
           this.filtersPart.handleSliderMax(rangeMin, rangeMax, rangeValueMax, minValue);
+        });
+        rangeMax.addEventListener('change', (event) => {
+          console.log('rangeValueMax', rangeValueMax);
+          this.clearGallery();
+          return this.drawCardStore(this.filtersPart.getStoreFiltered(event) ?? []);
         });
       }
     });
@@ -139,6 +158,13 @@ class StorePage extends Page {
     filterBtnWrap.append(copyLinkButton);
   }
 
+  clearGallery() {
+    const galleryWrap: HTMLElement | null = document.querySelector('.gallery_wrapper');
+    if (galleryWrap) {
+      galleryWrap.innerHTML = ' ';
+    }
+  }
+
   renderGallery() {
     const gallery = document.createElement('section');
     gallery.classList.add('gallery');
@@ -146,6 +172,60 @@ class StorePage extends Page {
     const galleryHeader = document.createElement('div');
     galleryHeader.classList.add('gallery_head');
     gallery.append(galleryHeader);
+
+    const searchForm = document.createElement('form');
+    searchForm.classList.add('search_form');
+    galleryHeader.append(searchForm);
+
+    const searchInput = document.createElement('input');
+    searchInput.classList.add('search_input');
+    searchInput.setAttribute('type', 'search');
+    searchInput.setAttribute('placeholder', 'Search goods by keyword');
+    searchForm.append(searchInput);
+
+    const itemsFound = document.createElement('div');
+    itemsFound.classList.add('items_found');
+    itemsFound.textContent = `All items:`;
+    galleryHeader.append(itemsFound);
+
+    const changeLayout = document.createElement('div');
+    changeLayout.classList.add('change_layout');
+    galleryHeader.append(changeLayout);
+
+    const bigTiles = document.createElement('button');
+    bigTiles.classList.add('big_layout');
+    bigTiles.textContent = `Big Tiles`;
+    changeLayout.append(bigTiles);
+
+    const smallTiles = document.createElement('button');
+    smallTiles.classList.add('small_layout');
+    smallTiles.textContent = `Small Tiles`;
+    changeLayout.append(smallTiles);
+
+    const sortWrap = document.createElement('div');
+    sortWrap.classList.add('sort_wrapper');
+    galleryHeader.append(sortWrap);
+
+    const sortLabel = document.createElement('label');
+    sortLabel.classList.add('sort_label');
+    sortLabel.setAttribute('for', 'sort_select');
+    sortLabel.textContent = `Sort by:`;
+    sortWrap.append(sortLabel);
+
+    const sortDropdown = document.createElement('select');
+    sortDropdown.classList.add('sort_label');
+    sortDropdown.setAttribute('id', 'sort_select');
+    sortDropdown.textContent = `Sort by:`;
+    sortWrap.append(sortDropdown);
+
+    const sortOptionNames = ['name A-Z', 'name Z-A', 'price lowest', 'price highest'];
+    for (let i = 0; i < sortOptionNames.length; i++) {
+      const sortOption = document.createElement('option');
+      sortOption.textContent = sortOptionNames[i];
+      const nameAttr = i < 2 ? sortOptionNames[i].slice(0, 6) : sortOptionNames[i].slice(0, 7);
+      sortOption.setAttribute('name', `${nameAttr}`);
+      sortDropdown.append(sortOption);
+    }
 
     const galleryBody = document.createElement('div');
     galleryBody.classList.add('gallery_body');
@@ -172,13 +252,15 @@ class StorePage extends Page {
     return galleryWrap;
   }
 
-  drawCardStore() {
-    const items: Product[] = Gallery.getUniqueItems();
+  drawCardStore(items: Array<IProduct>) {
+    // const items: Product[] = Gallery.getUniqueItems();
+    // const items: Array<IProduct> = Gallery.getUniqueItems();
     const fragment: DocumentFragment = document.createDocumentFragment();
     const productCardTemplate: HTMLTemplateElement | null = document.querySelector('.item_template');
 
     if (productCardTemplate) {
-      items.forEach((item: Product) => {
+      // items.forEach((item: Product) => {
+      items.forEach((item: IProduct) => {
         const itemClone: DocumentFragment | Node = productCardTemplate.content.cloneNode(true);
         if (itemClone instanceof DocumentFragment && itemClone) {
           const info: HTMLElement | null = itemClone.querySelector('.item_info');
@@ -223,7 +305,7 @@ class StorePage extends Page {
 
           const itemAge: HTMLElement | null = itemClone.querySelector('.item_age');
           if (itemAge) {
-            itemAge.textContent = `Age: ${item.minAge} to ${item.maxAge}`;
+            itemAge.textContent = `Age: ${item.age.minAge} to ${item.age.maxAge}`;
           }
 
           const itemPrice: HTMLElement | null = itemClone.querySelector('.item_price');

@@ -4,6 +4,7 @@
 }
 
 .filters_wrapper {
+  margin-top: 48px;
   width: 240px;
 }
 
@@ -24,6 +25,7 @@
 .filter_inner_item {
   display: flex;
   gap: 4px;
+  align-self: flex-start;
 }
 
 .filter_range_wrapper {
@@ -37,8 +39,8 @@
   padding-top: 4px;
 }
 
-#filter_range_min,
-#filter_range_max {
+.filter_range_min,
+.filter_range_max {
   -webkit-appearance: none;
   appearance: none;
   pointer-events: none;
@@ -49,14 +51,14 @@
   width: 100%;
 }
 
-#filter_range_min {
+.filter_range_min {
   margin-top: 1px;
   height: 0;
   z-index: 1;
 }
 
-#filter_range_min::-webkit-slider-thumb,
-#filter_range_max::-webkit-slider-thumb {
+.filter_range_min::-webkit-slider-thumb,
+.filter_range_max::-webkit-slider-thumb {
   -webkit-appearance: none;
   pointer-events: all;
   cursor: pointer;
@@ -68,8 +70,8 @@
   box-shadow: 0 0 0 1px #C6C6C6;
 }
 
-#filter_range_min::-moz-range-thumb,
-#filter_range_max::-moz-range-thumb {
+.filter_range_min::-moz-range-thumb,
+.filter_range_max::-moz-range-thumb {
   -webkit-appearance: none;
   appearance: none;
   pointer-events: all;
@@ -81,13 +83,13 @@
   box-shadow: 0 0 0 1px #C6C6C6;
 }
 
-#filter_range_min::-webkit-slider-thumb:hover,
-#filter_range_max::-webkit-slider-thumb:hover {
+.filter_range_min::-webkit-slider-thumb:hover,
+.filter_range_max::-webkit-slider-thumb:hover {
   background: orange;
 }
 
-#filter_range_min::-webkit-slider-thumb:active,
-#filter_range_max::-webkit-slider-thumb:active {
+.filter_range_min::-webkit-slider-thumb:active,
+.filter_range_max::-webkit-slider-thumb:active {
   box-shadow: inset 0 0 3px orange, 0 0 9px orange;
   -webkit-box-shadow: inset 0 0 3px orange, 0 0 9px orange;
 }
@@ -100,4 +102,32 @@
 .filter_btn_wrapper {
   display: flex;
   gap: 24px;
+}
+
+.gallery_body {
+  padding: 0 36px;
+}
+
+.gallery_wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.gallery_head {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 36px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.change_layout {
+  display: flex;
+  gap: 8px;
+}
+
+.item_parameters {
+  display: flex;
+  flex-direction: column;
 }

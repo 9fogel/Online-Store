@@ -1,5 +1,10 @@
 import products from '../data/products.json';
 import { filtersT } from '../types/types';
+// import { filtersT, IProduct } from '../types/types';
+// import StorePage from '../view/pages/pageStore';
+import Gallery from './gallery';
+// import { Actions } from '../types/types';
+// import UrlChange from './url';
 
 // const filters = {
 //   theme: [],
@@ -16,7 +21,7 @@ class Filters {
     price: [],
   };
 
-  fillFilters() {
+  public fillFilters() {
     console.log(products);
 
     const themeArr = Array.from(new Set(products.products.map((el) => el.theme)));
@@ -48,7 +53,7 @@ class Filters {
     // console.log(Filters.filters);
   }
 
-  fillSlider(
+  private fillSlider(
     sliderMin: HTMLInputElement,
     sliderMax: HTMLInputElement,
     fillColor: string,
@@ -69,7 +74,7 @@ class Filters {
       ${bgColor} 100%)`;
   }
 
-  setToggle(currentTarget: HTMLInputElement, sliderMax: HTMLInputElement, minValue: number) {
+  private setToggle(currentTarget: HTMLInputElement, sliderMax: HTMLInputElement, minValue: number) {
     if (Number(currentTarget.value) <= minValue) {
       sliderMax.style.zIndex = '2';
     } else {
@@ -77,13 +82,13 @@ class Filters {
     }
   }
 
-  getValues(currentMin: HTMLInputElement, currentMax: HTMLInputElement) {
+  private getValues(currentMin: HTMLInputElement, currentMax: HTMLInputElement) {
     const from = parseInt(currentMin.value, 10);
     const to = parseInt(currentMax.value, 10);
     return [from, to];
   }
 
-  handleSliderMin(sliderMin: HTMLInputElement, sliderMax: HTMLInputElement, valueMin: HTMLSpanElement) {
+  public handleSliderMin(sliderMin: HTMLInputElement, sliderMax: HTMLInputElement, valueMin: HTMLSpanElement) {
     const [from, to] = this.getValues(sliderMin, sliderMax);
     this.fillSlider(sliderMin, sliderMax, 'orange', '#C6C6C6', sliderMax);
     if (from > to) {
@@ -94,7 +99,7 @@ class Filters {
     }
   }
 
-  handleSliderMax(
+  public handleSliderMax(
     sliderMin: HTMLInputElement,
     sliderMax: HTMLInputElement,
     valueMax: HTMLSpanElement,
@@ -112,9 +117,50 @@ class Filters {
     }
   }
 
-  enableDualSliders(sliderMin: HTMLInputElement, sliderMax: HTMLInputElement, minValue: number) {
+  public enableDualSliders(sliderMin: HTMLInputElement, sliderMax: HTMLInputElement, minValue: number) {
     this.fillSlider(sliderMin, sliderMax, 'orange', '#C6C6C6', sliderMax);
     this.setToggle(sliderMax, sliderMax, minValue);
+  }
+
+  // filterCheckbox(filterName: string, checkboxValue: string) {
+  //   // console.log('filterCheckbox', filterName, checkboxValue);
+  //   const filteredItemsArr = Array.from(products.products).filter((el: IProduct) => el[filterName] === checkboxValue);
+  //   console.log(filteredItemsArr);
+
+  //   const items = Gallery.getFilteredItems(filteredItemsArr, filterName);
+  //   return items;
+  // }
+
+  filterDualSlider(filterName: string) {
+    console.log('filterName', filterName);
+  }
+
+  // applyFilters(filterData: Array<string>, action) {
+  //   const [filterName, checkboxValue] = filterData;
+  //   if (filterName === 'theme' || filterName === 'interests') {
+  //     // const items = Gallery.getFilteredByCheckbox(filterName, checkboxValue);
+  //     const items = Gallery.getFilteredItems(filterName, checkboxValue, action);
+  //     return items;
+  //   }
+  // }
+
+  getStoreFiltered(event: Event) {
+    if (event.target instanceof Element) {
+      if (event.target.tagName !== 'INPUT') return;
+
+      /** @param filterData = [filterName, checkboxValue] */
+      const filterData: Array<string> = event.target.id.split('_');
+      console.log('filterData', filterData);
+      if (event.target instanceof HTMLInputElement) {
+        if (!event.target.hasAttribute('checked') && event.target.type !== 'range') {
+          event.target.setAttribute('checked', 'true');
+        } else {
+          event.target.removeAttribute('checked');
+        }
+
+        return Gallery.getFilteredItems(filterData);
+      }
+    }
   }
 }
 
