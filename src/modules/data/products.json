@@ -23,23 +23,23 @@
       },
       {
         "id": 2,
-        "key": "75192",
-        "title": "Millennium Falcon",
-        "description": "Construct one of the biggest LEGO® sets ever made - the most famous starship in the galaxy",
-        "priceByn": 2599.00,
+        "key": "75317",
+        "title": "The Mandalorian & the Child",
+        "description": "Fans will love building their own LEGO BrickHeadz versions of the 2 most popular Star Wars: The Mandalorian characters.",
+        "priceByn": 99.00,
         "stock": 2,
         "theme": "Star Wars",
         "interests": "Space",
-        "detailsCount": 7541,
+        "detailsCount": 295,
         "age": {
-          "minAge": 16,
+          "minAge": 10,
           "maxAge": 99
         },
-        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/75192-1/30882.jpg/1000x800p.jpg",
+        "thumbnail": "https://cdn.rebrickable.com/media/thumbs/sets/75317-1/56204.jpg/1000x800p.jpg",
         "images": [
-            "https://cdn.rebrickable.com/media/thumbs/sets/75192-1/30882.jpg/1000x800p.jpg",
-            "https://cdn.rebrickable.com/media/thumbs/sets/75192-1/30881.jpg/1000x800p.jpg",
-            "https://cdn.rebrickable.com/media/thumbs/sets/75192-1/30888.jpg/1000x800p.jpg"
+            "https://cdn.rebrickable.com/media/thumbs/sets/75317-1/56204.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/75317-1/56203.jpg/1000x800p.jpg",
+            "https://cdn.rebrickable.com/media/thumbs/sets/75317-1/56209.jpg/1000x800p.jpg"
         ]
       },
       {
