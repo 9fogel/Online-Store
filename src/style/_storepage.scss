@@ -115,9 +115,16 @@
 }
 
 .gallery_head {
-  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 36px;
   text-align: center;
   font-weight: bold;
+}
+
+.change_layout {
+  display: flex;
+  gap: 8px;
 }
 
 .item_parameters {

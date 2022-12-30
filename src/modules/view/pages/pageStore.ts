@@ -173,10 +173,59 @@ class StorePage extends Page {
     galleryHeader.classList.add('gallery_head');
     gallery.append(galleryHeader);
 
+    const searchForm = document.createElement('form');
+    searchForm.classList.add('search_form');
+    galleryHeader.append(searchForm);
+
+    const searchInput = document.createElement('input');
+    searchInput.classList.add('search_input');
+    searchInput.setAttribute('type', 'search');
+    searchInput.setAttribute('placeholder', 'Search goods by keyword');
+    searchForm.append(searchInput);
+
     const itemsFound = document.createElement('div');
     itemsFound.classList.add('items_found');
     itemsFound.textContent = `All items:`;
     galleryHeader.append(itemsFound);
+
+    const changeLayout = document.createElement('div');
+    changeLayout.classList.add('change_layout');
+    galleryHeader.append(changeLayout);
+
+    const bigTiles = document.createElement('button');
+    bigTiles.classList.add('big_layout');
+    bigTiles.textContent = `Big Tiles`;
+    changeLayout.append(bigTiles);
+
+    const smallTiles = document.createElement('button');
+    smallTiles.classList.add('small_layout');
+    smallTiles.textContent = `Small Tiles`;
+    changeLayout.append(smallTiles);
+
+    const sortWrap = document.createElement('div');
+    sortWrap.classList.add('sort_wrapper');
+    galleryHeader.append(sortWrap);
+
+    const sortLabel = document.createElement('label');
+    sortLabel.classList.add('sort_label');
+    sortLabel.setAttribute('for', 'sort_select');
+    sortLabel.textContent = `Sort by:`;
+    sortWrap.append(sortLabel);
+
+    const sortDropdown = document.createElement('select');
+    sortDropdown.classList.add('sort_label');
+    sortDropdown.setAttribute('id', 'sort_select');
+    sortDropdown.textContent = `Sort by:`;
+    sortWrap.append(sortDropdown);
+
+    const sortOptionNames = ['name A-Z', 'name Z-A', 'price lowest', 'price highest'];
+    for (let i = 0; i < sortOptionNames.length; i++) {
+      const sortOption = document.createElement('option');
+      sortOption.textContent = sortOptionNames[i];
+      const nameAttr = i < 2 ? sortOptionNames[i].slice(0, 6) : sortOptionNames[i].slice(0, 7);
+      sortOption.setAttribute('name', `${nameAttr}`);
+      sortDropdown.append(sortOption);
+    }
 
     const galleryBody = document.createElement('div');
     galleryBody.classList.add('gallery_body');
