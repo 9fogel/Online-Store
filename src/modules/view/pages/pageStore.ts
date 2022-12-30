@@ -179,8 +179,9 @@ class StorePage extends Page {
     searchInput.setAttribute('placeholder', 'Search goods by keyword');
     searchForm.append(searchInput);
 
-    searchInput.addEventListener('change', () => {
-      console.log(searchInput.value);
+    searchInput.addEventListener('change', (event) => {
+      this.clearGallery();
+      return this.drawCardStore(this.filtersPart.getStoreFiltered(event) ?? []);
     });
 
     const searchBtn = document.createElement('button');

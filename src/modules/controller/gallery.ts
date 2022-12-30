@@ -27,8 +27,9 @@ class Gallery {
 
     const itemsToFilter = this.getFilteredByCheckbox();
     const itemsFiltered = this.getFilteredByRange(itemsToFilter);
+    const itemsSearched = this.getSearchResults(itemsFiltered);
 
-    console.log(Gallery.filtersChecked);
+    // console.log(Gallery.filtersChecked);
     localStorage.setItem('legoFilters', JSON.stringify(Gallery.filtersChecked));
     if (localStorage.getItem('legoFilters')) {
       const filtersUsed = localStorage.getItem('legoFilters') ?? {};
@@ -39,9 +40,7 @@ class Gallery {
         // }
       }
     }
-    // Gallery.queryStr += localStorage.getItem('legoFilters');
-    return itemsFiltered;
-    // return this.getFilteredByCheckbox();
+    return itemsSearched;
   }
 
   static getFilteredByCheckbox() {
@@ -126,6 +125,46 @@ class Gallery {
       }
     }
     return secondRes;
+  }
+
+  static getSearchResults(itemsFiltered: Array<IProduct>) {
+    let itemsSearched = itemsFiltered;
+    const searchInput: HTMLInputElement | null = document.querySelector('.search_input');
+    if (searchInput) {
+      const searchValue = searchInput.value;
+      console.log('searchValue', searchValue);
+      if (searchValue) {
+        const searchRegX = new RegExp(searchValue, 'i');
+        console.log('searchRegX', searchRegX);
+        console.log('type', typeof searchValue);
+
+        itemsSearched = itemsFiltered.filter((item) => {
+          for (const key in item) {
+            const value = item[key].toString();
+            if (searchRegX.test(value)) {
+              return true;
+            }
+          }
+          return false;
+        });
+      }
+    }
+
+    const itemsFound: HTMLElement | null = document.querySelector('.items_found');
+    if (itemsFound) {
+      if (itemsSearched.length === 0) {
+        itemsFound.textContent = 'Sorry. Nothing was found.';
+      } else {
+        if (itemsSearched.length === 1) {
+          itemsFound.textContent = `${itemsSearched.length} item found.`;
+        } else {
+          itemsFound.textContent = `${itemsSearched.length} items found.`;
+        }
+      }
+    }
+
+    console.log('itemsSearched', itemsSearched);
+    return itemsSearched;
   }
 }
 
