@@ -225,6 +225,19 @@ class StorePage extends Page {
     sortDropdown.textContent = `Sort by:`;
     sortWrap.append(sortDropdown);
 
+    sortDropdown.addEventListener('change', (event) => {
+      console.log(sortDropdown.value);
+      this.clearGallery();
+      return this.drawCardStore(this.filtersPart.getStoreFiltered(event) ?? []);
+    });
+
+    const sortOption = document.createElement('option');
+    sortOption.textContent = 'not sorted';
+    sortOption.setAttribute('name', 'default-sort');
+    sortOption.setAttribute('selected', 'selected');
+    sortOption.setAttribute('disabled', 'disabled');
+    sortDropdown.append(sortOption);
+
     const sortOptionNames = ['name A-Z', 'name Z-A', 'price lowest', 'price highest'];
     for (let i = 0; i < sortOptionNames.length; i++) {
       const sortOption = document.createElement('option');

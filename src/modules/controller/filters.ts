@@ -146,7 +146,7 @@ class Filters {
 
   getStoreFiltered(event: Event) {
     if (event.target instanceof Element) {
-      if (event.target.tagName !== 'INPUT') return;
+      if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'SELECT') return;
 
       /** @param filterData = [filterName, checkboxValue] */
       // const filterData: Array<string> = event.target.id.split('_');
@@ -157,9 +157,8 @@ class Filters {
         } else {
           event.target.removeAttribute('checked');
         }
-
-        return Gallery.getFilteredItems();
       }
+      return Gallery.getFilteredItems();
     }
   }
 }

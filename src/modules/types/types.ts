@@ -21,6 +21,7 @@ export type filtersT = {
   interests: Array<string>;
   details: Array<number>;
   price: Array<number>;
+  [key: string]: Array<string> | Array<number>;
 };
 
 export enum Actions {

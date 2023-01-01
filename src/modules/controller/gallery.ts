@@ -28,8 +28,8 @@ class Gallery {
     const itemsToFilter = this.getFilteredByCheckbox();
     const itemsFiltered = this.getFilteredByRange(itemsToFilter);
     const itemsSearched = this.getSearchResults(itemsFiltered);
+    const itemsSorted = this.getItemsSorted(itemsSearched);
 
-    // console.log(Gallery.filtersChecked);
     localStorage.setItem('legoFilters', JSON.stringify(Gallery.filtersChecked));
     if (localStorage.getItem('legoFilters')) {
       const filtersUsed = localStorage.getItem('legoFilters') ?? {};
@@ -40,7 +40,8 @@ class Gallery {
         // }
       }
     }
-    return itemsSearched;
+
+    return itemsSorted;
   }
 
   static getFilteredByCheckbox() {
@@ -112,18 +113,8 @@ class Gallery {
     );
     secondRes.push(...filteredPortionFinal);
 
-    const itemsFound: HTMLElement | null = document.querySelector('.items_found');
-    if (itemsFound) {
-      if (secondRes.length === 0) {
-        itemsFound.textContent = 'Sorry. Nothing was found.';
-      } else {
-        if (secondRes.length === 1) {
-          itemsFound.textContent = `${secondRes.length} item found.`;
-        } else {
-          itemsFound.textContent = `${secondRes.length} items found.`;
-        }
-      }
-    }
+    this.showFoundMessage(secondRes);
+
     return secondRes;
   }
 
@@ -132,11 +123,10 @@ class Gallery {
     const searchInput: HTMLInputElement | null = document.querySelector('.search_input');
     if (searchInput) {
       const searchValue = searchInput.value;
-      console.log('searchValue', searchValue);
       if (searchValue) {
+        Gallery.state = 'filtered';
+        Gallery.filtersChecked.search = [searchValue];
         const searchRegX = new RegExp(searchValue, 'i');
-        console.log('searchRegX', searchRegX);
-        console.log('type', typeof searchValue);
 
         itemsSearched = itemsFiltered.filter((item) => {
           for (const key in item) {
@@ -150,21 +140,62 @@ class Gallery {
       }
     }
 
-    const itemsFound: HTMLElement | null = document.querySelector('.items_found');
-    if (itemsFound) {
-      if (itemsSearched.length === 0) {
-        itemsFound.textContent = 'Sorry. Nothing was found.';
-      } else {
-        if (itemsSearched.length === 1) {
-          itemsFound.textContent = `${itemsSearched.length} item found.`;
-        } else {
-          itemsFound.textContent = `${itemsSearched.length} items found.`;
+    this.showFoundMessage(itemsSearched);
+
+    return itemsSearched;
+  }
+
+  static getItemsSorted(itemsSearched: Array<IProduct>) {
+    let itemsSorted: Array<IProduct> = itemsSearched;
+    const sortDropdown: HTMLElement | null = document.getElementById('sort_select');
+
+    if (sortDropdown instanceof HTMLSelectElement) {
+      const sortValue = sortDropdown.value;
+      Gallery.state = 'filtered';
+      Gallery.filtersChecked.sort = [sortValue];
+
+      if (sortValue.includes('name')) {
+        const order = sortValue.slice(5);
+        switch (order) {
+          case 'A-Z':
+            itemsSorted = itemsSorted.sort((a, b) => a.title.localeCompare(b.title));
+            break;
+          case 'Z-A':
+            itemsSorted = itemsSorted.sort((a, b) => b.title.localeCompare(a.title));
+            break;
+        }
+      }
+      if (sortValue.includes('price')) {
+        const order = sortValue.slice(6);
+        switch (order) {
+          case 'lowest':
+            itemsSorted = itemsSorted.sort((a: IProduct, b: IProduct) => a.priceByn - b.priceByn);
+            break;
+          case 'highest':
+            itemsSorted = itemsSorted.sort((a: IProduct, b: IProduct) => b.priceByn - a.priceByn);
+            break;
         }
       }
     }
 
-    console.log('itemsSearched', itemsSearched);
-    return itemsSearched;
+    return itemsSorted;
+  }
+
+  static showFoundMessage(results: Array<IProduct>) {
+    const itemsFound: HTMLElement | null = document.querySelector('.items_found');
+    const galleryWrap: HTMLElement | null = document.querySelector('.gallery_wrapper');
+    if (itemsFound && galleryWrap) {
+      if (results.length === 0) {
+        galleryWrap.textContent = 'Sorry. Nothing was found.';
+        itemsFound.textContent = `${results.length} items found.`;
+      } else {
+        if (results.length === 1) {
+          itemsFound.textContent = `${results.length} item found.`;
+        } else {
+          itemsFound.textContent = `${results.length} items found.`;
+        }
+      }
+    }
   }
 }
 
