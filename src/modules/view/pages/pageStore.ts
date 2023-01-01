@@ -147,6 +147,11 @@ class StorePage extends Page {
     resetButton.classList.add('reset_btn');
     resetButton.textContent = 'Reset';
     filterBtnWrap.append(resetButton);
+    resetButton.addEventListener('click', () => {
+      this.clearGallery();
+      window.location.hash = '#main-page/';
+      return this.drawCardStore(Gallery.getAllUniqueItems());
+    });
 
     const copyLinkButton = document.createElement('button');
     copyLinkButton.classList.add('copy_link_btn');
@@ -344,6 +349,17 @@ class StorePage extends Page {
 
           if (addBtn) {
             addBtn.addEventListener('click', () => Cart.addItem(item.id));
+            // if (!addBtn.classList.contains('drop_btn')) {
+            // Cart.addItem(item.id);
+            // addBtn.textContent = 'Drop from Cart';
+            // addBtn.classList.add('drop_btn');
+            // } else {
+            //   Cart.removeItem(item.id);
+            //   addBtn.textContent = 'Add to Cart';
+            //   addBtn.classList.remove('drop_btn');
+            //TODO: удалять элемент из корзины при повторном нажатии (если локал сторадж с пустыми значениями, то падет ошибка)
+            // }
+            // });
           }
 
           fragment.append(itemClone);
