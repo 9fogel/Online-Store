@@ -1,9 +1,8 @@
 import Cart from '../../controller/cart';
-// import Gallery from '../../controller/gallery';
 import Page from '../templates/pageTemplate';
-// import Product from '../../controller/product';
 import Filters from '../../controller/filters';
 import { IProduct } from '../../types/types';
+// import Gallery from '../../controller/gallery';
 
 class StorePage extends Page {
   static textObj = {
@@ -17,7 +16,6 @@ class StorePage extends Page {
 
   renderFilters() {
     this.filtersPart.fillFilters();
-    // console.log(Filters.filters);
 
     const filtersWrap = document.createElement('aside');
     filtersWrap.classList.add('filters_wrapper');
@@ -36,10 +34,7 @@ class StorePage extends Page {
     filtersList.classList.add('filters_list');
     filterFieldset.append(filtersList);
 
-    // console.log(Object.keys(Filters.filters));
-
     Object.keys(Filters.filters).forEach((key, index) => {
-      // console.log('key', key);
       const filterItem = document.createElement('li');
       filterItem.classList.add('filter_item');
       filtersList.append(filterItem);
@@ -73,6 +68,7 @@ class StorePage extends Page {
           filterCheckbox.addEventListener('change', (event: Event) => {
             this.clearGallery();
             // console.log(window.location.href);
+            // window.location.hash = Gallery.queryStr;
             return this.drawCardStore(this.filtersPart.getStoreFiltered(event) ?? []);
           });
         });
@@ -183,6 +179,17 @@ class StorePage extends Page {
     searchInput.setAttribute('placeholder', 'Search goods by keyword');
     searchForm.append(searchInput);
 
+    searchInput.addEventListener('change', (event) => {
+      this.clearGallery();
+      return this.drawCardStore(this.filtersPart.getStoreFiltered(event) ?? []);
+    });
+
+    const searchBtn = document.createElement('button');
+    searchBtn.classList.add('search_icon');
+    searchBtn.setAttribute('type', 'submit');
+    searchBtn.setAttribute('disabled', 'disabled');
+    searchForm.append(searchBtn);
+
     const itemsFound = document.createElement('div');
     itemsFound.classList.add('items_found');
     itemsFound.textContent = `All items:`;
@@ -196,11 +203,21 @@ class StorePage extends Page {
     bigTiles.classList.add('big_layout');
     bigTiles.textContent = `Big Tiles`;
     changeLayout.append(bigTiles);
+    bigTiles.addEventListener('click', () => {
+      galleryWrap.classList.toggle('small_tiles');
+      galleryWrap.classList.toggle('big_tiles');
+      console.log('big');
+    });
 
     const smallTiles = document.createElement('button');
     smallTiles.classList.add('small_layout');
     smallTiles.textContent = `Small Tiles`;
     changeLayout.append(smallTiles);
+    smallTiles.addEventListener('click', () => {
+      galleryWrap.classList.toggle('small_tiles');
+      galleryWrap.classList.toggle('big_tiles');
+      console.log('small');
+    });
 
     const sortWrap = document.createElement('div');
     sortWrap.classList.add('sort_wrapper');
@@ -213,10 +230,23 @@ class StorePage extends Page {
     sortWrap.append(sortLabel);
 
     const sortDropdown = document.createElement('select');
-    sortDropdown.classList.add('sort_label');
+    sortDropdown.classList.add('sort_select');
     sortDropdown.setAttribute('id', 'sort_select');
     sortDropdown.textContent = `Sort by:`;
     sortWrap.append(sortDropdown);
+
+    sortDropdown.addEventListener('change', (event) => {
+      console.log(sortDropdown.value);
+      this.clearGallery();
+      return this.drawCardStore(this.filtersPart.getStoreFiltered(event) ?? []);
+    });
+
+    const sortOption = document.createElement('option');
+    sortOption.textContent = 'not sorted';
+    sortOption.setAttribute('name', 'default-sort');
+    sortOption.setAttribute('selected', 'selected');
+    sortOption.setAttribute('disabled', 'disabled');
+    sortDropdown.append(sortOption);
 
     const sortOptionNames = ['name A-Z', 'name Z-A', 'price lowest', 'price highest'];
     for (let i = 0; i < sortOptionNames.length; i++) {
@@ -233,21 +263,8 @@ class StorePage extends Page {
 
     const galleryWrap = document.createElement('div');
     galleryWrap.classList.add('gallery_wrapper');
+    galleryWrap.classList.add('small_tiles');
     galleryBody.append(galleryWrap);
-    // const gallery = document.createElement('div');
-    // gallery.innerHTML = `
-    //       <section class="gallery">
-    //         <div class="gallery_head">
-    //           <div class="items_amount">100 items found</div>
-    //           <div class="search">Search</div>
-    //           <div class="sorting">Sort by</div>
-    //           <div class="view">Big/Small</div>
-    //         </div>
-    //         <div class="gallery_body">
-    //           <div class="gallery_wrapper">
-    //           </div>
-    //         </div>
-    //       </section>`;
     this.container.append(gallery);
     return galleryWrap;
   }
@@ -334,7 +351,6 @@ class StorePage extends Page {
   render() {
     this.renderFilters();
     this.renderGallery();
-    // this.drawCardStore();
     return this.container;
   }
 }

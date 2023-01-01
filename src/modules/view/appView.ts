@@ -39,7 +39,7 @@ class AppView {
 
     let page: Page | null = null;
 
-    if (pageID === pageIDs.StorePage) {
+    if (pageID.includes(pageIDs.StorePage)) {
       page = new StorePage(pageID);
     } else if (pageID === pageIDs.CartPage) {
       page = new CartPage(pageID);
@@ -62,7 +62,12 @@ class AppView {
       }
       // const items: Array<IProduct> = Gallery.getUniqueItems();
       // page.drawCardStore(items);
-      page.drawCardStore(Gallery.items);
+      if (Gallery.state === 'not filtered') {
+        page.drawCardStore(Gallery.items);
+      } else {
+        page.drawCardStore(Gallery.getFilteredItems());
+      }
+      // page.drawCardStore(Gallery.items);
     }
 
     if (page instanceof ProductPage) {

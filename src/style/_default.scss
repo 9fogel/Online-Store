@@ -34,7 +34,8 @@ a {
 
 button {
   cursor: pointer;
-  padding: 0;
+  padding: 4px 16px;
+  height: 40px;
 }
 
 h1, h2, h3, h4, h5, h6, p {
@@ -65,11 +66,11 @@ h1, h2, h3, h4, h5, h6, p {
   flex-wrap: wrap;
 }
 
-.item_pic_img, .cart_item_pic_img {
+.cart_item_pic_img {
   width: 100px;
 }
 
-.store_item, .cart_item {
+.cart_item {
   width: 200px;
   border: 1px solid #000;
   border-radius: 10px;

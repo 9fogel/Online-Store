@@ -146,20 +146,19 @@ class Filters {
 
   getStoreFiltered(event: Event) {
     if (event.target instanceof Element) {
-      if (event.target.tagName !== 'INPUT') return;
+      if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'SELECT') return;
 
       /** @param filterData = [filterName, checkboxValue] */
-      const filterData: Array<string> = event.target.id.split('_');
-      console.log('filterData', filterData);
+      // const filterData: Array<string> = event.target.id.split('_');
+      // console.log('filterData', filterData);
       if (event.target instanceof HTMLInputElement) {
-        if (!event.target.hasAttribute('checked') && event.target.type !== 'range') {
+        if (!event.target.hasAttribute('checked') && event.target.type === 'checkbox') {
           event.target.setAttribute('checked', 'true');
         } else {
           event.target.removeAttribute('checked');
         }
-
-        return Gallery.getFilteredItems(filterData);
       }
+      return Gallery.getFilteredItems();
     }
   }
 }
