@@ -203,11 +203,21 @@ class StorePage extends Page {
     bigTiles.classList.add('big_layout');
     bigTiles.textContent = `Big Tiles`;
     changeLayout.append(bigTiles);
+    bigTiles.addEventListener('click', () => {
+      galleryWrap.classList.toggle('small_tiles');
+      galleryWrap.classList.toggle('big_tiles');
+      console.log('big');
+    });
 
     const smallTiles = document.createElement('button');
     smallTiles.classList.add('small_layout');
     smallTiles.textContent = `Small Tiles`;
     changeLayout.append(smallTiles);
+    smallTiles.addEventListener('click', () => {
+      galleryWrap.classList.toggle('small_tiles');
+      galleryWrap.classList.toggle('big_tiles');
+      console.log('small');
+    });
 
     const sortWrap = document.createElement('div');
     sortWrap.classList.add('sort_wrapper');
@@ -220,7 +230,7 @@ class StorePage extends Page {
     sortWrap.append(sortLabel);
 
     const sortDropdown = document.createElement('select');
-    sortDropdown.classList.add('sort_label');
+    sortDropdown.classList.add('sort_select');
     sortDropdown.setAttribute('id', 'sort_select');
     sortDropdown.textContent = `Sort by:`;
     sortWrap.append(sortDropdown);
@@ -253,6 +263,7 @@ class StorePage extends Page {
 
     const galleryWrap = document.createElement('div');
     galleryWrap.classList.add('gallery_wrapper');
+    galleryWrap.classList.add('small_tiles');
     galleryBody.append(galleryWrap);
     this.container.append(gallery);
     return galleryWrap;
