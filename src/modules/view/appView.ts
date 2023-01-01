@@ -8,7 +8,8 @@ import ProductPage from './pages/pageProduct';
 import Footer from './templates/footer';
 import Main from './templates/main';
 import Gallery from '../controller/gallery';
-import { IProduct } from '../types/types';
+// import { IProduct } from '../types/types';
+import Cart from '../controller/cart';
 
 export const enum pageIDs {
   StorePage = 'main-page',
@@ -71,9 +72,7 @@ class AppView {
 
     if (page instanceof ProductPage) {
       const id = +pageID.slice(13);
-      console.log('pageID', pageID);
-      console.log('id', id);
-      const product: IProduct = Gallery.items[id - 1];
+      const product = Cart.getProduct(id);
       page.render(product);
     }
 
