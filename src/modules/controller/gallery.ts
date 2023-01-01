@@ -12,6 +12,7 @@ class Gallery {
     interests: [],
     details: [],
     price: [],
+    view: [],
   };
 
   static getAllUniqueItems() {
