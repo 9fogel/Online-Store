@@ -2,7 +2,7 @@ import Cart from '../../controller/cart';
 import Page from '../templates/pageTemplate';
 import Filters from '../../controller/filters';
 import { IProduct } from '../../types/types';
-// import Gallery from '../../controller/gallery';
+import Gallery from '../../controller/gallery';
 
 class StorePage extends Page {
   static textObj = {
@@ -147,6 +147,11 @@ class StorePage extends Page {
     resetButton.classList.add('reset_btn');
     resetButton.textContent = 'Reset';
     filterBtnWrap.append(resetButton);
+    resetButton.addEventListener('click', () => {
+      this.clearGallery();
+      window.location.hash = '#main-page/';
+      return this.drawCardStore(Gallery.getAllUniqueItems());
+    });
 
     const copyLinkButton = document.createElement('button');
     copyLinkButton.classList.add('copy_link_btn');
@@ -206,17 +211,28 @@ class StorePage extends Page {
     bigTiles.addEventListener('click', () => {
       galleryWrap.classList.toggle('small_tiles');
       galleryWrap.classList.toggle('big_tiles');
-      console.log('big');
+      bigTiles.setAttribute('disabled', 'disabled');
+      smallTiles.removeAttribute('disabled');
+      Gallery.filtersChecked.view = ['big'];
+      if (!localStorage.getItem('legoFilters')) {
+        localStorage.setItem('legoFilters', JSON.stringify(Gallery.filtersChecked));
+      }
     });
 
     const smallTiles = document.createElement('button');
     smallTiles.classList.add('small_layout');
     smallTiles.textContent = `Small Tiles`;
     changeLayout.append(smallTiles);
+    smallTiles.setAttribute('disabled', 'disabled');
     smallTiles.addEventListener('click', () => {
       galleryWrap.classList.toggle('small_tiles');
       galleryWrap.classList.toggle('big_tiles');
-      console.log('small');
+      smallTiles.setAttribute('disabled', 'disabled');
+      bigTiles.removeAttribute('disabled');
+      Gallery.filtersChecked.view = ['small'];
+      if (!localStorage.getItem('legoFilters')) {
+        localStorage.setItem('legoFilters', JSON.stringify(Gallery.filtersChecked));
+      }
     });
 
     const sortWrap = document.createElement('div');
@@ -333,6 +349,17 @@ class StorePage extends Page {
 
           if (addBtn) {
             addBtn.addEventListener('click', () => Cart.addItem(item.id));
+            // if (!addBtn.classList.contains('drop_btn')) {
+            // Cart.addItem(item.id);
+            // addBtn.textContent = 'Drop from Cart';
+            // addBtn.classList.add('drop_btn');
+            // } else {
+            //   Cart.removeItem(item.id);
+            //   addBtn.textContent = 'Add to Cart';
+            //   addBtn.classList.remove('drop_btn');
+            //TODO: удалять элемент из корзины при повторном нажатии (если локал сторадж с пустыми значениями, то падет ошибка)
+            // }
+            // });
           }
 
           fragment.append(itemClone);
