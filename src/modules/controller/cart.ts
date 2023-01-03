@@ -20,6 +20,16 @@ class Cart {
     localStorage.setItem('cart', this.itemsID.join(','));
     Refresher.refreshHeader();
   }
+  static removeProduct(id: number) {
+    console.log('remove');
+    while (Cart.getProductAmount(id) > 0) {
+      console.log(Cart.getProductAmount(id));
+      const index = this.itemsID.indexOf(id);
+      this.itemsID.splice(index, 1);
+      localStorage.setItem('cart', this.itemsID.join(','));
+    }
+    Refresher.refreshHeader();
+  }
   static removeAll() {
     this.itemsID = [];
     localStorage.removeItem('cart');

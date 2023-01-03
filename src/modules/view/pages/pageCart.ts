@@ -69,7 +69,10 @@ class CartPage extends Page {
     const clearBtn = document.createElement('button');
     clearBtn.classList.add('clear_cart');
     clearBtn.innerText = 'Clear all';
-    clearBtn.addEventListener('click', Cart.removeAll);
+    clearBtn.addEventListener('click', () => {
+      Cart.removeAll();
+      this.emptyCart();
+    });
     cartGallery.append(this.renderCartGalleryHeader());
     cartGallery.append(this.renderCartGalleryBody());
     cartGallery.append(clearBtn);
@@ -120,6 +123,20 @@ class CartPage extends Page {
     cart.append(this.renderCartGallery());
     cart.append(this.renderCartSummary());
     this.container.append(cart);
+  }
+
+  clearCart() {
+    const wrapper: HTMLElement | null = document.querySelector('.cart_gallery_body');
+    if (wrapper) {
+      wrapper.innerHTML = '';
+    }
+  }
+
+  emptyCart() {
+    const wrapper: HTMLElement | null = document.querySelector('.cart_gallery_body');
+    if (wrapper) {
+      wrapper.innerHTML = 'No items in cart';
+    }
   }
 
   drawCardCart() {
@@ -186,7 +203,11 @@ class CartPage extends Page {
           const removeItem: HTMLElement | null = itemClone.querySelector('.cart_item_amount_less');
           if (removeItem) {
             removeItem.textContent = `-`;
-            removeItem.addEventListener('click', () => Cart.removeItem(item.id));
+            removeItem.addEventListener('click', () => {
+              Cart.removeItem(item.id);
+              this.clearCart();
+              return this.drawCardCart();
+            });
           }
 
           const countItem: HTMLElement | null = itemClone.querySelector('.cart_count');
@@ -197,7 +218,11 @@ class CartPage extends Page {
           const addItem: HTMLElement | null = itemClone.querySelector('.cart_item_amount_more');
           if (addItem) {
             addItem.textContent = `+`;
-            addItem.addEventListener('click', () => Cart.addItem(item.id));
+            addItem.addEventListener('click', () => {
+              Cart.addItem(item.id);
+              this.clearCart();
+              return this.drawCardCart();
+            });
           }
           fragment.append(itemClone);
         }

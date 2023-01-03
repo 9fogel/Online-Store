@@ -3,6 +3,7 @@ import Page from '../templates/pageTemplate';
 import Filters from '../../controller/filters';
 import { IProduct } from '../../types/types';
 import Gallery from '../../controller/gallery';
+import changeBtn from '../../controller/addInCart';
 
 class StorePage extends Page {
   static textObj = {
@@ -349,13 +350,13 @@ class StorePage extends Page {
 
           if (addBtn) {
             if (Cart.getProductAmount(item.id)) {
-              addBtn.classList.add('button_added');
-              addBtn.innerText = `In Cart (${Cart.getProductAmount(item.id)})`;
-              addBtn.addEventListener('click', () => Cart.addItem(item.id));
+              addBtn.classList.add('button_discard');
+              addBtn.innerText = `Drop from Cart (${Cart.getProductAmount(item.id)})`;
+              addBtn.addEventListener('click', () => changeBtn(addBtn, 'discard', item.id));
             } else {
               addBtn.classList.add('button_buy');
               addBtn.innerText = 'Add to cart';
-              addBtn.addEventListener('click', () => Cart.addItem(item.id));
+              addBtn.addEventListener('click', () => changeBtn(addBtn, 'add', item.id));
             }
             // if (!addBtn.classList.contains('drop_btn')) {
             // Cart.addItem(item.id);

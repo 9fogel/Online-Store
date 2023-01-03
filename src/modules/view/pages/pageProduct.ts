@@ -3,6 +3,7 @@ import openModal from '../../controller/modal/openModal';
 // import Product from '../../controller/product';
 import Page from '../templates/pageTemplate';
 import { IProduct } from '../../types/types';
+import changeBtn from '../../controller/addInCart';
 
 class ProductPage extends Page {
   static textObj = {
@@ -48,13 +49,13 @@ class ProductPage extends Page {
     if (item) {
       const addBtn = document.createElement('button');
       if (Cart.getProductAmount(item.id)) {
-        addBtn.classList.add('button_added');
-        addBtn.innerText = `In Cart (${Cart.getProductAmount(item.id)})`;
-        addBtn.addEventListener('click', () => Cart.addItem(item.id));
+        addBtn.classList.add('button_discard');
+        addBtn.innerText = `Drop from Cart (${Cart.getProductAmount(item.id)})`;
+        addBtn.addEventListener('click', () => changeBtn(addBtn, 'discard', item.id));
       } else {
         addBtn.classList.add('button_buy');
         addBtn.innerText = 'Add to cart';
-        addBtn.addEventListener('click', () => Cart.addItem(item.id));
+        addBtn.addEventListener('click', () => changeBtn(addBtn, 'add', item.id));
       }
 
       const buyBtn = document.createElement('button');
