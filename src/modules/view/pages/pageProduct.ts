@@ -47,9 +47,15 @@ class ProductPage extends Page {
   renderButtons(item?: IProduct) {
     if (item) {
       const addBtn = document.createElement('button');
-      addBtn.classList.add('button_buy');
-      addBtn.innerText = 'Add to cart';
-      addBtn.addEventListener('click', () => Cart.addItem(item.id));
+      if (Cart.getProductAmount(item.id)) {
+        addBtn.classList.add('button_added');
+        addBtn.innerText = `In Cart (${Cart.getProductAmount(item.id)})`;
+        addBtn.addEventListener('click', () => Cart.addItem(item.id));
+      } else {
+        addBtn.classList.add('button_buy');
+        addBtn.innerText = 'Add to cart';
+        addBtn.addEventListener('click', () => Cart.addItem(item.id));
+      }
 
       const buyBtn = document.createElement('button');
       buyBtn.classList.add('button_buy');
