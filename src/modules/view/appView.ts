@@ -60,14 +60,11 @@ class AppView {
       if (pageWrap) {
         pageWrap.classList.add('store_page');
       }
-      // const items: Array<IProduct> = Gallery.getUniqueItems();
-      // page.drawCardStore(items);
-      if (Gallery.state === 'not filtered') {
+      if (!localStorage.getItem('legoFilters')) {
         page.drawCardStore(Gallery.items);
       } else {
         page.drawCardStore(Gallery.getFilteredItems());
       }
-      // page.drawCardStore(Gallery.items);
     }
 
     if (page instanceof ProductPage) {

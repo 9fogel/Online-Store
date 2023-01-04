@@ -53,7 +53,7 @@ class Filters {
     // console.log(Filters.filters);
   }
 
-  private fillSlider(
+  public fillSlider(
     sliderMin: HTMLInputElement,
     sliderMax: HTMLInputElement,
     fillColor: string,
@@ -82,7 +82,7 @@ class Filters {
     }
   }
 
-  private getValues(currentMin: HTMLInputElement, currentMax: HTMLInputElement) {
+  public getValues(currentMin: HTMLInputElement, currentMax: HTMLInputElement) {
     const from = parseInt(currentMin.value, 10);
     const to = parseInt(currentMax.value, 10);
     return [from, to];
@@ -122,27 +122,9 @@ class Filters {
     this.setToggle(sliderMax, sliderMax, minValue);
   }
 
-  // filterCheckbox(filterName: string, checkboxValue: string) {
-  //   // console.log('filterCheckbox', filterName, checkboxValue);
-  //   const filteredItemsArr = Array.from(products.products).filter((el: IProduct) => el[filterName] === checkboxValue);
-  //   console.log(filteredItemsArr);
-
-  //   const items = Gallery.getFilteredItems(filteredItemsArr, filterName);
-  //   return items;
-  // }
-
   filterDualSlider(filterName: string) {
     console.log('filterName', filterName);
   }
-
-  // applyFilters(filterData: Array<string>, action) {
-  //   const [filterName, checkboxValue] = filterData;
-  //   if (filterName === 'theme' || filterName === 'interests') {
-  //     // const items = Gallery.getFilteredByCheckbox(filterName, checkboxValue);
-  //     const items = Gallery.getFilteredItems(filterName, checkboxValue, action);
-  //     return items;
-  //   }
-  // }
 
   getStoreFiltered(event: Event) {
     if (event.target instanceof Element) {
@@ -152,13 +134,16 @@ class Filters {
       // const filterData: Array<string> = event.target.id.split('_');
       // console.log('filterData', filterData);
       if (event.target instanceof HTMLInputElement) {
+        // if (event.target.checked && event.target.type === 'checkbox') {
         if (!event.target.hasAttribute('checked') && event.target.type === 'checkbox') {
           event.target.setAttribute('checked', 'true');
+          // event.target.checked = true;
         } else {
+          // event.target.checked = false;
           event.target.removeAttribute('checked');
         }
       }
-      return Gallery.getFilteredItems();
+      return Gallery.getFilteredItems(event);
     }
   }
 }
