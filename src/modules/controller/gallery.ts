@@ -13,6 +13,7 @@ class Gallery {
     interests: [],
     details: [],
     price: [],
+    search: [],
     layout: [],
   };
 
@@ -159,6 +160,7 @@ class Gallery {
     const searchInput: HTMLInputElement | null = document.querySelector('.search_input');
     if (searchInput) {
       const searchValue = searchInput.value;
+      console.log('s', searchValue);
       if (searchValue) {
         Gallery.state = 'filtered';
         Gallery.filtersChecked.search = [searchValue];
@@ -173,6 +175,8 @@ class Gallery {
           }
           return false;
         });
+      } else {
+        Gallery.filtersChecked.search = [];
       }
     }
 
