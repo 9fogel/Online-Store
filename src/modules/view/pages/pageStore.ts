@@ -1,7 +1,7 @@
 import Cart from '../../controller/cart';
 import Page from '../templates/pageTemplate';
 import Filters from '../../controller/filters';
-import { IProduct } from '../../types/types';
+import { filtersT, IProduct } from '../../types/types';
 import Gallery from '../../controller/gallery';
 
 class StorePage extends Page {
@@ -14,7 +14,86 @@ class StorePage extends Page {
     super(id);
   }
 
-  renderFilters() {
+  fillCheckedFilters(key: string, checkboxValue: string | number, checkboxEl: HTMLInputElement): void {
+    if (localStorage.getItem('legoFilters')) {
+      const filtersUsed = localStorage.getItem('legoFilters') ?? {};
+      const filtersUsedObj: filtersT = JSON.parse(filtersUsed.toString());
+      const storageArray: Array<string | number> = filtersUsedObj[key];
+
+      if (storageArray.includes(checkboxValue)) {
+        Gallery.state === 'filtered';
+        checkboxEl.setAttribute('checked', 'true');
+      }
+    }
+  }
+
+  fillChangedSlider(
+    key: string,
+    rangeMin: HTMLInputElement,
+    rangeMax: HTMLInputElement,
+    rangeValueMin: HTMLSpanElement,
+    rangeValueMax: HTMLSpanElement,
+  ): void {
+    if (localStorage.getItem('legoFilters')) {
+      const filtersUsed = localStorage.getItem('legoFilters') ?? {};
+      const filtersUsedObj: filtersT = JSON.parse(filtersUsed.toString());
+      const storageArray: Array<string | number> = filtersUsedObj[key];
+      if (storageArray.length !== 0) {
+        Gallery.state === 'filtered';
+        rangeMin.value = filtersUsedObj[key][0].toString();
+        rangeMax.value = filtersUsedObj[key][1].toString();
+        rangeValueMin.textContent = `${rangeMin.value}`;
+        rangeValueMax.textContent = `${rangeMax.value}`;
+        this.filtersPart.fillSlider(rangeMin, rangeMax, 'orange', '#C6C6C6', rangeMax);
+      }
+    }
+  }
+
+  fillSearchInput(searchInput: HTMLInputElement): void {
+    if (localStorage.getItem('legoFilters')) {
+      const filtersUsed = localStorage.getItem('legoFilters') ?? {};
+      const filtersUsedObj: filtersT = JSON.parse(filtersUsed.toString());
+      if (filtersUsedObj.search) {
+        Gallery.state === 'filtered';
+        searchInput.value = filtersUsedObj.search.toString();
+      }
+    }
+  }
+
+  fillSortSelect(sortDropdown: HTMLSelectElement, defaultOption: HTMLOptionElement): void {
+    if (localStorage.getItem('legoFilters')) {
+      const filtersUsed = localStorage.getItem('legoFilters') ?? {};
+      const filtersUsedObj: filtersT = JSON.parse(filtersUsed.toString());
+      if (filtersUsedObj.sort) {
+        Gallery.state === 'filtered';
+        defaultOption.removeAttribute('selected');
+        sortDropdown.value = filtersUsedObj.sort.toString();
+      }
+    }
+  }
+
+  fillLayoutValue(bigTilesRadio: HTMLInputElement, smallTilesRadio: HTMLInputElement, galleryWrap: HTMLElement): void {
+    if (localStorage.getItem('legoFilters')) {
+      const filtersUsed = localStorage.getItem('legoFilters') ?? {};
+      const filtersUsedObj: filtersT = JSON.parse(filtersUsed.toString());
+      if (filtersUsedObj.layout) {
+        Gallery.state === 'filtered';
+        if (filtersUsedObj.layout.toString() === 'big') {
+          bigTilesRadio.setAttribute('checked', 'true');
+          smallTilesRadio.removeAttribute('checked');
+          galleryWrap.classList.remove('small_tiles');
+          galleryWrap.classList.add('big_tiles');
+        } else {
+          smallTilesRadio.setAttribute('checked', 'true');
+          bigTilesRadio.removeAttribute('checked');
+          galleryWrap.classList.add('small_tiles');
+          galleryWrap.classList.remove('big_tiles');
+        }
+      }
+    }
+  }
+
+  renderFilters(): void {
     this.filtersPart.fillFilters();
 
     const filtersWrap = document.createElement('aside');
@@ -34,7 +113,7 @@ class StorePage extends Page {
     filtersList.classList.add('filters_list');
     filterFieldset.append(filtersList);
 
-    Object.keys(Filters.filters).forEach((key, index) => {
+    Object.keys(Filters.filters).forEach((key: string, index: number) => {
       const filterItem = document.createElement('li');
       filterItem.classList.add('filter_item');
       filtersList.append(filterItem);
@@ -49,7 +128,7 @@ class StorePage extends Page {
         filterInnerList.classList.add('filter_inner_list');
         filterItem.append(filterInnerList);
 
-        Filters.filters[key as keyof typeof Filters.filters].forEach((elem) => {
+        Filters.filters[key as keyof typeof Filters.filters].forEach((elem: string | number) => {
           const filterInnerItem = document.createElement('li');
           filterInnerItem.classList.add('filter_inner_item');
           filterInnerList.append(filterInnerItem);
@@ -65,12 +144,12 @@ class StorePage extends Page {
           filterLabel.textContent = `${elem}`;
           filterInnerItem.append(filterLabel);
 
-          filterCheckbox.addEventListener('change', (event: Event) => {
+          filterCheckbox.addEventListener('change', (event: Event): void => {
             this.clearGallery();
-            // console.log(window.location.href);
-            // window.location.hash = Gallery.queryStr;
             return this.drawCardStore(this.filtersPart.getStoreFiltered(event) ?? []);
           });
+
+          this.fillCheckedFilters(key, elem, filterCheckbox);
         });
       } else {
         const rangeWrap = document.createElement('div');
@@ -118,24 +197,24 @@ class StorePage extends Page {
         rangeValueMax.textContent = `${maxValue}`;
         rangeValues.append(rangeValueMax);
 
-        rangeMin.addEventListener('input', () => {
+        rangeMin.addEventListener('input', (): void => {
           this.filtersPart.enableDualSliders(rangeMin, rangeMax, minValue);
           this.filtersPart.handleSliderMin(rangeMin, rangeMax, rangeValueMin);
         });
-        rangeMin.addEventListener('change', (event) => {
-          console.log(rangeValueMin.textContent);
+        rangeMin.addEventListener('change', (event: Event): void => {
           this.clearGallery();
           return this.drawCardStore(this.filtersPart.getStoreFiltered(event) ?? []);
         });
-        rangeMax.addEventListener('input', () => {
+        rangeMax.addEventListener('input', (): void => {
           this.filtersPart.enableDualSliders(rangeMin, rangeMax, minValue);
           this.filtersPart.handleSliderMax(rangeMin, rangeMax, rangeValueMax, minValue);
         });
-        rangeMax.addEventListener('change', (event) => {
-          console.log('rangeValueMax', rangeValueMax);
+        rangeMax.addEventListener('change', (event: Event): void => {
           this.clearGallery();
           return this.drawCardStore(this.filtersPart.getStoreFiltered(event) ?? []);
         });
+
+        this.fillChangedSlider(key, rangeMin, rangeMax, rangeValueMin, rangeValueMax);
       }
     });
 
@@ -147,9 +226,11 @@ class StorePage extends Page {
     resetButton.classList.add('reset_btn');
     resetButton.textContent = 'Reset';
     filterBtnWrap.append(resetButton);
-    resetButton.addEventListener('click', () => {
+    resetButton.addEventListener('click', (): void => {
+      console.log('reset');
+      localStorage.removeItem('legoFilters');
       this.clearGallery();
-      window.location.hash = '#main-page/';
+      window.location.hash = '#main-page';
       return this.drawCardStore(Gallery.getAllUniqueItems());
     });
 
@@ -159,20 +240,29 @@ class StorePage extends Page {
     filterBtnWrap.append(copyLinkButton);
   }
 
-  clearGallery() {
+  clearGallery(): void {
     const galleryWrap: HTMLElement | null = document.querySelector('.gallery_wrapper');
     if (galleryWrap) {
       galleryWrap.innerHTML = ' ';
     }
   }
 
-  renderGallery() {
+  renderGallery(): HTMLDivElement {
     const gallery = document.createElement('section');
     gallery.classList.add('gallery');
 
     const galleryHeader = document.createElement('div');
     galleryHeader.classList.add('gallery_head');
     gallery.append(galleryHeader);
+
+    const galleryBody = document.createElement('div');
+    galleryBody.classList.add('gallery_body');
+    gallery.append(galleryBody);
+
+    const galleryWrap = document.createElement('div');
+    galleryWrap.classList.add('gallery_wrapper');
+    galleryWrap.classList.add('small_tiles');
+    galleryBody.append(galleryWrap);
 
     const searchForm = document.createElement('form');
     searchForm.classList.add('search_form');
@@ -184,10 +274,12 @@ class StorePage extends Page {
     searchInput.setAttribute('placeholder', 'Search goods by keyword');
     searchForm.append(searchInput);
 
-    searchInput.addEventListener('change', (event) => {
+    searchInput.addEventListener('change', (event: Event): void => {
       this.clearGallery();
       return this.drawCardStore(this.filtersPart.getStoreFiltered(event) ?? []);
     });
+
+    this.fillSearchInput(searchInput);
 
     const searchBtn = document.createElement('button');
     searchBtn.classList.add('search_icon');
@@ -204,36 +296,52 @@ class StorePage extends Page {
     changeLayout.classList.add('change_layout');
     galleryHeader.append(changeLayout);
 
-    const bigTiles = document.createElement('button');
+    const bigTiles = document.createElement('div');
     bigTiles.classList.add('big_layout');
-    bigTiles.textContent = `Big Tiles`;
     changeLayout.append(bigTiles);
-    bigTiles.addEventListener('click', () => {
-      galleryWrap.classList.toggle('small_tiles');
-      galleryWrap.classList.toggle('big_tiles');
-      bigTiles.setAttribute('disabled', 'disabled');
-      smallTiles.removeAttribute('disabled');
-      Gallery.filtersChecked.view = ['big'];
-      if (!localStorage.getItem('legoFilters')) {
-        localStorage.setItem('legoFilters', JSON.stringify(Gallery.filtersChecked));
-      }
+
+    const bigTilesRadio = document.createElement('input');
+    bigTilesRadio.classList.add('custom_radio');
+    bigTilesRadio.setAttribute('type', 'radio');
+    bigTilesRadio.setAttribute('name', 'layout');
+    bigTilesRadio.setAttribute('id', 'big');
+    bigTilesRadio.setAttribute('value', 'big');
+    bigTiles.append(bigTilesRadio);
+
+    const bigTilesLabel = document.createElement('label');
+    bigTilesLabel.setAttribute('for', 'big');
+    bigTilesLabel.textContent = 'Big Tiles';
+    bigTiles.append(bigTilesLabel);
+
+    const smallTiles = document.createElement('div');
+    smallTiles.classList.add('small_layout');
+    changeLayout.append(smallTiles);
+
+    const smallTilesRadio = document.createElement('input');
+    smallTilesRadio.classList.add('custom_radio');
+    smallTilesRadio.setAttribute('type', 'radio');
+    smallTilesRadio.setAttribute('name', 'layout');
+    smallTilesRadio.setAttribute('id', 'small');
+    smallTilesRadio.setAttribute('value', 'small');
+    smallTilesRadio.setAttribute('checked', 'true');
+    smallTiles.append(smallTilesRadio);
+
+    const smallTilesLabel = document.createElement('label');
+    smallTilesLabel.setAttribute('for', 'small');
+    smallTilesLabel.textContent = 'Small Tiles';
+    smallTiles.append(smallTilesLabel);
+
+    bigTilesRadio.addEventListener('change', (event: Event): void => {
+      this.clearGallery();
+      return this.drawCardStore(this.filtersPart.getStoreFiltered(event) ?? []);
     });
 
-    const smallTiles = document.createElement('button');
-    smallTiles.classList.add('small_layout');
-    smallTiles.textContent = `Small Tiles`;
-    changeLayout.append(smallTiles);
-    smallTiles.setAttribute('disabled', 'disabled');
-    smallTiles.addEventListener('click', () => {
-      galleryWrap.classList.toggle('small_tiles');
-      galleryWrap.classList.toggle('big_tiles');
-      smallTiles.setAttribute('disabled', 'disabled');
-      bigTiles.removeAttribute('disabled');
-      Gallery.filtersChecked.view = ['small'];
-      if (!localStorage.getItem('legoFilters')) {
-        localStorage.setItem('legoFilters', JSON.stringify(Gallery.filtersChecked));
-      }
+    smallTilesRadio.addEventListener('change', (event: Event): void => {
+      this.clearGallery();
+      return this.drawCardStore(this.filtersPart.getStoreFiltered(event) ?? []);
     });
+
+    this.fillLayoutValue(bigTilesRadio, smallTilesRadio, galleryWrap);
 
     const sortWrap = document.createElement('div');
     sortWrap.classList.add('sort_wrapper');
@@ -251,7 +359,7 @@ class StorePage extends Page {
     sortDropdown.textContent = `Sort by:`;
     sortWrap.append(sortDropdown);
 
-    sortDropdown.addEventListener('change', (event) => {
+    sortDropdown.addEventListener('change', (event: Event): void => {
       console.log(sortDropdown.value);
       this.clearGallery();
       return this.drawCardStore(this.filtersPart.getStoreFiltered(event) ?? []);
@@ -273,26 +381,17 @@ class StorePage extends Page {
       sortDropdown.append(sortOption);
     }
 
-    const galleryBody = document.createElement('div');
-    galleryBody.classList.add('gallery_body');
-    gallery.append(galleryBody);
+    this.fillSortSelect(sortDropdown, sortOption);
 
-    const galleryWrap = document.createElement('div');
-    galleryWrap.classList.add('gallery_wrapper');
-    galleryWrap.classList.add('small_tiles');
-    galleryBody.append(galleryWrap);
     this.container.append(gallery);
     return galleryWrap;
   }
 
-  drawCardStore(items: Array<IProduct>) {
-    // const items: Product[] = Gallery.getUniqueItems();
-    // const items: Array<IProduct> = Gallery.getUniqueItems();
+  drawCardStore(items: Array<IProduct>): void {
     const fragment: DocumentFragment = document.createDocumentFragment();
     const productCardTemplate: HTMLTemplateElement | null = document.querySelector('.item_template');
 
     if (productCardTemplate) {
-      // items.forEach((item: Product) => {
       items.forEach((item: IProduct) => {
         const itemClone: DocumentFragment | Node = productCardTemplate.content.cloneNode(true);
         if (itemClone instanceof DocumentFragment && itemClone) {
@@ -348,18 +447,7 @@ class StorePage extends Page {
           const addBtn: HTMLButtonElement | null = itemClone.querySelector('.add_item_to_cart');
 
           if (addBtn) {
-            addBtn.addEventListener('click', () => Cart.addItem(item.id));
-            // if (!addBtn.classList.contains('drop_btn')) {
-            // Cart.addItem(item.id);
-            // addBtn.textContent = 'Drop from Cart';
-            // addBtn.classList.add('drop_btn');
-            // } else {
-            //   Cart.removeItem(item.id);
-            //   addBtn.textContent = 'Add to Cart';
-            //   addBtn.classList.remove('drop_btn');
-            //TODO: удалять элемент из корзины при повторном нажатии (если локал сторадж с пустыми значениями, то падет ошибка)
-            // }
-            // });
+            addBtn.addEventListener('click', (): void => Cart.addItem(item.id));
           }
 
           fragment.append(itemClone);
@@ -375,7 +463,7 @@ class StorePage extends Page {
     this.container.append(fragment);
   }
 
-  render() {
+  render(): HTMLElement {
     this.renderFilters();
     this.renderGallery();
     return this.container;

@@ -1,18 +1,19 @@
 import { IProduct } from '../types/types';
 import products from '../data/products.json';
 import { filtersT } from '../types/types';
+import Filters from './filters';
 
 class Gallery {
   static items: Array<IProduct> = Gallery.getAllUniqueItems();
   static filteredPortion: Array<IProduct> = [];
   static state = 'not filtered';
-  static queryStr = '#main-page/';
+  static queryStr = '#main-page';
   static filtersChecked: filtersT = {
     theme: [],
     interests: [],
     details: [],
     price: [],
-    view: [],
+    layout: [],
   };
 
   static getAllUniqueItems() {
@@ -23,24 +24,45 @@ class Gallery {
     return this.items;
   }
 
-  static getFilteredItems() {
-    Gallery.queryStr = '#main-page/';
+  static createQueryString() {
+    if (localStorage.getItem('legoFilters')) {
+      const filtersUsed = localStorage.getItem('legoFilters') ?? {};
+      const filtersUsedObj = JSON.parse(filtersUsed.toString());
+      // console.log(filtersUsedObj);
+      for (const [key, value] of Object.entries(filtersUsedObj)) {
+        // console.log(key, value);
+        if (Array.isArray(value) && value.length !== 0) {
+          Gallery.queryStr += `/${key}=${value.join(',')}`;
+          // for (let i = 0; i < value.length; i++) {
+          //   Gallery.queryStr += `${value[i]},`;
+          // }
+        }
+      }
+      return Gallery.queryStr;
+    }
+  }
+
+  static getFilteredItems(event?: Event) {
+    Gallery.queryStr = '#main-page';
 
     const itemsToFilter = this.getFilteredByCheckbox();
     const itemsFiltered = this.getFilteredByRange(itemsToFilter);
     const itemsSearched = this.getSearchResults(itemsFiltered);
     const itemsSorted = this.getItemsSorted(itemsSearched);
+    if (event) {
+      this.changeLayout(event);
+    }
+    // if (localStorage.getItem('legoFilters')) {
+    //   const filtersUsed = localStorage.getItem('legoFilters') ?? {};
+    //   const filtersUsedObj = JSON.parse(filtersUsed.toString());
+    // }
 
     localStorage.setItem('legoFilters', JSON.stringify(Gallery.filtersChecked));
-    if (localStorage.getItem('legoFilters')) {
-      const filtersUsed = localStorage.getItem('legoFilters') ?? {};
-      const filtersUsedObj = JSON.parse(filtersUsed.toString());
-      for (const [key, value] of Object.entries(filtersUsedObj)) {
-        // if (value.length > 0) {
-        Gallery.queryStr += `${key}=${value}/`;
-        // }
-      }
-    }
+
+    console.log(this.createQueryString());
+    // window.history.replaceState({}, '', this.createQueryString());
+    window.history.pushState({}, '', this.createQueryString());
+    // window.location.hash = this.createQueryString() ?? '#main-page/';
 
     return itemsSorted;
   }
@@ -53,9 +75,7 @@ class Gallery {
 
     const firstRes: Array<IProduct> = [];
     if (firstFilterChecked.length !== 0) {
-      this.queryStr += 'theme=';
       firstFilterChecked.forEach((item) => {
-        this.queryStr += `${item}`;
         const filteredPortion = this.items.filter((el) => el.theme === item);
         firstRes.push(...filteredPortion);
       });
@@ -91,14 +111,29 @@ class Gallery {
       firstRange.push(+firstMin.textContent);
       firstRange.push(+firstMax.textContent);
     }
-    Gallery.filtersChecked.details = firstRange;
+    if (
+      firstRange[0] === Filters.filters.details[0] &&
+      firstRange[1] === Filters.filters.details[Filters.filters.details.length - 1]
+    ) {
+      Gallery.filtersChecked.details = [];
+    } else {
+      Gallery.filtersChecked.details = firstRange;
+    }
 
     const secondRange: Array<number> = [];
     if (secondMin.textContent && secondMax.textContent) {
       secondRange.push(+secondMin.textContent);
       secondRange.push(+secondMax.textContent);
     }
-    Gallery.filtersChecked.price = secondRange;
+    if (
+      secondRange[0] === Math.floor(Filters.filters.price[0]) &&
+      secondRange[1] === Math.ceil(Filters.filters.price[Filters.filters.price.length - 1])
+    ) {
+      Gallery.filtersChecked.price = [];
+    } else {
+      Gallery.filtersChecked.price = secondRange;
+    }
+    // Gallery.filtersChecked.price = secondRange;
 
     const firstRes: Array<IProduct> = [];
     const itemsToFilter = items;
@@ -153,7 +188,9 @@ class Gallery {
     if (sortDropdown instanceof HTMLSelectElement) {
       const sortValue = sortDropdown.value;
       Gallery.state = 'filtered';
-      Gallery.filtersChecked.sort = [sortValue];
+      if (sortValue !== 'not sorted') {
+        Gallery.filtersChecked.sort = [sortValue];
+      }
 
       if (sortValue.includes('name')) {
         const order = sortValue.slice(5);
@@ -195,6 +232,22 @@ class Gallery {
         } else {
           itemsFound.textContent = `${results.length} items found.`;
         }
+      }
+    }
+  }
+
+  static changeLayout(event: Event) {
+    if (event.target instanceof HTMLInputElement && event.target.type === 'radio') {
+      console.log(event.target.value);
+      const galleryWrap = document.querySelector('.gallery_wrapper');
+      if (galleryWrap) {
+        galleryWrap.classList.toggle('small_tiles');
+        galleryWrap.classList.toggle('big_tiles');
+        const layoutValue = event.target.value;
+        Gallery.filtersChecked.layout = [`${layoutValue}`];
+        const radioBtns = document.querySelectorAll('.custom_radio');
+        radioBtns.forEach((radio) => radio.removeAttribute('checked'));
+        event.target.setAttribute('checked', 'true');
       }
     }
   }
