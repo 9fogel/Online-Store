@@ -68,6 +68,10 @@ class AppView {
     }
 
     if (page instanceof ProductPage) {
+      const pageWrap = document.querySelector('#current-page');
+      if (pageWrap) {
+        pageWrap.classList.add('product_page');
+      }
       const id = +pageID.slice(13);
       const product = Cart.getProduct(id);
       page.render(product);
