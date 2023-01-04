@@ -45,7 +45,7 @@ class Header extends Component {
     picture.classList.add('header_cart_pic');
     picture.innerHTML = `&#128722;`;
     const total = document.createElement('span');
-    total.classList.add('header_cart_amount');
+    total.classList.add('header_cart_total');
     total.innerText = ` ${Cart.getTotal()} BYN`;
     const button = document.createElement('button');
     button.classList.add('cart_btn');
