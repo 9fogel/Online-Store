@@ -53,17 +53,10 @@ class Gallery {
     if (event) {
       this.changeLayout(event);
     }
-    // if (localStorage.getItem('legoFilters')) {
-    //   const filtersUsed = localStorage.getItem('legoFilters') ?? {};
-    //   const filtersUsedObj = JSON.parse(filtersUsed.toString());
-    // }
 
     localStorage.setItem('legoFilters', JSON.stringify(Gallery.filtersChecked));
 
-    console.log(this.createQueryString());
-    // window.history.replaceState({}, '', this.createQueryString());
     window.history.pushState({}, '', this.createQueryString());
-    // window.location.hash = this.createQueryString() ?? '#main-page/';
 
     return itemsSorted;
   }
