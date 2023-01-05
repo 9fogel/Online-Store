@@ -1,3 +1,5 @@
+import Cart from './cart';
+
 class ModalWindow {
   static fillField(
     innerText: string,
@@ -118,7 +120,7 @@ class ModalWindow {
 
     const title = document.createElement('h3');
     title.classList.add('modal_wrapper');
-    title.innerText = 'Payment details';
+    title.innerText = `Total ${Cart.getTotal()} BYN`;
 
     const userHeader = document.createElement('h5');
     userHeader.innerText = 'Personal details';
