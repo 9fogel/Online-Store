@@ -1,25 +1,25 @@
 import Cart from '../../controller/cart';
-import { pageIDs } from '../../view/appView';
+// import { pageIDs } from '../../view/appView';
 import Component from '../templates/components';
 
-const NavLinks = [
-  {
-    id: pageIDs.StorePage,
-    text: ' _toStore_ ',
-  },
-  {
-    id: pageIDs.ProductPage,
-    text: ' _toProduct_ ',
-  },
-  {
-    id: pageIDs.AboutPage,
-    text: ' _toAbout_ ',
-  },
-  {
-    id: pageIDs.CartPage,
-    text: ' _toCart_ ',
-  },
-];
+// const NavLinks = [
+//   {
+//     id: pageIDs.StorePage,
+//     text: ' _toStore_ ',
+//   },
+//   {
+//     id: pageIDs.ProductPage,
+//     text: ' _toProduct_ ',
+//   },
+//   {
+//     id: pageIDs.AboutPage,
+//     text: ' _toAbout_ ',
+//   },
+//   {
+//     id: pageIDs.CartPage,
+//     text: ' _toCart_ ',
+//   },
+// ];
 
 class Header extends Component {
   constructor(tagName: string, className: string) {
@@ -56,22 +56,22 @@ class Header extends Component {
     this.container.append(button);
   }
 
-  renderNavLinks() {
-    const navLinksWrap = document.createElement('nav');
-    navLinksWrap.classList.add('nav_list');
+  // renderNavLinks() {
+  //   const navLinksWrap = document.createElement('nav');
+  //   navLinksWrap.classList.add('nav_list');
 
-    NavLinks.forEach((navLink) => {
-      const linkHTML: HTMLAnchorElement = document.createElement('a');
-      linkHTML.href = `#${navLink.id}`;
-      linkHTML.innerText = navLink.text;
-      navLinksWrap.append(linkHTML);
-    });
-    this.container.append(navLinksWrap);
-  }
+  //   NavLinks.forEach((navLink) => {
+  //     const linkHTML: HTMLAnchorElement = document.createElement('a');
+  //     linkHTML.href = `#${navLink.id}`;
+  //     linkHTML.innerText = navLink.text;
+  //     navLinksWrap.append(linkHTML);
+  //   });
+  //   this.container.append(navLinksWrap);
+  // }
 
   render() {
     this.renderLogo();
-    this.renderNavLinks();
+    // this.renderNavLinks();
     this.renderCart();
     return this.container;
   }
