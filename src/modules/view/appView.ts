@@ -72,9 +72,12 @@ class AppView {
       if (pageWrap) {
         pageWrap.classList.add('product_page');
       }
-      const id = +pageID.slice(13);
+      // const id = +pageID.slice(13);
+      // console.log(window.location.hash.slice(14));
+      const id = +window.location.hash.slice(14);
       const product = Cart.getProduct(id);
-      page.render(product);
+      // console.log(product);
+      page.render(product, id);
     }
 
     if (page instanceof CartPage) {
@@ -93,10 +96,22 @@ class AppView {
     });
   }
 
+  private checkPageToLoad() {
+    if (window.location.hash.includes(pageIDs.ProductPage)) {
+      this.renderNewPage('product-page');
+    } else if (window.location.hash.includes(pageIDs.CartPage)) {
+      this.renderNewPage('cart-page');
+    } else {
+      this.renderNewPage('main-page');
+    }
+  }
+
   renderApp() {
     AppView.container.append(this.header.render());
     AppView.container.append(this.main.render());
-    this.renderNewPage('main-page');
+    this.checkPageToLoad();
+    // console.log(window.location.hash);
+    // this.renderNewPage('main-page');
     AppView.container.append(this.footer.render());
     this.enableRoughtChange();
   }
