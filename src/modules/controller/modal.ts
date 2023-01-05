@@ -38,10 +38,10 @@ class ModalWindow {
           .filter((item) => item !== '')
           .join(' ');
         cardNumberField.value = string;
-        if (string[0] === '2' && logo instanceof HTMLImageElement) logo.src = '../../img/payment/MIR.png';
-        if (string[0] === '3' && logo instanceof HTMLImageElement) logo.src = '../../img/payment/AE.png';
-        if (string[0] === '4' && logo instanceof HTMLImageElement) logo.src = '../../img/payment/VISA.png';
-        if (string[0] === '5' && logo instanceof HTMLImageElement) logo.src = '../../img/payment/MC.png';
+        if (string[0] === '2' && logo instanceof HTMLImageElement) logo.src = '../../img/card/MIR.png';
+        if (string[0] === '3' && logo instanceof HTMLImageElement) logo.src = '../../img/card/AE.png';
+        if (string[0] === '4' && logo instanceof HTMLImageElement) logo.src = '../../img/card/VISA.png';
+        if (string[0] === '5' && logo instanceof HTMLImageElement) logo.src = '../../img/card/MC.png';
       });
     }
 
