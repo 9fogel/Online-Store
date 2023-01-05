@@ -76,7 +76,8 @@ class AppView {
       // console.log(window.location.hash.slice(14));
       const id = +window.location.hash.slice(14);
       const product = Cart.getProduct(id);
-      page.render(product);
+      // console.log(product);
+      page.render(product, id);
     }
 
     if (page instanceof CartPage) {

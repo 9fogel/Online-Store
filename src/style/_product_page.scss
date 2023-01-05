@@ -2,6 +2,13 @@
   margin: 24px 0;
   padding: 0 24px;
 
+  & .empty_product {
+    padding: 40px;
+    height: 80vh;
+    text-align: center;
+    font-weight: bold;
+  }
+
   & .item_name {
     grid-column-start: 1;
     grid-row-start: 1;

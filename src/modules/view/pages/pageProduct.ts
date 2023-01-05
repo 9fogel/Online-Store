@@ -197,10 +197,27 @@ class ProductPage extends Page {
     this.container.append(product);
   }
 
-  public render(item?: IProduct): HTMLElement {
-    this.breadcrumbs(item);
-    this.renderProduct(item);
-    this.renderButtons(item);
+  private renderEmptyProduct(id: number) {
+    const emptyProdWrap = document.createElement('div');
+    emptyProdWrap.classList.add('empty_product');
+    emptyProdWrap.innerText = `Sorry. Product with id ${id} was not found`;
+
+    this.container.append(emptyProdWrap);
+  }
+
+  public render(item?: IProduct, id?: number): HTMLElement {
+    if (item) {
+      this.breadcrumbs(item);
+      this.renderProduct(item);
+      this.renderButtons(item);
+    } else {
+      if (id) {
+        this.renderEmptyProduct(id);
+      }
+    }
+    // this.breadcrumbs(item);
+    // this.renderProduct(item);
+    // this.renderButtons(item);
     return this.container;
   }
 }
