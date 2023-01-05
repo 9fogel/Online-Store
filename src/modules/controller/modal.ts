@@ -69,6 +69,7 @@ class ModalWindow {
     ModalWindow.renderAccept();
     setTimeout(() => {
       window.location.hash = '#main-page';
+      Cart.removeAll();
     }, 3000);
   }
 
