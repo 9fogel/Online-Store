@@ -1,8 +1,8 @@
 import Cart from '../../controller/cart';
-import openModal from '../../controller/modal/openModal';
 import Page from '../templates/pageTemplate';
 import { IProduct } from '../../types/types';
 import changeBtn from '../../controller/addInCart';
+import ModalWindow from '../../controller/modal';
 
 class ProductPage extends Page {
   static textObj = {
@@ -69,7 +69,11 @@ class ProductPage extends Page {
       const buyBtn = document.createElement('button');
       buyBtn.classList.add('button_buy');
       buyBtn.innerText = 'Buy now';
-      buyBtn.addEventListener('click', () => openModal());
+      buyBtn.addEventListener('click', () => {
+        if (!Cart.getProductAmount(item.id)) Cart.addItem(item.id);
+        window.location.hash = '#cart-page';
+        ModalWindow.openModal();
+      });
 
       const buttons = document.createElement('div');
       buttons.classList.add('buttons_wrapper');
