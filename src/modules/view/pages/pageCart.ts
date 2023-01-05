@@ -1,7 +1,7 @@
 import Cart from '../../controller/cart';
 import Page from '../templates/pageTemplate';
-import openModal from '../../controller/modal/openModal';
 import { IProduct } from '../../types/types';
+import ModalWindow from '../../controller/modal';
 
 class CartPage extends Page {
   static textObj = {
@@ -106,7 +106,7 @@ class CartPage extends Page {
     const button = document.createElement('button');
     button.classList.add('button_buy');
     button.innerText = 'Buy now';
-    button.addEventListener('click', openModal);
+    button.addEventListener('click', ModalWindow.openModal);
 
     const cartSummary = document.createElement('div');
     cartSummary.classList.add('cart_summary');
