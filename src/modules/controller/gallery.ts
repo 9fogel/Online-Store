@@ -33,9 +33,11 @@ class Gallery {
       for (const [key, value] of Object.entries(filtersUsedObj)) {
         // console.log(key, value);
         if (Array.isArray(value) && value.length !== 0) {
+          // Gallery.queryStr += `&${key}=${value}`;
           Gallery.queryStr += `/${key}=${value.join(',')}`;
+
           // for (let i = 0; i < value.length; i++) {
-          //   Gallery.queryStr += `${value[i]},`;
+          //   Gallery.queryStr += `&${key}=${value[i]}`;
           // }
         }
       }

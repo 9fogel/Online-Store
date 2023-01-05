@@ -1,6 +1,5 @@
 import Cart from '../../controller/cart';
 import openModal from '../../controller/modal/openModal';
-// import Product from '../../controller/product';
 import Page from '../templates/pageTemplate';
 import { IProduct } from '../../types/types';
 import changeBtn from '../../controller/addInCart';
@@ -14,7 +13,7 @@ class ProductPage extends Page {
     super(id);
   }
 
-  breadcrumbs(item?: IProduct) {
+  private breadcrumbs(item?: IProduct): void {
     if (item) {
       const store = document.createElement('a');
       store.href = '#main-page';
@@ -45,7 +44,16 @@ class ProductPage extends Page {
     }
   }
 
-  renderButtons(item?: IProduct) {
+  private changePicture(event: Event, mainPicture: HTMLImageElement, item: IProduct, images: HTMLCollection): void {
+    if (event.target instanceof HTMLImageElement) {
+      Array.from(images).forEach((image) => image.classList.remove('selected'));
+      event.target.classList.add('selected');
+      const id: number = +event.target.id;
+      mainPicture.src = `${item.images[id]}`;
+    }
+  }
+
+  private renderButtons(item?: IProduct): void {
     if (item) {
       const addBtn = document.createElement('button');
       if (Cart.getProductAmount(item.id)) {
@@ -64,6 +72,7 @@ class ProductPage extends Page {
       buyBtn.addEventListener('click', () => openModal());
 
       const buttons = document.createElement('div');
+      buttons.classList.add('buttons_wrapper');
       buttons.append(addBtn);
       buttons.append(buyBtn);
 
@@ -71,7 +80,7 @@ class ProductPage extends Page {
     }
   }
 
-  renderProduct(item?: IProduct) {
+  private renderProduct(item?: IProduct): void {
     const product = document.createElement('div');
     if (item) {
       const title = document.createElement('h3');
@@ -88,47 +97,82 @@ class ProductPage extends Page {
       for (let i = 0; i < item.images.length; i++) {
         const picture = document.createElement('img');
         picture.classList.add('item_additional_picture');
+        if (i === 0) {
+          picture.classList.add('selected');
+        }
+        picture.setAttribute('id', `${i}`);
         picture.src = `${item.images[i]}`;
         additionalPicture.append(picture);
       }
 
+      const brand = document.createElement('div');
+      brand.classList.add('item_characteristic');
+      brand.innerText = `Brand: `;
+      const brandDesc = document.createElement('span');
+      brandDesc.innerText = `LEGO`;
+      brand.append(brandDesc);
+
       const category = document.createElement('div');
       category.classList.add('item_characteristic');
-      category.innerText = `Category: ${item.theme}`;
+      category.innerText = `Category: `;
+      const categoryDesc = document.createElement('span');
+      categoryDesc.innerText = `${item.theme}`;
+      category.append(categoryDesc);
 
       const interests = document.createElement('div');
       interests.classList.add('item_characteristic');
-      interests.innerText = `Interests: ${item.interests}`;
+      interests.innerText = `Interests: `;
+      const interestsDesc = document.createElement('span');
+      interestsDesc.innerText = `${item.interests}`;
+      interests.append(interestsDesc);
 
-      const brand = document.createElement('div');
-      brand.classList.add('item_characteristic');
-      brand.innerText = `Brand: LEGO`;
+      const code = document.createElement('div');
+      code.classList.add('item_characteristic');
+      code.innerText = `Product code: `;
+      const codeDesc = document.createElement('span');
+      codeDesc.innerText = `${item.key}`;
+      code.append(codeDesc);
 
       const count = document.createElement('div');
       count.classList.add('item_characteristic');
-      count.innerText = `Pieces: ${item.detailsCount}`;
+      count.innerText = `Pieces: `;
+      const countDesc = document.createElement('span');
+      countDesc.innerText = `${item.detailsCount}`;
+      count.append(countDesc);
 
-      const amount = document.createElement('div');
-      amount.classList.add('item_characteristic');
-      amount.innerText = `Amount: ${item.stock}`;
+      const stock = document.createElement('div');
+      stock.classList.add('item_characteristic');
+      stock.innerText = `Stock: `;
+      const stockDesc = document.createElement('span');
+      stockDesc.innerText = `${item.stock}`;
+      stock.append(stockDesc);
 
       const age = document.createElement('div');
       age.classList.add('item_characteristic');
-      age.innerText = `Age: ${item.minAge} to ${item.maxAge}`;
+      age.innerText = `Age: `;
+      const ageDesc = document.createElement('span');
+      ageDesc.innerText = `${item.age.minAge} to ${item.age.maxAge}`;
+      age.append(ageDesc);
 
       const description = document.createElement('div');
       description.classList.add('item_characteristic');
-      description.innerText = `Description: ${item.description}`;
+      description.innerText = `Description: `;
+      const descriptionDesc = document.createElement('span');
+      descriptionDesc.innerText = `${item.description}`;
+      description.append(descriptionDesc);
 
       const parameters = document.createElement('div');
       parameters.classList.add('item_parameters');
-      parameters.append(category);
-      parameters.append(interests);
-      parameters.append(brand);
-      parameters.append(count);
-      parameters.append(amount);
-      parameters.append(age);
+      const detailsWrap = document.createElement('div');
+      detailsWrap.classList.add('details_wrapper');
       parameters.append(description);
+      parameters.append(detailsWrap);
+      detailsWrap.append(category);
+      detailsWrap.append(interests);
+      detailsWrap.append(code);
+      detailsWrap.append(count);
+      detailsWrap.append(stock);
+      detailsWrap.append(age);
 
       const price = document.createElement('h4');
       price.classList.add('item_price');
@@ -136,39 +180,24 @@ class ProductPage extends Page {
 
       const wrapper = document.createElement('div');
       wrapper.classList.add('item_wrapper');
+
       wrapper.append(title);
       wrapper.append(mainPicture);
       wrapper.append(additionalPicture);
       wrapper.append(parameters);
       wrapper.append(price);
-
       product.append(wrapper);
 
-      // product.innerHTML = `
-      //     <div class="item_page">
-      //       <div class="card_wrapper">
-      //         <h4 class="item_name">Item name: ${item.title}</h4>
-      //         <div class="item_pic">
-      //           <img class="ilem_pic_img" src="${item.thumbnail}">
-      //         </div>
-      //         <div class="item_parameters">
-      //           <div class="item_category">Category: ${item.theme}</div>
-      //           <div class="item_subcategory">SubCategory: ${item.interests}</div>
-      //           <div class="item_brand">Brand: LEGO</div>
-      //           <div class="item_count">Count: ${item.detailsCount}</div>
-      //           <div class="item_subcategory">Amount: ${item.stock}</div>
-      //           <div class="item_brand">Age: ${item.minAge} to ${item.maxAge}</div>
-      //           <p class="irem_description">Description: ${item.description} </p>
-      //         </div>
-      //         <div class="item_price">Price: ${item.priceByn} BYN</div>
-      //       </div>
-      //     </div>`;
+      additionalPicture.addEventListener('click', (event) => {
+        const images = additionalPicture.children;
+        this.changePicture(event, mainPicture, item, images);
+      });
     }
 
     this.container.append(product);
   }
 
-  render(item?: IProduct) {
+  public render(item?: IProduct): HTMLElement {
     this.breadcrumbs(item);
     this.renderProduct(item);
     this.renderButtons(item);
