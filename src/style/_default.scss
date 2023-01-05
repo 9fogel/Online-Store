@@ -57,38 +57,7 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 
-
-
-
-
-
-
-
-
-.cart_gallery_body {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.cart_item_pic_img {
-  width: 100px;
-}
-
-.cart_item {
-  width: 200px;
-  border: 1px solid #000;
-  border-radius: 10px;
-  margin: 5px;
-  text-align: center;
-}
-
 .header, .footer {
   display: flex;
   justify-content: space-between;
-}
-
-.cart_item_amount {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
 }

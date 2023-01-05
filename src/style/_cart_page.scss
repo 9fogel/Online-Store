@@ -1,0 +1,161 @@
+.cart {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 24px;
+}
+
+.cart_page {
+  margin: 24px 0;
+  padding: 0 24px;
+}
+
+.cart_gallery {
+  text-align: right;
+}
+
+.cart_gallery_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.cart_title {
+  font-size: 20px;
+}
+
+.cart_pagination {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cart_pagination_input {
+  // margin-right: 4px;
+  padding-right: 2px;
+  padding-left: 2px;
+  width: 45px;
+  text-align: right;
+}
+
+.cart_pagination_prev,
+.cart_pagination_next {
+  height: 24px;
+  padding: 4px 8px;
+  text-align: center;
+  vertical-align: top;
+  line-height: 0;
+}
+
+.cart_gallery_body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.cart_item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px;
+  width: 100%;
+  text-align: left;
+  border: 1px solid #c4c4c4;
+  border-radius: $border-radius;
+}
+
+.cart_item_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 12px;
+  width: 100%;
+  min-height: 140px;
+  border-left: solid 1px #c4c4c4;
+}
+
+.cart_item_info {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: 24px 1fr;
+  column-gap: 24px;
+  height: 100%;
+}
+
+.cart_item_info:hover {
+  cursor: pointer;
+}
+
+.cart_item_name {
+  grid-column-start: 2;
+  grid-row-start: 1;
+}
+
+.cart_item_pic {
+  grid-column-start: 1;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+.cart_item_pic_img {
+  width: 130px;
+  // height: 100%;
+}
+
+.cart_item_parameters {
+  grid-column-start: 2;
+  grid-row-start: 2;
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+  width: 70%;
+  // align-self: stretch;
+  flex-wrap: wrap;
+  column-gap: 24px;
+  row-gap: 12px;
+  height: 60px;
+}
+
+.cart_item_amount {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  padding-top: 8px;
+  width: 25%;
+}
+
+.cart_amount_controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.cart_item_amount_less,
+.cart_item_amount_more {
+  padding: 4px 8px;
+  width: 32px;
+  height: 32px;
+}
+
+.cart_item_price {
+  text-align: center;
+}
+
+.clear_cart {
+  display: inline-block;
+  text-align: right;
+}
+
+.cart_summary {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 40px;
+  padding: 40px 16px;
+  border: solid 1px orange;
+  border-radius: $border-radius;
+}

@@ -83,7 +83,7 @@ class AppView {
     if (page instanceof CartPage) {
       const pageWrap = document.querySelector('#current-page');
       if (pageWrap) {
-        pageWrap.classList.add('cart-page');
+        pageWrap.classList.add('cart_page');
       }
       page.drawCardCart();
     }

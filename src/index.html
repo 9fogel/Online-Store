@@ -29,10 +29,12 @@
       </div>
       <button class="add_item_to_cart">Add to cart</button>
     </div>
-  </template>
+   </template>
 
-  <template class="cart_item_template">
-    <div class="cart_item">
+<template class="cart_item_template">
+  <div class="cart_item">
+    <div class="cart_order_number"></div>
+    <div class="cart_item_wrapper">
       <div class="cart_item_info">
         <h4 class="cart_item_name"></h4>
         <div class="cart_item_pic">
@@ -45,16 +47,19 @@
           <span class="item_count"></span>
           <span class="item_amount"></span>
           <span class="item_age"></span>
-        </div>
-        <div class="cart_item_price"></div>
-      </div>
-      <div class="cart_item_amount">
-        <button class="cart_item_amount_less">-</button>
-        <div class="cart_count">current</div>
-        <button class="cart_item_amount_more">+</button>
+          </div>
+          </div>
+          <div class="cart_item_amount">
+            <div class="cart_amount_controls">
+              <button class="cart_item_amount_less">-</button>
+              <div class="cart_count">current</div>
+              <button class="cart_item_amount_more">+</button>
+            </div>
+            <div class="cart_item_price"></div>
       </div>
     </div>
-  </template>
+  </div>
+</template>
 
 </body>
 

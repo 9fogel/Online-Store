@@ -22,7 +22,8 @@ class CartPage extends Page {
     paginationInput.type = 'number';
     paginationInput.min = '1';
     paginationInput.max = `${Cart.getAmount()}`;
-    paginationInput.value = '10';
+    paginationInput.value = `${Cart.getAmount()}`;
+    // paginationInput.value = '10';
     paginationInput.step = '1';
     paginationInput.addEventListener('change', () => console.log(paginationInput.value));
 
@@ -36,13 +37,13 @@ class CartPage extends Page {
     paginationPrev.addEventListener('click', () => console.log('prev'));
 
     const paginationCurrent = document.createElement('span');
-    paginationCurrent.classList.add('cart_pagination_prev');
+    paginationCurrent.classList.add('cart_current_page');
     paginationCurrent.innerText = '1'; // TODO
 
     const paginationNext = document.createElement('button');
-    paginationNext.classList.add('cart_pagination_prev');
+    paginationNext.classList.add('cart_pagination_next');
     paginationNext.innerText = '›';
-    paginationNext.addEventListener('click', () => console.log('hext'));
+    paginationNext.addEventListener('click', () => console.log('next'));
 
     const pagination = document.createElement('div');
     pagination.classList.add('cart_pagination');
@@ -53,7 +54,7 @@ class CartPage extends Page {
     pagination.append(paginationNext);
 
     const cartGalleryHeader = document.createElement('div');
-    cartGalleryHeader.classList.add('cart_gallary_header');
+    cartGalleryHeader.classList.add('cart_gallery_header');
     cartGalleryHeader.append(title);
     cartGalleryHeader.append(pagination);
     return cartGalleryHeader;
@@ -65,7 +66,7 @@ class CartPage extends Page {
   }
   renderCartGallery() {
     const cartGallery = document.createElement('div');
-    cartGallery.classList.add('cart_gallary');
+    cartGallery.classList.add('cart_gallery');
     const clearBtn = document.createElement('button');
     clearBtn.classList.add('clear_cart');
     clearBtn.innerText = 'Clear all';
@@ -150,6 +151,12 @@ class CartPage extends Page {
         const itemClone: DocumentFragment | Node = template.content.cloneNode(true);
         if (itemClone instanceof DocumentFragment && itemClone) {
           // itemClone.classList.remove('invisible');
+          const orderNum: HTMLElement | null = itemClone.querySelector('.cart_order_number');
+          if (orderNum) {
+            orderNum.textContent = `${Cart.getUniqueItems().indexOf(item) + 1}`;
+            // orderNum.textContent = '1';
+          }
+
           const info: HTMLElement | null = itemClone.querySelector('.cart_item_info');
           if (info) {
             info.addEventListener('click', () => (window.location.hash = `#product-page_${item.id}`));
@@ -157,7 +164,7 @@ class CartPage extends Page {
 
           const itemName: HTMLElement | null = itemClone.querySelector('.cart_item_name');
           if (itemName) {
-            itemName.textContent = `Name: ${item.title}`;
+            itemName.textContent = `${item.title}`;
           }
 
           const itemPicture: HTMLImageElement | null = itemClone.querySelector('.cart_item_pic_img');
@@ -182,12 +189,12 @@ class CartPage extends Page {
 
           const itemCount: HTMLElement | null = itemClone.querySelector('.item_count');
           if (itemCount) {
-            itemCount.textContent = `Count: ${item.detailsCount}`;
+            itemCount.textContent = `Pieces: ${item.detailsCount}`;
           }
 
           const itemAmount: HTMLElement | null = itemClone.querySelector('.item_amount');
           if (itemAmount) {
-            itemAmount.textContent = `Amount: ${item.stock}`;
+            itemAmount.textContent = `Stock: ${item.stock}`;
           }
 
           const itemAge: HTMLElement | null = itemClone.querySelector('.item_age');
@@ -197,7 +204,8 @@ class CartPage extends Page {
 
           const itemPrice: HTMLElement | null = itemClone.querySelector('.cart_item_price');
           if (itemPrice) {
-            itemPrice.textContent = `Price: ${item.priceByn} BYN`;
+            itemPrice.innerText = `${Cart.getProductAmount(item.id) * item.priceByn} BYN`;
+            // itemPrice.textContent = `Price: ${item.priceByn} BYN`;
           }
 
           const removeItem: HTMLElement | null = itemClone.querySelector('.cart_item_amount_less');
