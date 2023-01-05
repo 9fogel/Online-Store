@@ -99,9 +99,18 @@
   justify-content: space-between;
 }
 
+.filters_fieldset {
+  padding: 16px 20px;
+}
+
 .filter_btn_wrapper {
   display: flex;
-  gap: 24px;
+  gap: 12px;
+  justify-content: space-between;
+
+  & button {
+    width: 50%;
+  }
 }
 
 .gallery_body {

@@ -13,12 +13,14 @@ class Cart {
       console.log('not enough goods');
     }
     Refresher.refreshHeader();
+    Refresher.refreshCart();
   }
   static removeItem(id: number) {
     const index = this.itemsID.indexOf(id);
     this.itemsID.splice(index, 1);
     localStorage.setItem('cart', this.itemsID.join(','));
     Refresher.refreshHeader();
+    Refresher.refreshCart();
   }
   static removeProduct(id: number) {
     console.log('remove');

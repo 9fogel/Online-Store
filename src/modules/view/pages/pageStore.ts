@@ -239,6 +239,23 @@ class StorePage extends Page {
     copyLinkButton.classList.add('copy_link_btn');
     copyLinkButton.textContent = 'Copy';
     filterBtnWrap.append(copyLinkButton);
+    copyLinkButton.addEventListener('click', () => {
+      console.log(window.location.href);
+      navigator.clipboard
+        .writeText(window.location.href)
+        .then((): void => {
+          if (copyLinkButton.innerText !== 'Copied!') {
+            const originalText = copyLinkButton.innerText;
+            copyLinkButton.innerText = 'Copied!';
+            setTimeout(() => {
+              copyLinkButton.innerText = originalText;
+            }, 1000);
+          }
+        })
+        .catch((err) => {
+          console.log('Something went wrong', err);
+        });
+    });
   }
 
   clearGallery(): void {

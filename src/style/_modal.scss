@@ -1,4 +1,4 @@
-.payment {
+.payment, .popup {
     position: fixed; 
     z-index: 1; 
     padding-top: 100px; 
@@ -42,4 +42,9 @@
     color: rgb(216, 134, 67);
     padding-top: 1px;
     padding-left: 1px;
+}
+
+.payment_logo {
+    width: 100px;
+    height: 50px;
 }
