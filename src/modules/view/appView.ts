@@ -41,7 +41,7 @@ class AppView {
 
     if (pageID.includes(pageIDs.StorePage)) {
       page = new StorePage(pageID);
-    } else if (pageID === pageIDs.CartPage) {
+    } else if (pageID.includes(pageIDs.CartPage)) {
       page = new CartPage(pageID);
     } else if (pageID === pageIDs.AboutPage) {
       page = new AboutPage(pageID);

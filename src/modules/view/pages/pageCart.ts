@@ -1,15 +1,35 @@
 import Cart from '../../controller/cart';
 import Page from '../templates/pageTemplate';
-import { IProduct } from '../../types/types';
+import { IProduct, TPagination } from '../../types/types';
 import ModalWindow from '../../controller/modal';
 
 class CartPage extends Page {
   static textObj = {
     mainTitle: 'Cart',
   };
+  static pagination: TPagination = {
+    limit: 3,
+    page: 1,
+  };
 
   constructor(id: string) {
     super(id);
+  }
+
+  createQueryString(): string | undefined {
+    if (localStorage.getItem('cart-pagination')) {
+      const paginationChanged = localStorage.getItem('cart-pagination') ?? {};
+      const paginationData: TPagination = JSON.parse(paginationChanged.toString());
+      console.log(paginationData);
+      let queryStr = `#cart-page?`;
+      for (const [key, value] of Object.entries(paginationData)) {
+        if (value !== 0) {
+          queryStr += `${key}=${value}&`;
+        }
+      }
+      console.log(queryStr.slice(0, -1));
+      return queryStr.slice(0, -1);
+    }
   }
 
   private renderCartGalleryHeader(): HTMLDivElement {
@@ -23,12 +43,19 @@ class CartPage extends Page {
     paginationInput.min = '1';
     paginationInput.max = `${Cart.getAmount()}`;
     // paginationInput.value = `${Cart.getAmount()}`;
-    paginationInput.value = '3';
+    if (!localStorage.getItem('cart-pagination')) {
+      paginationInput.value = '3';
+    } else {
+      const paginationChanged = localStorage.getItem('cart-pagination') ?? {};
+      const paginationData: TPagination = JSON.parse(paginationChanged.toString());
+      paginationInput.value = paginationData.limit.toString();
+    }
+
     paginationInput.step = '1';
 
     const curPageNum = document.createElement('span');
     curPageNum.classList.add('cart_current_page');
-    curPageNum.innerText = '1'; // TODO
+    curPageNum.innerText = '1';
 
     let maxPages = Cart.countPages(+paginationInput.value);
     paginationInput.addEventListener('change', (): void => {
@@ -39,6 +66,7 @@ class CartPage extends Page {
       // console.log(+curPageNum.innerText > maxPages);
       if (+curPageNum.innerText > maxPages) {
         curPageNum.innerText = maxPages.toString();
+        CartPage.pagination.page = +curPageNum.innerText;
       }
       if (+curPageNum.innerText < maxPages && paginationNext.hasAttribute('disabled')) {
         paginationNext.removeAttribute('disabled');
@@ -46,6 +74,12 @@ class CartPage extends Page {
       if (+curPageNum.innerText === 1) {
         paginationPrev.setAttribute('disabled', 'disabled');
       }
+      CartPage.pagination.limit = +paginationInput.value;
+      // if (!localStorage.getItem('cart-pagination')) {
+      localStorage.setItem('cart-pagination', JSON.stringify(CartPage.pagination));
+      // this.createQueryString();
+      window.history.pushState({}, '', this.createQueryString());
+      // }
     });
 
     const paginationSpan = document.createElement('span');
@@ -73,6 +107,12 @@ class CartPage extends Page {
       if (+curPageNum.innerText !== maxPages) {
         paginationNext.removeAttribute('disabled');
       }
+      CartPage.pagination.page = +curPageNum.innerText;
+      // if (!localStorage.getItem('cart-pagination')) {
+      localStorage.setItem('cart-pagination', JSON.stringify(CartPage.pagination));
+      // this.createQueryString();
+      window.history.pushState({}, '', this.createQueryString());
+      // }
     });
 
     // const paginationCurrent = document.createElement('span');
@@ -93,6 +133,13 @@ class CartPage extends Page {
       if (+curPageNum.innerText === maxPages) {
         paginationNext.setAttribute('disabled', 'disabled');
       }
+      console.log(+curPageNum.innerText);
+      CartPage.pagination.page = +curPageNum.innerText;
+      // if (!localStorage.getItem('cart-pagination')) {
+      localStorage.setItem('cart-pagination', JSON.stringify(CartPage.pagination));
+      // this.createQueryString();
+      window.history.pushState({}, '', this.createQueryString());
+      // }
     });
 
     const pagination = document.createElement('div');
