@@ -12,7 +12,7 @@ class CartPage extends Page {
     super(id);
   }
 
-  renderCartGalleryHeader() {
+  private renderCartGalleryHeader(): HTMLDivElement {
     const title = document.createElement('h4');
     title.classList.add('cart_title');
     title.innerText = 'Products in cart';
@@ -22,64 +22,122 @@ class CartPage extends Page {
     paginationInput.type = 'number';
     paginationInput.min = '1';
     paginationInput.max = `${Cart.getAmount()}`;
-    paginationInput.value = `${Cart.getAmount()}`;
-    // paginationInput.value = '10';
+    // paginationInput.value = `${Cart.getAmount()}`;
+    paginationInput.value = '3';
     paginationInput.step = '1';
-    paginationInput.addEventListener('change', () => console.log(paginationInput.value));
+
+    const curPageNum = document.createElement('span');
+    curPageNum.classList.add('cart_current_page');
+    curPageNum.innerText = '1'; // TODO
+
+    let maxPages = Cart.countPages(+paginationInput.value);
+    paginationInput.addEventListener('change', (): void => {
+      // console.log(paginationInput.value);
+      maxPages = Cart.countPages(+paginationInput.value);
+      // console.log('curPage', curPageNum.innerText);
+      // console.log('maxPage', maxPages);
+      // console.log(+curPageNum.innerText > maxPages);
+      if (+curPageNum.innerText > maxPages) {
+        curPageNum.innerText = maxPages.toString();
+      }
+      if (+curPageNum.innerText < maxPages && paginationNext.hasAttribute('disabled')) {
+        paginationNext.removeAttribute('disabled');
+      }
+      if (+curPageNum.innerText === 1) {
+        paginationPrev.setAttribute('disabled', 'disabled');
+      }
+    });
 
     const paginationSpan = document.createElement('span');
     paginationSpan.classList.add('cart_pagination_span');
     paginationSpan.innerText = 'items on page. Page';
 
+    // const paginationCurrent = document.createElement('span');
+    // paginationCurrent.classList.add('cart_current_page');
+    // paginationCurrent.innerText = '1'; // TODO
+
     const paginationPrev = document.createElement('button');
     paginationPrev.classList.add('cart_pagination_prev');
     paginationPrev.innerText = '‹';
-    paginationPrev.addEventListener('click', () => console.log('prev'));
+    if (+curPageNum.innerText === 1) {
+      paginationPrev.setAttribute('disabled', 'disabled');
+    }
+    paginationPrev.addEventListener('click', (): void => {
+      // console.log('prev');
+      if (+curPageNum.innerText > 1) {
+        curPageNum.innerText = `${+curPageNum.innerText - 1}`;
+      }
+      if (+curPageNum.innerText === 1) {
+        paginationPrev.setAttribute('disabled', 'disabled');
+      }
+      if (+curPageNum.innerText !== maxPages) {
+        paginationNext.removeAttribute('disabled');
+      }
+    });
 
-    const paginationCurrent = document.createElement('span');
-    paginationCurrent.classList.add('cart_current_page');
-    paginationCurrent.innerText = '1'; // TODO
+    // const paginationCurrent = document.createElement('span');
+    // paginationCurrent.classList.add('cart_current_page');
+    // paginationCurrent.innerText = '1'; // TODO
 
     const paginationNext = document.createElement('button');
     paginationNext.classList.add('cart_pagination_next');
     paginationNext.innerText = '›';
-    paginationNext.addEventListener('click', () => console.log('next'));
+    paginationNext.addEventListener('click', (): void => {
+      // console.log('next');
+      // const maxPages = Cart.countPages(+paginationInput.value);
+      curPageNum.innerText = `${+curPageNum.innerText + 1}`;
+      if (+curPageNum.innerText > 1) {
+        // console.log(curPageNum.innerText);
+        paginationPrev.removeAttribute('disabled');
+      }
+      if (+curPageNum.innerText === maxPages) {
+        paginationNext.setAttribute('disabled', 'disabled');
+      }
+    });
 
     const pagination = document.createElement('div');
     pagination.classList.add('cart_pagination');
     pagination.append(paginationInput);
     pagination.append(paginationSpan);
     pagination.append(paginationPrev);
-    pagination.append(paginationCurrent);
+    pagination.append(curPageNum);
     pagination.append(paginationNext);
 
     const cartGalleryHeader = document.createElement('div');
     cartGalleryHeader.classList.add('cart_gallery_header');
     cartGalleryHeader.append(title);
     cartGalleryHeader.append(pagination);
+
     return cartGalleryHeader;
   }
-  renderCartGalleryBody() {
+
+  private renderCartGalleryBody(): HTMLDivElement {
     const cartGalleryBody = document.createElement('div');
     cartGalleryBody.classList.add('cart_gallery_body');
+
     return cartGalleryBody;
   }
-  renderCartGallery() {
+
+  private renderCartGallery(): HTMLDivElement {
     const cartGallery = document.createElement('div');
     cartGallery.classList.add('cart_gallery');
     const clearBtn = document.createElement('button');
     clearBtn.classList.add('clear_cart');
     clearBtn.innerText = 'Clear all';
+
     clearBtn.addEventListener('click', () => {
       Cart.removeAll();
       this.emptyCart();
     });
+
     cartGallery.append(this.renderCartGalleryHeader());
     cartGallery.append(this.renderCartGalleryBody());
     cartGallery.append(clearBtn);
+
     return cartGallery;
   }
-  renderCartSummary() {
+
+  private renderCartSummary(): HTMLDivElement {
     const amount = document.createElement('div');
     amount.classList.add('summary_products');
     amount.innerText = `Total products: ${Cart.getAmount()}`;
@@ -115,51 +173,70 @@ class CartPage extends Page {
     cartSummary.append(price);
     cartSummary.append(coupon);
     cartSummary.append(button);
+
     return cartSummary;
   }
 
-  renderCart() {
+  private renderCart(): void {
     const cart = document.createElement('div');
     cart.classList.add('cart');
-    cart.append(this.renderCartGallery());
-    cart.append(this.renderCartSummary());
+    const cartArr = Array.from(Cart.getUniqueItems());
+    if (cartArr.length !== 0) {
+      cart.append(this.renderCartGallery());
+      cart.append(this.renderCartSummary());
+    } else {
+      cart.classList.add('empty_cart');
+      cart.innerHTML = 'No items in cart';
+    }
+    // cart.append(this.renderCartGallery());
+    // cart.append(this.renderCartSummary());
     this.container.append(cart);
   }
 
-  clearCart() {
+  private clearCart(): void {
     const wrapper: HTMLElement | null = document.querySelector('.cart_gallery_body');
     if (wrapper) {
       wrapper.innerHTML = '';
     }
+
+    // const cartGallery: HTMLElement | null = document.querySelector('.cart_gallery');
+    // if (cartGallery) {
+    //   cartGallery.innerHTML = '';
+    // }
   }
 
-  emptyCart() {
-    const wrapper: HTMLElement | null = document.querySelector('.cart_gallery_body');
-    if (wrapper) {
-      wrapper.innerHTML = 'No items in cart';
+  private emptyCart(): void {
+    // const wrapper: HTMLElement | null = document.querySelector('.cart_gallery_body');
+    // if (wrapper) {
+    //   wrapper.innerHTML = 'No items in cart';
+    // }
+
+    const cart: HTMLElement | null = document.querySelector('.cart');
+    console.log('cart', cart);
+    if (cart) {
+      cart.classList.add('empty_cart');
+      cart.innerHTML = 'No items in cart';
     }
   }
 
-  drawCardCart() {
+  public drawCardCart(): void {
     const items: IProduct[] = Cart.getUniqueItems();
 
     const fragment: DocumentFragment = document.createDocumentFragment();
-    const template: HTMLTemplateElement | null = document.querySelector('.cart_item_template') as HTMLTemplateElement;
+    const template: HTMLTemplateElement | null = document.querySelector('.cart_item_template');
 
     if (template) {
-      items.forEach((item: IProduct) => {
+      items.forEach((item: IProduct): void => {
         const itemClone: DocumentFragment | Node = template.content.cloneNode(true);
         if (itemClone instanceof DocumentFragment && itemClone) {
-          // itemClone.classList.remove('invisible');
           const orderNum: HTMLElement | null = itemClone.querySelector('.cart_order_number');
           if (orderNum) {
             orderNum.textContent = `${Cart.getUniqueItems().indexOf(item) + 1}`;
-            // orderNum.textContent = '1';
           }
 
           const info: HTMLElement | null = itemClone.querySelector('.cart_item_info');
           if (info) {
-            info.addEventListener('click', () => (window.location.hash = `#product-page_${item.id}`));
+            info.addEventListener('click', (): string => (window.location.hash = `#product-page/${item.id}`));
           }
 
           const itemName: HTMLElement | null = itemClone.querySelector('.cart_item_name');
@@ -205,15 +282,19 @@ class CartPage extends Page {
           const itemPrice: HTMLElement | null = itemClone.querySelector('.cart_item_price');
           if (itemPrice) {
             itemPrice.innerText = `${Cart.getProductAmount(item.id) * item.priceByn} BYN`;
-            // itemPrice.textContent = `Price: ${item.priceByn} BYN`;
           }
 
           const removeItem: HTMLElement | null = itemClone.querySelector('.cart_item_amount_less');
           if (removeItem) {
             removeItem.textContent = `-`;
-            removeItem.addEventListener('click', () => {
+            removeItem.addEventListener('click', (): void => {
               Cart.removeItem(item.id);
               this.clearCart();
+              const itemsTotal = [...Cart.getUniqueItems()];
+              if (itemsTotal.length === 0) {
+                this.emptyCart();
+              }
+
               return this.drawCardCart();
             });
           }
@@ -226,9 +307,10 @@ class CartPage extends Page {
           const addItem: HTMLElement | null = itemClone.querySelector('.cart_item_amount_more');
           if (addItem) {
             addItem.textContent = `+`;
-            addItem.addEventListener('click', () => {
+            addItem.addEventListener('click', (): void => {
               Cart.addItem(item.id);
               this.clearCart();
+
               return this.drawCardCart();
             });
           }
@@ -245,8 +327,9 @@ class CartPage extends Page {
     this.container.append(fragment);
   }
 
-  render() {
+  public render(): HTMLElement {
     this.renderCart();
+
     return this.container;
   }
 }
