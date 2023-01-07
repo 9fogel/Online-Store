@@ -41,10 +41,17 @@ class ModalWindow {
           .filter((item) => item !== '')
           .join(' ');
         cardNumberField.value = string;
-        if (string[0] === '2' && logo instanceof HTMLImageElement) logo.src = '../../img/card/MIR.png';
-        if (string[0] === '3' && logo instanceof HTMLImageElement) logo.src = '../../img/card/AE.png';
-        if (string[0] === '4' && logo instanceof HTMLImageElement) logo.src = '../../img/card/VISA.png';
-        if (string[0] === '5' && logo instanceof HTMLImageElement) logo.src = '../../img/card/MC.png';
+        if (string[0] === '2' && logo) {
+          logo.classList.add('mir');
+        } else if (string[0] === '3' && logo) {
+          logo.classList.add('amer-expr');
+        } else if (string[0] === '4' && logo) {
+          logo.classList.add('visa');
+        } else if (string[0] === '5' && logo) {
+          logo.classList.add('mastercard');
+        } else if (logo) {
+          logo.className = 'payment_logo';
+        }
       });
     }
 
@@ -75,10 +82,10 @@ class ModalWindow {
   }
 
   static renderModal() {
-    const close = document.createElement('span');
+    const close = document.createElement('div');
     close.classList.add('close');
     close.id = 'closeModal';
-    close.innerText = '𐄂';
+    // close.innerText = '𐄂';
     close.addEventListener('click', ModalWindow.closeModal);
 
     const title = document.createElement('h3');
@@ -99,7 +106,7 @@ class ModalWindow {
     const cardHeader = document.createElement('h5');
     cardHeader.innerText = 'Credit card details';
 
-    const logo = document.createElement('img');
+    const logo = document.createElement('div');
     logo.classList.add('payment_logo');
 
     const label = document.createElement('label');
@@ -134,9 +141,9 @@ class ModalWindow {
     card.classList.add('modal_wrapper');
     card.append(cardHeader);
     card.append(logo);
-    card.append(this.fillField('Number', 'form_field', 'text', 'card_number', '0000 0000 0000 0000', true));
+    card.append(this.fillField('card number ', 'form_field', 'text', 'card_number', '0000 0000 0000 0000', true));
     card.append(date);
-    card.append(this.fillField('CVV', 'form_field', 'text', 'card_CVV', '000', true));
+    card.append(this.fillField('CVV ', 'form_field', 'text', 'card_CVV', '000', true));
 
     const submit = document.createElement('input');
     submit.classList.add('payment_confirm');
