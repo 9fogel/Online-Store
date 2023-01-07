@@ -86,7 +86,7 @@ class Cart {
     let total = 0;
     Cart.itemsID.forEach((el) => (total += Cart.getProduct(el).priceByn));
 
-    return total;
+    return +total.toFixed(2);
   }
 
   public static getPromoTotal(couponAmount: number): number {
@@ -94,7 +94,7 @@ class Cart {
     const total = Cart.getTotal();
     const discount = couponAmount * 0.1;
 
-    return (1 - discount) * total;
+    return +((1 - discount) * total).toFixed(2);
   }
 
   public static getProduct(searchID: number): IProduct {
