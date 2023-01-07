@@ -20,11 +20,11 @@ class ProductPage extends Page {
       store.innerText = 'store';
 
       const category = document.createElement('a');
-      category.href = '#main-page'; // здесь должна быть ссылка на store с этим фильтром
+      // category.href = '#main-page'; // здесь должна быть ссылка на store с этим фильтром
       category.innerText = `${item.theme}`;
 
       const subcategory = document.createElement('a');
-      subcategory.href = '#main-page'; // здесь должна быть ссылка на store с этим фильтром
+      // subcategory.href = '#main-page'; // здесь должна быть ссылка на store с этим фильтром
       subcategory.innerText = `${item.interests}`;
 
       const name = document.createElement('span');
@@ -33,11 +33,11 @@ class ProductPage extends Page {
       const crumbs = document.createElement('div');
       crumbs.classList.add('breadcrumbs');
       crumbs.append(store);
-      crumbs.append(' >> ');
+      crumbs.append(' > ');
       crumbs.append(category);
-      crumbs.append(' >> ');
+      crumbs.append(' > ');
       crumbs.append(subcategory);
-      crumbs.append(' >> ');
+      crumbs.append(' > ');
       crumbs.append(name);
 
       this.container.append(crumbs);
@@ -89,7 +89,7 @@ class ProductPage extends Page {
     if (item) {
       const title = document.createElement('h3');
       title.classList.add('item_name');
-      title.innerText = `Item name: ${item.title}`;
+      title.innerText = `${item.title}`;
 
       const mainPicture = document.createElement('img');
       mainPicture.classList.add('item_main_picture');
@@ -132,7 +132,7 @@ class ProductPage extends Page {
 
       const code = document.createElement('div');
       code.classList.add('item_characteristic');
-      code.innerText = `Product code: `;
+      code.innerText = `Set number: `;
       const codeDesc = document.createElement('span');
       codeDesc.innerText = `${item.key}`;
       code.append(codeDesc);
