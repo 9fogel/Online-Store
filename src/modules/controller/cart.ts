@@ -1,6 +1,7 @@
 import { IProduct } from '../types/types';
 import products from '../data/products.json';
 import Refresher from './refresher';
+import Popup from './popup';
 
 class Cart {
   static itemsID: Array<number> = [];
@@ -10,9 +11,7 @@ class Cart {
     if (this.getProductAmount(id) < this.getProduct(id).stock) {
       this.itemsID.push(id);
       localStorage.setItem('cart', this.itemsID.join(','));
-    } else {
-      console.log('not enough goods');
-    }
+    } else Popup.renderPopup('Not enough goods', 3000);
     Refresher.refreshHeader();
     Refresher.refreshCart();
   }
@@ -38,6 +37,7 @@ class Cart {
     this.itemsID = [];
     localStorage.removeItem('cart');
     Refresher.refreshHeader();
+    Refresher.refreshCart();
   }
 
   public static getItems(): Array<number> {
@@ -87,6 +87,14 @@ class Cart {
     Cart.itemsID.forEach((el) => (total += Cart.getProduct(el).priceByn));
 
     return total;
+  }
+
+  public static getPromoTotal(couponAmount: number): number {
+    Cart.refresh();
+    const total = Cart.getTotal();
+    const discount = couponAmount * 0.1;
+
+    return (1 - discount) * total;
   }
 
   public static getProduct(searchID: number): IProduct {
