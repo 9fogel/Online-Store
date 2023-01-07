@@ -78,9 +78,9 @@ class ModalWindow {
     text.classList.add('popup_text');
     text.innerText = 'Your order is accepted';
 
-    const close = document.createElement('span');
+    const close = document.createElement('div');
     close.classList.add('close');
-    close.innerText = '𐄂';
+    // close.innerText = '𐄂';
     close.addEventListener('click', ModalWindow.removeAccept);
 
     const modalWindow = document.createElement('div');
@@ -113,10 +113,10 @@ class ModalWindow {
   }
 
   static renderModal() {
-    const close = document.createElement('span');
+    const close = document.createElement('div');
     close.classList.add('close');
     close.id = 'closeModal';
-    close.innerText = '𐄂';
+    // close.innerText = '𐄂';
     close.addEventListener('click', ModalWindow.closeModal);
 
     const title = document.createElement('h3');
@@ -172,9 +172,9 @@ class ModalWindow {
     card.classList.add('modal_wrapper');
     card.append(cardHeader);
     card.append(logo);
-    card.append(this.fillField('Number', 'form_field', 'text', 'card_number', '0000 0000 0000 0000', true));
+    card.append(this.fillField('card number ', 'form_field', 'text', 'card_number', '0000 0000 0000 0000', true));
     card.append(date);
-    card.append(this.fillField('CVV', 'form_field', 'text', 'card_CVV', '000', true));
+    card.append(this.fillField('CVV ', 'form_field', 'text', 'card_CVV', '000', true));
 
     const submit = document.createElement('input');
     submit.classList.add('payment_confirm');
