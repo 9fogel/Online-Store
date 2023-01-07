@@ -48,3 +48,15 @@
     width: 100px;
     height: 50px;
 }
+
+.coupon_info {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #000;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.old_price {
+    text-decoration: line-through;
+}
