@@ -141,7 +141,7 @@ class StorePage extends Page {
           filterInnerItem.append(filterCheckbox);
 
           const filterLabel = document.createElement('label');
-          filterLabel.setAttribute('for', `${elem}`);
+          filterLabel.setAttribute('for', `${key}_${elem}`);
           filterLabel.textContent = `${elem}`;
           filterInnerItem.append(filterLabel);
 

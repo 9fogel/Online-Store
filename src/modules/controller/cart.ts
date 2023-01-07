@@ -26,9 +26,7 @@ class Cart {
   }
 
   public static removeProduct(id: number): void {
-    console.log('remove');
     while (Cart.getProductAmount(id) > 0) {
-      console.log(Cart.getProductAmount(id));
       const index = this.itemsID.indexOf(id);
       this.itemsID.splice(index, 1);
       localStorage.setItem('cart', this.itemsID.join(','));
@@ -109,21 +107,11 @@ class Cart {
     }
   }
 
-  static countPages(inputValue: number) {
-    console.log(inputValue);
+  static countPages(inputValue: number): number {
     const pagesCount = Math.ceil(Cart.getUniqueItems().length / inputValue);
-    console.log('total pages', pagesCount);
 
     return pagesCount;
   }
-
-  // static productsOnPage() {
-  //   const input: Element | null = document.querySelector('.cart_pagination_input');
-  //   if (input) {
-  //     const count = input.ariaValueMax;
-  //     return count;
-  //   }
-  // }
 }
 
 export default Cart;

@@ -85,6 +85,15 @@ class AppView {
       if (pageWrap) {
         pageWrap.classList.add('cart_page');
       }
+      // const itemsPerPage: HTMLInputElement | null = document.querySelector('.cart_pagination_input');
+      // if (itemsPerPage instanceof HTMLInputElement) {
+      //   console.log('items per Page', itemsPerPage.value);
+      // }
+      // const curPage: HTMLElement | null = document.querySelector('.cart_current_page');
+      // if (curPage) {
+      //   console.log('page Num', curPage.textContent);
+      // }
+
       page.drawCardCart();
     }
   }

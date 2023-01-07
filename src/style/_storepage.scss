@@ -26,6 +26,14 @@
   display: flex;
   gap: 4px;
   align-self: flex-start;
+
+  & label:hover {
+    cursor: pointer;
+  }
+}
+
+.filter_checkbox:hover {
+  cursor: pointer;
 }
 
 .filter_range_wrapper {
