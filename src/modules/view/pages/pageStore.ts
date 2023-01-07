@@ -107,8 +107,13 @@ class StorePage extends Page {
 
     const filterLegend = document.createElement('legend');
     filterLegend.classList.add('filters_legend');
-    filterLegend.textContent = 'Filters';
+    // filterLegend.textContent = 'Filters';
     filterFieldset.append(filterLegend);
+
+    const filterSlogan = document.createElement('h3');
+    filterSlogan.classList.add('filters_slogan');
+    filterSlogan.innerText = 'Choose your Lego:';
+    filterFieldset.append(filterSlogan);
 
     const filtersList = document.createElement('ul');
     filtersList.classList.add('filters_list');
@@ -377,6 +382,10 @@ class StorePage extends Page {
     sortDropdown.textContent = `Sort by:`;
     sortWrap.append(sortDropdown);
 
+    const sortArrow = document.createElement('div');
+    sortArrow.classList.add('sort_arrow');
+    sortDropdown.append(sortArrow);
+
     sortDropdown.addEventListener('change', (event: Event): void => {
       console.log(sortDropdown.value);
       this.clearGallery();
@@ -420,7 +429,7 @@ class StorePage extends Page {
 
           const itemName: HTMLElement | null = itemClone.querySelector('.item_name');
           if (itemName) {
-            itemName.textContent = `Name: ${item.title}`;
+            itemName.textContent = `${item.title}`;
           }
 
           const itemPicture: HTMLImageElement | null = itemClone.querySelector('.item_pic_img');
@@ -445,7 +454,7 @@ class StorePage extends Page {
 
           const itemCount: HTMLElement | null = itemClone.querySelector('.item_count');
           if (itemCount) {
-            itemCount.textContent = `Count: ${item.detailsCount}`;
+            itemCount.textContent = `Pieces: ${item.detailsCount}`;
           }
 
           const itemAmount: HTMLElement | null = itemClone.querySelector('.item_amount');
