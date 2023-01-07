@@ -1,6 +1,7 @@
 import { IProduct } from '../types/types';
 import products from '../data/products.json';
 import Refresher from './refresher';
+import Popup from './popup';
 
 class Cart {
   static itemsID: Array<number> = [];
@@ -10,9 +11,7 @@ class Cart {
     if (this.getProductAmount(id) < this.getProduct(id).stock) {
       this.itemsID.push(id);
       localStorage.setItem('cart', this.itemsID.join(','));
-    } else {
-      console.log('not enough goods');
-    }
+    } else Popup.renderPopup('Not enough goods', 3000);
     Refresher.refreshHeader();
     Refresher.refreshCart();
   }
