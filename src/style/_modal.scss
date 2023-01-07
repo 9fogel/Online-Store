@@ -82,8 +82,37 @@
 }
 
 .payment_logo {
+  display: none;
   width: 100px;
   height: 50px;
+}
+
+.payment_logo.mir {
+  display: block;
+  background-image: url('img/card/MIR.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.payment_logo.amer-expr {
+  display: block;
+  background-image: url('img/card/AE.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.payment_logo.visa {
+  display: block;
+  background-image: url('img/card/VISA.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.payment_logo.mastercard {
+  display: block;
+  background-image: url('img/card/MC.png');
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .card_date_month,

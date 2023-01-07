@@ -40,10 +40,17 @@ class ModalWindow {
           .filter((item) => item !== '')
           .join(' ');
         cardNumberField.value = string;
-        if (string[0] === '2' && logo instanceof HTMLImageElement) logo.src = '../../img/card/MIR.png';
-        if (string[0] === '3' && logo instanceof HTMLImageElement) logo.src = '../../img/card/AE.png';
-        if (string[0] === '4' && logo instanceof HTMLImageElement) logo.src = '../../img/card/VISA.png';
-        if (string[0] === '5' && logo instanceof HTMLImageElement) logo.src = '../../img/card/MC.png';
+        if (string[0] === '2' && logo) {
+          logo.classList.add('mir');
+        } else if (string[0] === '3' && logo) {
+          logo.classList.add('amer-expr');
+        } else if (string[0] === '4' && logo) {
+          logo.classList.add('visa');
+        } else if (string[0] === '5' && logo) {
+          logo.classList.add('mastercard');
+        } else if (logo) {
+          logo.className = 'payment_logo';
+        }
       });
     }
 
@@ -137,7 +144,7 @@ class ModalWindow {
     const cardHeader = document.createElement('h5');
     cardHeader.innerText = 'Credit card details';
 
-    const logo = document.createElement('img');
+    const logo = document.createElement('div');
     logo.classList.add('payment_logo');
 
     const label = document.createElement('label');
