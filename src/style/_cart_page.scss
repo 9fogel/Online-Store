@@ -167,3 +167,50 @@
   border: solid 1px orange;
   border-radius: $border-radius;
 }
+
+.summary_new_price {
+  font-weight: bold;
+}
+
+.applied_header {
+  margin-bottom: 8px;
+}
+
+.applied_coupon_string {
+  margin-bottom: 8px;
+}
+
+.coupon_info {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid $gray;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.coupon_info:hover {
+  cursor: pointer;
+  color: orange;
+  border-color: orange;
+}
+
+.old_price {
+  text-decoration: line-through;
+}
+
+.coupon_input {
+  margin: 8px 0;
+  padding: 4px;
+}
+
+.coupon_input:focus {
+  outline-color: orange;
+}
+
+.coupon_button,
+.applied_coupon_button {
+  margin-left: 4px;
+  padding: 0 16px;
+  height: 24px;
+}

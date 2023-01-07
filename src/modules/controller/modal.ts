@@ -74,7 +74,7 @@ class ModalWindow {
       } else console.log(element);
     });
     ModalWindow.closeModal();
-    Popup.renderPopup('Your order is accepted', 3000);
+    Popup.renderPopup('Your order is accepted', 5000, 'order_confirmed');
     setTimeout(() => {
       window.location.hash = '#main-page';
       Cart.removeAll();

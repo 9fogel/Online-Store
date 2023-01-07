@@ -11,7 +11,7 @@ class Cart {
     if (this.getProductAmount(id) < this.getProduct(id).stock) {
       this.itemsID.push(id);
       localStorage.setItem('cart', this.itemsID.join(','));
-    } else Popup.renderPopup('Not enough goods', 3000);
+    } else Popup.renderPopup('Sorry. Not enough goods', 5000, 'no_goods');
     Refresher.refreshHeader();
     Refresher.refreshCart();
   }
