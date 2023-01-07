@@ -1,5 +1,5 @@
 export interface IProduct {
-  [key: string]: number | string | AgeT | Array<string>;
+  [key: string]: number | string | TAge | Array<string>;
   id: number;
   key: string;
   title: string;
@@ -9,12 +9,12 @@ export interface IProduct {
   theme: string;
   interests: string;
   detailsCount: number;
-  age: AgeT;
+  age: TAge;
   thumbnail: string;
   images: Array<string>;
 }
 
-export type AgeT = { minAge: number; maxAge: number };
+export type TAge = { minAge: number; maxAge: number };
 
 export type filtersT = {
   theme: Array<string>;
@@ -28,3 +28,7 @@ export enum Actions {
   Add = 'add',
   Delete = 'delete',
 }
+
+export type TPagination = {
+  [key: string]: number;
+};

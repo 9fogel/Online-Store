@@ -141,7 +141,7 @@ class StorePage extends Page {
           filterInnerItem.append(filterCheckbox);
 
           const filterLabel = document.createElement('label');
-          filterLabel.setAttribute('for', `${elem}`);
+          filterLabel.setAttribute('for', `${key}_${elem}`);
           filterLabel.textContent = `${elem}`;
           filterInnerItem.append(filterLabel);
 
@@ -410,12 +410,12 @@ class StorePage extends Page {
     const productCardTemplate: HTMLTemplateElement | null = document.querySelector('.item_template');
 
     if (productCardTemplate) {
-      items.forEach((item: IProduct) => {
+      items.forEach((item: IProduct): void => {
         const itemClone: DocumentFragment | Node = productCardTemplate.content.cloneNode(true);
         if (itemClone instanceof DocumentFragment && itemClone) {
           const info: HTMLElement | null = itemClone.querySelector('.item_info');
           if (info) {
-            info.addEventListener('click', () => (window.location.hash = `#product-page_${item.id}`));
+            info.addEventListener('click', (): string => (window.location.hash = `#product-page/${item.id}`));
           }
 
           const itemName: HTMLElement | null = itemClone.querySelector('.item_name');

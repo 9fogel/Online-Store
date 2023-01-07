@@ -41,7 +41,7 @@ class AppView {
 
     if (pageID.includes(pageIDs.StorePage)) {
       page = new StorePage(pageID);
-    } else if (pageID === pageIDs.CartPage) {
+    } else if (pageID.includes(pageIDs.CartPage)) {
       page = new CartPage(pageID);
     } else if (pageID === pageIDs.AboutPage) {
       page = new AboutPage(pageID);
@@ -85,6 +85,15 @@ class AppView {
       if (pageWrap) {
         pageWrap.classList.add('cart_page');
       }
+      // const itemsPerPage: HTMLInputElement | null = document.querySelector('.cart_pagination_input');
+      // if (itemsPerPage instanceof HTMLInputElement) {
+      //   console.log('items per Page', itemsPerPage.value);
+      // }
+      // const curPage: HTMLElement | null = document.querySelector('.cart_current_page');
+      // if (curPage) {
+      //   console.log('page Num', curPage.textContent);
+      // }
+
       page.drawCardCart();
     }
   }
