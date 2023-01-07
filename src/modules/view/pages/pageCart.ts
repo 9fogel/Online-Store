@@ -1,5 +1,6 @@
 import Cart from '../../controller/cart';
 import Page from '../templates/pageTemplate';
+import Coupon from '../../controller/coupon';
 import { IProduct, TPagination } from '../../types/types';
 import ModalWindow from '../../controller/modal';
 
@@ -172,21 +173,26 @@ class CartPage extends Page {
     price.classList.add('summary_price');
     price.innerText = `Total price: ${Cart.getTotal()} BYN`;
 
+    const couponInfo = document.createElement('div');
+    couponInfo.classList.add('coupon_info');
+    couponInfo.innerText = 'i';
+    couponInfo.title = 'Enter "RSSchool" or "9fogel" or "4Quark"';
+
     const couponSpan = document.createElement('div');
     couponSpan.classList.add('coupon_span');
-    couponSpan.innerText = 'Enter promo code';
+    couponSpan.innerText = 'Enter promo code: ';
+    couponSpan.append(couponInfo);
 
     const couponInput = document.createElement('input');
     couponInput.classList.add('coupon_input');
     couponInput.type = 'text';
-
-    const couponButton = document.createElement('button');
-    couponButton.classList.add('coupon_btn');
-    couponButton.innerText = `Total price: ${Cart.getTotal()} BYN`;
+    couponInput.placeholder = 'enter promo-code';
+    couponInput.addEventListener('input', Coupon.checkСoupon);
 
     const coupon = document.createElement('div');
     coupon.classList.add('cart_summary_coupon');
-    coupon.append();
+    coupon.append(couponSpan);
+    coupon.append(couponInput);
 
     const button = document.createElement('button');
     button.classList.add('button_buy');

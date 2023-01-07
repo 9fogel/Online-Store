@@ -38,6 +38,7 @@ class Cart {
     this.itemsID = [];
     localStorage.removeItem('cart');
     Refresher.refreshHeader();
+    Refresher.refreshCart();
   }
 
   public static getItems(): Array<number> {
@@ -87,6 +88,14 @@ class Cart {
     Cart.itemsID.forEach((el) => (total += Cart.getProduct(el).priceByn));
 
     return total;
+  }
+
+  public static getPromoTotal(couponAmount: number): number {
+    Cart.refresh();
+    const total = Cart.getTotal();
+    const discount = couponAmount * 0.1;
+
+    return (1 - discount) * total;
   }
 
   public static getProduct(searchID: number): IProduct {
