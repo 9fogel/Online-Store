@@ -1,4 +1,5 @@
 import Cart from './cart';
+import Popup from './popup';
 
 class ModalWindow {
   static fillField(
@@ -66,50 +67,11 @@ class ModalWindow {
       } else console.log(element);
     });
     ModalWindow.closeModal();
-    ModalWindow.renderAccept();
+    Popup.renderPopup('Your order is accepted', 3000);
     setTimeout(() => {
       window.location.hash = '#main-page';
       Cart.removeAll();
     }, 3000);
-  }
-
-  static renderAccept() {
-    const text = document.createElement('div');
-    text.classList.add('popup_text');
-    text.innerText = 'Your order is accepted';
-
-    const close = document.createElement('span');
-    close.classList.add('close');
-    close.innerText = '𐄂';
-    close.addEventListener('click', ModalWindow.removeAccept);
-
-    const modalWindow = document.createElement('div');
-    modalWindow.classList.add('modal_window');
-    modalWindow.append(close);
-    modalWindow.append(text);
-
-    const modalWrapper = document.createElement('div');
-    modalWrapper.classList.add('modal_wrapper');
-    modalWrapper.append(modalWindow);
-
-    const popup = document.createElement('div');
-    popup.classList.add('popup');
-    popup.append(modalWrapper);
-
-    document.body.append(popup);
-
-    window.onclick = function (event) {
-      if (event.target == popup) {
-        ModalWindow.removeAccept();
-      }
-    };
-
-    setTimeout(ModalWindow.removeAccept, 3000);
-  }
-
-  static removeAccept() {
-    const popup: HTMLElement | null = document.querySelector('.popup');
-    if (popup) popup.remove();
   }
 
   static renderModal() {
