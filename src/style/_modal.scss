@@ -33,6 +33,26 @@
   }
 }
 
+.modal_window.popup {
+  min-height: 400px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  background-image: none;
+}
+
+.popup.no_goods {
+  background-image: url('img/no-goods.png');
+  background-size: 20%;
+  background-position: 50% 90%;
+}
+
+.popup.order_confirmed {
+  background-image: url('img/order-confirmed.png');
+  background-size: 60%;
+  background-position: 50% 100%;
+}
+
 .modal_wrapper {
   position: relative;
   display: flex;
@@ -136,15 +156,3 @@
 //   padding: 4px 16px;
 //   height: 40px;
 // }
-
-.coupon_info {
-    width: 20px;
-    height: 20px;
-    border: 1px solid #000;
-    border-radius: 50%;
-    text-align: center;
-}
-
-.old_price {
-    text-decoration: line-through;
-}

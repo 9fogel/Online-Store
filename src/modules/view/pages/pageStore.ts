@@ -459,7 +459,7 @@ class StorePage extends Page {
 
           const itemAmount: HTMLElement | null = itemClone.querySelector('.item_amount');
           if (itemAmount) {
-            itemAmount.textContent = `Amount: ${item.stock}`;
+            itemAmount.textContent = `Stock: ${item.stock}`;
           }
 
           const itemAge: HTMLElement | null = itemClone.querySelector('.item_age');

@@ -1,16 +1,17 @@
 class Popup {
-  static renderPopup(text: string, delay: number) {
+  static renderPopup(text: string, delay: number, classname: string) {
     const textField = document.createElement('div');
     textField.classList.add('popup_text');
     textField.innerText = text;
 
-    const close = document.createElement('span');
+    const close = document.createElement('div');
     close.classList.add('close');
-    close.innerText = '𐄂';
     close.addEventListener('click', Popup.removePopup);
 
     const modalWindow = document.createElement('div');
     modalWindow.classList.add('modal_window');
+    modalWindow.classList.add('popup');
+    modalWindow.classList.add(classname);
     modalWindow.append(close);
     modalWindow.append(text);
 
