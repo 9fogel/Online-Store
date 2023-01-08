@@ -25,11 +25,12 @@ class Header extends Component {
   constructor(tagName: string, className: string) {
     super(tagName, className);
   }
-  private static defaultLogo = 'LEGO online';
+  private static defaultLogo = 'The Bricks';
 
   renderLogo() {
     const link = document.createElement('a');
     link.href = '#main-page';
+    link.classList.add('header_logo');
     link.innerText = Header.defaultLogo;
     const title = document.createElement('h1');
     title.classList.add('logo');
