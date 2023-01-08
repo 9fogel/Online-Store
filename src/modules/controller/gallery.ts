@@ -28,7 +28,7 @@ class Gallery {
 
   static createQueryString(): string | undefined {
     if (localStorage.getItem('legoFilters')) {
-      const filtersUsed = localStorage.getItem('legoFilters') ?? {};
+      const filtersUsed: string = localStorage.getItem('legoFilters') ?? '';
       const filtersUsedObj: filtersT = JSON.parse(filtersUsed.toString());
       for (const [key, value] of Object.entries(filtersUsedObj)) {
         if (Array.isArray(value) && value.length !== 0) {
