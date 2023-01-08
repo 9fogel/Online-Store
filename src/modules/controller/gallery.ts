@@ -15,6 +15,7 @@ class Gallery {
     price: [],
     search: [],
     layout: [],
+    sort: [],
   };
 
   static getAllUniqueItems() {
@@ -189,6 +190,8 @@ class Gallery {
       Gallery.state = 'filtered';
       if (sortValue !== 'not sorted') {
         Gallery.filtersChecked.sort = [sortValue];
+      } else {
+        Gallery.filtersChecked.sort = [];
       }
 
       if (sortValue.includes('name')) {
