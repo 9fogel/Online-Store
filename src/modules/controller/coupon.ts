@@ -5,18 +5,21 @@ class Coupon {
 
   static addCoupon(text: string) {
     const couponField: HTMLElement | null = document.querySelector('.cart_summary_coupon');
-    if (couponField) {
-      const string = document.createElement('div');
-      string.classList.add('coupon_string');
-      string.innerText = `${text} - 10% discount `;
+    const thisCoupon = document.getElementById(`coupon_${text}`);
+    if (!thisCoupon) {
+      if (couponField) {
+        const string = document.createElement('div');
+        string.classList.add('coupon_string');
+        string.innerText = `${text} - 10% discount `;
 
-      const button = document.createElement('button');
-      button.classList.add('coupon_button');
-      button.innerText = 'add';
-      button.addEventListener('click', () => Coupon.applyCoupon(text));
+        const button = document.createElement('button');
+        button.classList.add('coupon_button');
+        button.innerText = 'add';
+        button.addEventListener('click', () => Coupon.applyCoupon(text));
 
-      string.append(button);
-      couponField.append(string);
+        string.append(button);
+        couponField.append(string);
+      }
     }
   }
 

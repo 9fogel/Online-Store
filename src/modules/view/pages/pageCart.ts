@@ -40,7 +40,7 @@ class CartPage extends Page {
     paginationInput.classList.add('cart_pagination_input');
     paginationInput.type = 'number';
     paginationInput.min = '1';
-    paginationInput.max = `${Cart.getAmount()}`;
+    paginationInput.max = `${Cart.getUniqueAmount()}`;
     if (!localStorage.getItem('cart-pagination')) {
       paginationInput.value = '3';
     } else {
