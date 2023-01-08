@@ -8,10 +8,7 @@ class CartPage extends Page {
   static textObj = {
     mainTitle: 'Cart',
   };
-  static pagination: TPagination = {
-    // limit: 3,
-    // page: 1,
-  };
+  static pagination: TPagination = {};
 
   constructor(id: string) {
     super(id);
@@ -31,19 +28,6 @@ class CartPage extends Page {
     }
   }
 
-  // fillPaginationValues() {
-  //   if (localStorage.getItem('cart-pagination')) {
-  //     const paginationChanged: string = localStorage.getItem('cart-pagination') ?? '';
-  //     const paginationData: TPagination = JSON.parse(paginationChanged.toString());
-  //     if (paginationData.limit) {
-  //       console.log(paginationData.limit);
-  //     }
-  //     if (paginationData.page) {
-  //       console.log(paginationData.page);
-  //     }
-  //   }
-  // }
-
   private renderCartGalleryHeader(): HTMLDivElement {
     const title = document.createElement('h4');
     title.classList.add('cart_title');
@@ -54,30 +38,35 @@ class CartPage extends Page {
     paginationInput.type = 'number';
     paginationInput.min = '1';
     paginationInput.max = `${Cart.getAmount()}`;
-    if (!localStorage.getItem('cart-pagination')) {
-      paginationInput.value = '3';
-    } else {
+    if (localStorage.getItem('cart-pagination')) {
       const paginationChanged: string = localStorage.getItem('cart-pagination') ?? '';
       const paginationData: TPagination = JSON.parse(paginationChanged.toString());
-      paginationInput.value = paginationData.limit.toString();
-      // this.createQueryString();
-      window.history.pushState({}, '', this.createQueryString());
+      if (paginationData.limit) {
+        paginationInput.value = paginationData.limit.toString();
+        window.history.pushState({}, '', this.createQueryString());
+      } else {
+        paginationInput.value = '3';
+      }
+    } else {
+      paginationInput.value = '3';
     }
 
     paginationInput.step = '1';
 
     const curPageNum = document.createElement('span');
     curPageNum.classList.add('cart_current_page');
-    if (!localStorage.getItem('cart-pagination')) {
-      curPageNum.innerText = '1';
-    } else {
+    if (localStorage.getItem('cart-pagination')) {
       const paginationChanged: string = localStorage.getItem('cart-pagination') ?? '';
       const paginationData: TPagination = JSON.parse(paginationChanged.toString());
-      curPageNum.innerText = paginationData.page.toString();
-      // this.createQueryString();
-      window.history.pushState({}, '', this.createQueryString());
+      if (paginationData.page) {
+        curPageNum.innerText = paginationData.page.toString();
+        window.history.pushState({}, '', this.createQueryString());
+      } else {
+        curPageNum.innerText = '1';
+      }
+    } else {
+      curPageNum.innerText = '1';
     }
-    // curPageNum.innerText = '1';
 
     let maxPages = Cart.countPages(+paginationInput.value);
     paginationInput.addEventListener('change', (): void => {
@@ -97,7 +86,6 @@ class CartPage extends Page {
       window.history.pushState({}, '', this.createQueryString());
       this.clearCart();
       this.drawCardCart();
-      // }
     });
 
     const paginationSpan = document.createElement('span');
