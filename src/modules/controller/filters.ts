@@ -1,23 +1,12 @@
 import products from '../data/products.json';
 import { filtersT } from '../types/types';
-// import { filtersT, IProduct } from '../types/types';
-// import StorePage from '../view/pages/pageStore';
 import Gallery from './gallery';
-// import { Actions } from '../types/types';
-// import UrlChange from './url';
-
-// const filters = {
-//   theme: [],
-//   interests: [],
-//   priceByn: [],
-//   age: [],
-// };
 
 class Filters {
   static filters: filtersT = {
     theme: [],
     interests: [],
-    details: [],
+    pieces: [],
     price: [],
   };
 
@@ -42,7 +31,7 @@ class Filters {
 
     const detailsArr = Array.from(new Set(products.products.map((el) => el.detailsCount)));
     detailsArr.sort((a: number, b: number) => a - b);
-    Filters.filters.details = [...detailsArr];
+    Filters.filters.pieces = [...detailsArr];
     // console.log(detailsArr);
 
     const priceArr = Array.from(new Set(products.products.map((el) => el.priceByn)));

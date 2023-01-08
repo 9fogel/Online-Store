@@ -452,6 +452,11 @@ class StorePage extends Page {
             itemBrand.textContent = `Brand: LEGO`;
           }
 
+          const itemSetNumber: HTMLElement | null = itemClone.querySelector('.item_set_number');
+          if (itemSetNumber) {
+            itemSetNumber.textContent = `Set Number: ${item.key}`;
+          }
+
           const itemCount: HTMLElement | null = itemClone.querySelector('.item_count');
           if (itemCount) {
             itemCount.textContent = `Pieces: ${item.detailsCount}`;
@@ -483,17 +488,6 @@ class StorePage extends Page {
               addBtn.innerText = 'Add to cart';
               addBtn.addEventListener('click', () => changeBtn(addBtn, 'add', item.id));
             }
-            // if (!addBtn.classList.contains('drop_btn')) {
-            // Cart.addItem(item.id);
-            // addBtn.textContent = 'Drop from Cart';
-            // addBtn.classList.add('drop_btn');
-            // } else {
-            //   Cart.removeItem(item.id);
-            //   addBtn.textContent = 'Add to Cart';
-            //   addBtn.classList.remove('drop_btn');
-            //TODO: удалять элемент из корзины при повторном нажатии (если локал сторадж с пустыми значениями, то падет ошибка)
-            // }
-            // });
           }
 
           fragment.append(itemClone);

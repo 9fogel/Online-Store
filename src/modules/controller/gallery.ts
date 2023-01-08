@@ -11,7 +11,7 @@ class Gallery {
   static filtersChecked: filtersT = {
     theme: [],
     interests: [],
-    details: [],
+    pieces: [],
     price: [],
     search: [],
     layout: [],
@@ -108,12 +108,12 @@ class Gallery {
       firstRange.push(+firstMax.textContent);
     }
     if (
-      firstRange[0] === Filters.filters.details[0] &&
-      firstRange[1] === Filters.filters.details[Filters.filters.details.length - 1]
+      firstRange[0] === Filters.filters.pieces[0] &&
+      firstRange[1] === Filters.filters.pieces[Filters.filters.pieces.length - 1]
     ) {
-      Gallery.filtersChecked.details = [];
+      Gallery.filtersChecked.pieces = [];
     } else {
-      Gallery.filtersChecked.details = firstRange;
+      Gallery.filtersChecked.pieces = firstRange;
     }
 
     const secondRange: Array<number> = [];
