@@ -65,7 +65,8 @@ class StorePage extends Page {
     if (localStorage.getItem('legoFilters')) {
       const filtersUsed = localStorage.getItem('legoFilters') ?? {};
       const filtersUsedObj: filtersT = JSON.parse(filtersUsed.toString());
-      if (filtersUsedObj.sort) {
+      console.log(filtersUsedObj.sort);
+      if (filtersUsedObj.sort.length !== 0) {
         Gallery.state === 'filtered';
         defaultOption.removeAttribute('selected');
         sortDropdown.value = filtersUsedObj.sort.toString();
@@ -107,7 +108,6 @@ class StorePage extends Page {
 
     const filterLegend = document.createElement('legend');
     filterLegend.classList.add('filters_legend');
-    // filterLegend.textContent = 'Filters';
     filterFieldset.append(filterLegend);
 
     const filterSlogan = document.createElement('h3');
@@ -235,6 +235,8 @@ class StorePage extends Page {
     resetButton.addEventListener('click', (): void => {
       console.log('reset');
       localStorage.removeItem('legoFilters');
+      console.log(Gallery.queryStr);
+      console.log(Gallery.filtersChecked);
       this.clearGallery();
       window.location.hash = '#main-page';
       return this.drawCardStore(Gallery.getAllUniqueItems());
@@ -387,7 +389,6 @@ class StorePage extends Page {
     sortDropdown.append(sortArrow);
 
     sortDropdown.addEventListener('change', (event: Event): void => {
-      console.log(sortDropdown.value);
       this.clearGallery();
       return this.drawCardStore(this.filtersPart.getStoreFiltered(event) ?? []);
     });
@@ -452,6 +453,11 @@ class StorePage extends Page {
             itemBrand.textContent = `Brand: LEGO`;
           }
 
+          const itemSetNumber: HTMLElement | null = itemClone.querySelector('.item_set_number');
+          if (itemSetNumber) {
+            itemSetNumber.textContent = `Set Number: ${item.key}`;
+          }
+
           const itemCount: HTMLElement | null = itemClone.querySelector('.item_count');
           if (itemCount) {
             itemCount.textContent = `Pieces: ${item.detailsCount}`;
@@ -483,17 +489,6 @@ class StorePage extends Page {
               addBtn.innerText = 'Add to cart';
               addBtn.addEventListener('click', () => changeBtn(addBtn, 'add', item.id));
             }
-            // if (!addBtn.classList.contains('drop_btn')) {
-            // Cart.addItem(item.id);
-            // addBtn.textContent = 'Drop from Cart';
-            // addBtn.classList.add('drop_btn');
-            // } else {
-            //   Cart.removeItem(item.id);
-            //   addBtn.textContent = 'Add to Cart';
-            //   addBtn.classList.remove('drop_btn');
-            //TODO: удалять элемент из корзины при повторном нажатии (если локал сторадж с пустыми значениями, то падет ошибка)
-            // }
-            // });
           }
 
           fragment.append(itemClone);
