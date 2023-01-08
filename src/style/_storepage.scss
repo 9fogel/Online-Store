@@ -6,7 +6,7 @@
 
 .filters_wrapper {
   margin-top: 16px;
-  width: 240px;
+  width: 100%;
 }
 
 .filters_slogan {
@@ -116,7 +116,8 @@
 .filters_fieldset {
   padding: 16px 20px;
   border-radius: $border-radius-small;
-  border: $border;
+  // border: $border;
+  border: 1px solid orange;
 }
 
 .filter_btn_wrapper {
