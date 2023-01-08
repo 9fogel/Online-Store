@@ -18,7 +18,7 @@ class Gallery {
     sort: [],
   };
 
-  static getAllUniqueItems() {
+  static getAllUniqueItems(): Array<IProduct> {
     for (let i = 0; i < products.total; i++) {
       this.items = Array.from(products.products);
     }
@@ -26,33 +26,32 @@ class Gallery {
     return this.items;
   }
 
-  static createQueryString() {
+  static createQueryString(): string | undefined {
     if (localStorage.getItem('legoFilters')) {
       const filtersUsed = localStorage.getItem('legoFilters') ?? {};
-      const filtersUsedObj = JSON.parse(filtersUsed.toString());
-      // console.log(filtersUsedObj);
+      const filtersUsedObj: filtersT = JSON.parse(filtersUsed.toString());
       for (const [key, value] of Object.entries(filtersUsedObj)) {
-        // console.log(key, value);
         if (Array.isArray(value) && value.length !== 0) {
-          // Gallery.queryStr += `&${key}=${value}`;
-          Gallery.queryStr += `/${key}=${value.join(',')}`;
+          Gallery.queryStr += `&${key}=${value}`;
+          // Gallery.queryStr += `/${key}=${value.join(',')}`;
 
           // for (let i = 0; i < value.length; i++) {
           //   Gallery.queryStr += `&${key}=${value[i]}`;
           // }
         }
       }
+
       return Gallery.queryStr;
     }
   }
 
-  static getFilteredItems(event?: Event) {
-    Gallery.queryStr = '#main-page';
+  static getFilteredItems(event?: Event): Array<IProduct> {
+    Gallery.queryStr = '#main-page?';
 
-    const itemsToFilter = this.getFilteredByCheckbox();
-    const itemsFiltered = this.getFilteredByRange(itemsToFilter);
-    const itemsSearched = this.getSearchResults(itemsFiltered);
-    const itemsSorted = this.getItemsSorted(itemsSearched);
+    const itemsToFilter: Array<IProduct> = this.getFilteredByCheckbox();
+    const itemsFiltered: Array<IProduct> = this.getFilteredByRange(itemsToFilter);
+    const itemsSearched: Array<IProduct> = this.getSearchResults(itemsFiltered);
+    const itemsSorted: Array<IProduct> = this.getItemsSorted(itemsSearched);
     if (event) {
       this.changeLayout(event);
     }
@@ -64,16 +63,20 @@ class Gallery {
     return itemsSorted;
   }
 
-  static getFilteredByCheckbox() {
-    const checkboxes = document.getElementsByClassName('filter_checkbox');
-    const checkedItems = Array.from(checkboxes).filter((el) => el.hasAttribute('checked'));
-    const firstFilterChecked = checkedItems.filter((el) => el.id.startsWith('theme')).map((el) => el.id.split('_')[1]);
+  static getFilteredByCheckbox(): Array<IProduct> {
+    const checkboxes: HTMLCollectionOf<Element> = document.getElementsByClassName('filter_checkbox');
+    const checkedItems: Array<Element> = Array.from(checkboxes).filter((el: Element): boolean =>
+      el.hasAttribute('checked'),
+    );
+    const firstFilterChecked: Array<string> = checkedItems
+      .filter((el: Element) => el.id.startsWith('theme'))
+      .map((el: Element) => el.id.split('_')[1]);
     Gallery.filtersChecked.theme = firstFilterChecked;
 
     const firstRes: Array<IProduct> = [];
     if (firstFilterChecked.length !== 0) {
-      firstFilterChecked.forEach((item) => {
-        const filteredPortion = this.items.filter((el) => el.theme === item);
+      firstFilterChecked.forEach((item: string): void => {
+        const filteredPortion = this.items.filter((el: IProduct): boolean => el.theme === item);
         firstRes.push(...filteredPortion);
       });
       Gallery.state = 'filtered';
@@ -81,15 +84,15 @@ class Gallery {
       firstRes.push(...this.items);
     }
 
-    const secondFilterChecked = checkedItems
-      .filter((el) => el.id.startsWith('interests'))
-      .map((el) => el.id.split('_')[1]);
+    const secondFilterChecked: Array<string> = checkedItems
+      .filter((el: Element): boolean => el.id.startsWith('interests'))
+      .map((el: Element): string => el.id.split('_')[1]);
     Gallery.filtersChecked.interests = secondFilterChecked;
 
     const secondRes: Array<IProduct> = [];
     if (secondFilterChecked.length !== 0) {
-      secondFilterChecked.forEach((item) => {
-        const filteredPortion = firstRes.filter((el) => el.interests === item);
+      secondFilterChecked.forEach((item: string) => {
+        const filteredPortion: Array<IProduct> = firstRes.filter((el: IProduct): boolean => el.interests === item);
         secondRes.push(...filteredPortion);
       });
       Gallery.state = 'filtered';
@@ -99,9 +102,9 @@ class Gallery {
     return secondRes;
   }
 
-  static getFilteredByRange(items: Array<IProduct>) {
-    const [firstMin, secondMin] = document.getElementsByClassName('range_value_min');
-    const [firstMax, secondMax] = document.getElementsByClassName('range_value_max');
+  static getFilteredByRange(items: Array<IProduct>): Array<IProduct> {
+    const [firstMin, secondMin]: HTMLCollectionOf<Element> = document.getElementsByClassName('range_value_min');
+    const [firstMax, secondMax]: HTMLCollectionOf<Element> = document.getElementsByClassName('range_value_max');
 
     const firstRange: Array<number> = [];
     if (firstMin.textContent && firstMax.textContent) {
@@ -130,19 +133,18 @@ class Gallery {
     } else {
       Gallery.filtersChecked.price = secondRange;
     }
-    // Gallery.filtersChecked.price = secondRange;
 
     const firstRes: Array<IProduct> = [];
-    const itemsToFilter = items;
-    const filteredPortion = itemsToFilter.filter(
-      (el) => el.detailsCount >= firstRange[0] && el.detailsCount <= firstRange[1],
+    const itemsToFilter: Array<IProduct> = items;
+    const filteredPortion: Array<IProduct> = itemsToFilter.filter(
+      (el: IProduct): boolean => el.detailsCount >= firstRange[0] && el.detailsCount <= firstRange[1],
     );
     firstRes.push(...filteredPortion);
 
     const secondRes: Array<IProduct> = [];
-    const itemsToFinalFilter = firstRes;
-    const filteredPortionFinal = itemsToFinalFilter.filter(
-      (el) => el.priceByn >= secondRange[0] && el.priceByn <= secondRange[1],
+    const itemsToFinalFilter: Array<IProduct> = firstRes;
+    const filteredPortionFinal: Array<IProduct> = itemsToFinalFilter.filter(
+      (el: IProduct): boolean => el.priceByn >= secondRange[0] && el.priceByn <= secondRange[1],
     );
     secondRes.push(...filteredPortionFinal);
 
@@ -151,20 +153,19 @@ class Gallery {
     return secondRes;
   }
 
-  static getSearchResults(itemsFiltered: Array<IProduct>) {
-    let itemsSearched = itemsFiltered;
+  static getSearchResults(itemsFiltered: Array<IProduct>): Array<IProduct> {
+    let itemsSearched: Array<IProduct> = itemsFiltered;
     const searchInput: HTMLInputElement | null = document.querySelector('.search_input');
     if (searchInput) {
-      const searchValue = searchInput.value;
-      console.log('s', searchValue);
+      const searchValue: string = searchInput.value;
       if (searchValue) {
         Gallery.state = 'filtered';
         Gallery.filtersChecked.search = [searchValue];
         const searchRegX = new RegExp(searchValue, 'i');
 
-        itemsSearched = itemsFiltered.filter((item) => {
+        itemsSearched = itemsFiltered.filter((item: IProduct) => {
           for (const key in item) {
-            const value = item[key].toString();
+            const value: string = item[key].toString();
             if (searchRegX.test(value)) {
               return true;
             }
@@ -181,38 +182,38 @@ class Gallery {
     return itemsSearched;
   }
 
-  static getItemsSorted(itemsSearched: Array<IProduct>) {
+  static getItemsSorted(itemsSearched: Array<IProduct>): Array<IProduct> {
     let itemsSorted: Array<IProduct> = itemsSearched;
     const sortDropdown: HTMLElement | null = document.getElementById('sort_select');
 
     if (sortDropdown instanceof HTMLSelectElement) {
-      const sortValue = sortDropdown.value;
+      const sortValue: string = sortDropdown.value;
       Gallery.state = 'filtered';
-      if (sortValue !== 'not sorted') {
+      if (sortValue !== 'not sorted' && sortValue !== '') {
         Gallery.filtersChecked.sort = [sortValue];
       } else {
         Gallery.filtersChecked.sort = [];
       }
 
       if (sortValue.includes('name')) {
-        const order = sortValue.slice(5);
+        const order: string = sortValue.slice(5);
         switch (order) {
           case 'A-Z':
-            itemsSorted = itemsSorted.sort((a, b) => a.title.localeCompare(b.title));
+            itemsSorted = itemsSorted.sort((a: IProduct, b: IProduct): number => a.title.localeCompare(b.title));
             break;
           case 'Z-A':
-            itemsSorted = itemsSorted.sort((a, b) => b.title.localeCompare(a.title));
+            itemsSorted = itemsSorted.sort((a: IProduct, b: IProduct): number => b.title.localeCompare(a.title));
             break;
         }
       }
       if (sortValue.includes('price')) {
-        const order = sortValue.slice(6);
+        const order: string = sortValue.slice(6);
         switch (order) {
           case 'lowest':
-            itemsSorted = itemsSorted.sort((a: IProduct, b: IProduct) => a.priceByn - b.priceByn);
+            itemsSorted = itemsSorted.sort((a: IProduct, b: IProduct): number => a.priceByn - b.priceByn);
             break;
           case 'highest':
-            itemsSorted = itemsSorted.sort((a: IProduct, b: IProduct) => b.priceByn - a.priceByn);
+            itemsSorted = itemsSorted.sort((a: IProduct, b: IProduct): number => b.priceByn - a.priceByn);
             break;
         }
       }
@@ -221,7 +222,7 @@ class Gallery {
     return itemsSorted;
   }
 
-  static showFoundMessage(results: Array<IProduct>) {
+  static showFoundMessage(results: Array<IProduct>): void {
     const itemsFound: HTMLElement | null = document.querySelector('.items_found');
     const galleryWrap: HTMLElement | null = document.querySelector('.gallery_wrapper');
     if (itemsFound && galleryWrap) {
@@ -238,17 +239,16 @@ class Gallery {
     }
   }
 
-  static changeLayout(event: Event) {
+  static changeLayout(event: Event): void {
     if (event.target instanceof HTMLInputElement && event.target.type === 'radio') {
-      console.log(event.target.value);
       const galleryWrap = document.querySelector('.gallery_wrapper');
       if (galleryWrap) {
         galleryWrap.classList.toggle('small_tiles');
         galleryWrap.classList.toggle('big_tiles');
-        const layoutValue = event.target.value;
+        const layoutValue: string = event.target.value;
         Gallery.filtersChecked.layout = [`${layoutValue}`];
-        const radioBtns = document.querySelectorAll('.custom_radio');
-        radioBtns.forEach((radio) => radio.removeAttribute('checked'));
+        const radioBtns: NodeListOf<Element> = document.querySelectorAll('.custom_radio');
+        radioBtns.forEach((radio: Element): void => radio.removeAttribute('checked'));
         event.target.setAttribute('checked', 'true');
       }
     }
