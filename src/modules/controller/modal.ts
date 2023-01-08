@@ -129,7 +129,7 @@ class ModalWindow {
         'form_field',
         'input',
         'address',
-        'Minsk Pinsk Verhnedvinsk',
+        'Minsk, Lenin Street 1',
         true,
         '^\\w{5,}\\s\\w{5,}\\s\\w{5,}',
       ),

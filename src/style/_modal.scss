@@ -157,11 +157,11 @@
 }
 
 .modal_window input:valid {
-  outline-color: palegreen;
+  outline-color: rgb(120, 223, 120);
 }
 
 .modal_window input:invalid {
-  outline-color: lightpink;
+  outline-color: rgb(240, 162, 174);
 }
 
 // .payment_confirm {
