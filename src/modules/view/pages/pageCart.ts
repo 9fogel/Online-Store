@@ -3,6 +3,7 @@ import Page from '../templates/pageTemplate';
 import Coupon from '../../controller/coupon';
 import { IProduct, TPagination } from '../../types/types';
 import ModalWindow from '../../controller/modal';
+import Popup from '../../controller/popup';
 
 class CartPage extends Page {
   static textObj = {
@@ -177,6 +178,9 @@ class CartPage extends Page {
     couponInfo.classList.add('coupon_info');
     couponInfo.innerText = 'i';
     couponInfo.title = 'Enter "RSSchool" or "9fogel" or "4Quark"';
+    couponInfo.addEventListener('click', () =>
+      Popup.renderPopup('Enter "RSSchool" or "9fogel" or "4Quark"', 5000, 'coupon_info_popup'),
+    );
 
     const couponSpan = document.createElement('div');
     couponSpan.classList.add('coupon_span');

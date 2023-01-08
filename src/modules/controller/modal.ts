@@ -164,7 +164,7 @@ class ModalWindow {
         '0000 0000 0000 0000',
         true,
         '^\\d{4}\\s\\d{4}\\s\\d{4}\\s\\d{4}',
-        18,
+        20,
       ),
     );
     card.append(cardWrap);
