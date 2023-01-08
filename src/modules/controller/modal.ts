@@ -10,6 +10,7 @@ class ModalWindow {
     placeholder: string,
     required: boolean,
     pattern?: string,
+    size?: number,
   ) {
     const label = document.createElement('label');
     label.innerText = innerText;
@@ -21,6 +22,7 @@ class ModalWindow {
     input.placeholder = placeholder;
     input.required = required;
     if (pattern) input.pattern = pattern;
+    if (size) input.size = size;
 
     const element = document.createElement('div');
     element.classList.add(fieldClass);
@@ -30,6 +32,14 @@ class ModalWindow {
   }
 
   static tracker() {
+    const phoneNumberField: HTMLElement | null = document.getElementById('phone');
+    if (phoneNumberField instanceof HTMLInputElement) {
+      phoneNumberField.addEventListener(
+        'input',
+        () => (phoneNumberField.value = '+' + phoneNumberField.value.replace(/\D/g, '')),
+      );
+    }
+
     const cardNumberField: HTMLElement | null = document.getElementById('card_number');
     const logo: HTMLElement | null = document.querySelector('.payment_logo');
     if (cardNumberField instanceof HTMLInputElement) {
@@ -52,6 +62,19 @@ class ModalWindow {
         } else if (logo) {
           logo.className = 'payment_logo';
         }
+      });
+    }
+
+    const cardValidField: HTMLElement | null = document.getElementById('card_date');
+    if (cardValidField instanceof HTMLInputElement) {
+      cardValidField.addEventListener('input', () => {
+        let string = cardValidField.value;
+        string = string.replace(/\D/g, '').substring(0, 4);
+        string = string
+          .split(/(\d{2})/)
+          .filter((item) => item !== '')
+          .join('/');
+        cardValidField.value = string;
       });
     }
 
@@ -98,9 +121,19 @@ class ModalWindow {
     const user = document.createElement('div');
     user.classList.add('modal_wrapper');
     user.append(userHeader);
-    user.append(this.fillField('name: ', 'form_field', 'text', 'name', 'Name Surname', true));
-    user.append(this.fillField('phone: ', 'form_field', 'text', 'phone', '+7(999)999-99-99', true));
-    user.append(this.fillField('delivery address: ', 'form_field', 'input', 'address', 'Berlin', true));
+    user.append(this.fillField('name: ', 'form_field', 'text', 'name', 'Name Surname', true, '^\\w{3,}\\s\\w{3,}'));
+    user.append(this.fillField('phone: ', 'form_field', 'text', 'phone', '+99999999999', true, '^\\+\\d{9,}'));
+    user.append(
+      this.fillField(
+        'delivery address: ',
+        'form_field',
+        'input',
+        'address',
+        'Minsk Pinsk Verhnedvinsk',
+        true,
+        '^\\w{5,}\\s\\w{5,}\\s\\w{5,}',
+      ),
+    );
     user.append(this.fillField('e-mail: ', 'form_field', 'email', 'email', 'online-store@store.com', true));
 
     const cardHeader = document.createElement('h5');
@@ -113,37 +146,28 @@ class ModalWindow {
     label.classList.add('card_date_label');
     label.innerText = 'Valid: ';
 
-    const month = document.createElement('select');
-    month.classList.add('card_date_month');
-    for (let i = 1; i < 13; i += 1) {
-      const mon = document.createElement('option');
-      mon.innerText = `${i}`;
-      month.append(mon);
-    }
-
-    const year = document.createElement('select');
-    year.classList.add('card_date_year');
-    const today = new Date();
-    const currentYear = today.getFullYear();
-    for (let i = currentYear; i < currentYear + 8; i += 1) {
-      const y = document.createElement('option');
-      y.innerText = `${i}`;
-      year.append(y);
-    }
-
-    const date = document.createElement('div');
-    date.classList.add('card_date');
-    date.append(label);
-    date.append(month);
-    date.append(year);
+    const cardWrap = document.createElement('div');
+    cardWrap.classList.add('card_attributes');
+    cardWrap.append(this.fillField('Valid: ', 'form_field', 'text', 'card_date', '11/11', true, '^\\d{2}\\/\\d{2}', 6));
+    cardWrap.append(this.fillField('CVV ', 'form_field', 'text', 'card_CVV', '000', true, '^\\d{3}', 6));
 
     const card = document.createElement('div');
     card.classList.add('modal_wrapper');
     card.append(cardHeader);
     card.append(logo);
-    card.append(this.fillField('card number ', 'form_field', 'text', 'card_number', '0000 0000 0000 0000', true));
-    card.append(date);
-    card.append(this.fillField('CVV ', 'form_field', 'text', 'card_CVV', '000', true));
+    card.append(
+      this.fillField(
+        'card number ',
+        'form_field',
+        'text',
+        'card_number',
+        '0000 0000 0000 0000',
+        true,
+        '^\\d{4}\\s\\d{4}\\s\\d{4}\\s\\d{4}',
+        18,
+      ),
+    );
+    card.append(cardWrap);
 
     const submit = document.createElement('input');
     submit.classList.add('payment_confirm');
