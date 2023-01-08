@@ -94,6 +94,7 @@ class AppView {
       //   console.log('page Num', curPage.textContent);
       // }
 
+      page.renderCartGalleryHeader();
       page.drawCardCart();
     }
   }

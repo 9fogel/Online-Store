@@ -65,7 +65,6 @@ class StorePage extends Page {
     if (localStorage.getItem('legoFilters')) {
       const filtersUsed = localStorage.getItem('legoFilters') ?? {};
       const filtersUsedObj: filtersT = JSON.parse(filtersUsed.toString());
-      console.log(filtersUsedObj.sort);
       if (filtersUsedObj.sort.length !== 0) {
         Gallery.state === 'filtered';
         defaultOption.removeAttribute('selected');
@@ -480,7 +479,9 @@ class StorePage extends Page {
             if (Cart.getProductAmount(item.id)) {
               addBtn.classList.add('button_discard');
               addBtn.innerText = `Drop from Cart (${Cart.getProductAmount(item.id)})`;
-              addBtn.addEventListener('click', () => changeBtn(addBtn, 'discard', item.id));
+              addBtn.addEventListener('click', () => {
+                changeBtn(addBtn, 'discard', item.id);
+              });
             } else {
               addBtn.classList.add('button_buy');
               addBtn.innerText = 'Add to cart';
