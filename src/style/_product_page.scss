@@ -21,6 +21,7 @@
     padding: 16px;
     width: auto;
     height: 100%;
+    transition: ease-in-out 0.3s;
   }
 
   & .pictures_wrapper {
@@ -42,14 +43,14 @@
 
   & .item_additional_picture:hover {
     cursor: pointer;
-    border: solid 2px orange;
+    border: solid 2px $orange;
     border-radius: $border-radius-small;
     transform: scale(1.02);
     transition: transform ease-in-out 0.3s;
   }
 
   & .item_additional_picture.selected {
-    border: solid 2px orange;
+    border: solid 2px $orange;
     border-radius: $border-radius-small;
   }
 

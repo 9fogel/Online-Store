@@ -21,7 +21,7 @@
   background-size: 30%;
   background-repeat: no-repeat;
   background-position: 85% 70%;
-  border: 2px solid orange;
+  border: 2px solid $orange;
   border-radius: $border-radius;
 
   & input {
@@ -29,7 +29,7 @@
   }
 
   & input:focus {
-    outline-color: orange;
+    outline-color: $orange;
   }
 }
 
@@ -144,7 +144,7 @@
 
 .card_date_month:focus,
 .card_date_year:focus {
-  outline-color: orange;
+  outline-color: $orange;
 }
 
 .card_date_month {

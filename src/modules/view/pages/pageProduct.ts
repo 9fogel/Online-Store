@@ -118,7 +118,7 @@ class ProductPage extends Page {
 
       const category = document.createElement('div');
       category.classList.add('item_characteristic');
-      category.innerText = `Category: `;
+      category.innerText = `Theme: `;
       const categoryDesc = document.createElement('span');
       categoryDesc.innerText = `${item.theme}`;
       category.append(categoryDesc);

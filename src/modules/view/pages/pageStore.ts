@@ -436,12 +436,12 @@ class StorePage extends Page {
 
           const itemCategory: HTMLElement | null = itemClone.querySelector('.item_category');
           if (itemCategory) {
-            itemCategory.textContent = `Category: ${item.theme}`;
+            itemCategory.textContent = `Theme: ${item.theme}`;
           }
 
           const itemSubCategory: HTMLElement | null = itemClone.querySelector('.item_subcategory');
           if (itemSubCategory) {
-            itemSubCategory.textContent = `SubCategory: ${item.interests}`;
+            itemSubCategory.textContent = `Interests: ${item.interests}`;
           }
 
           const itemBrand: HTMLElement | null = itemClone.querySelector('.item_brand');
@@ -471,7 +471,7 @@ class StorePage extends Page {
 
           const itemPrice: HTMLElement | null = itemClone.querySelector('.item_price');
           if (itemPrice) {
-            itemPrice.textContent = `Price: ${item.priceByn} BYN`;
+            itemPrice.textContent = `${item.priceByn} BYN`;
           }
           const addBtn: HTMLButtonElement | null = itemClone.querySelector('.add_item_to_cart');
 

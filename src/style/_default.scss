@@ -81,7 +81,7 @@ h1, h2, h3, h4, h5, h6, p {
   bottom: -5px;
   width: calc(100% - 20px);
   height: 2px;
-  background: linear-gradient(to right, orange, white);
+  background: linear-gradient(to right, $orange, white);
   margin: 10px 0;
 }
 
@@ -107,7 +107,7 @@ h1, h2, h3, h4, h5, h6, p {
   vertical-align: middle;
   border: none;
   border-radius: 50%;
-  background-color: orange;
+  background-color: $orange;
   color: white;
 }
 
