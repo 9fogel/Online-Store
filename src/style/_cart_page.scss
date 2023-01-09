@@ -213,3 +213,29 @@
   padding: 0 16px;
   height: 24px;
 }
+
+.cart_item_amount_less, .cart_item_amount_more, .cart_pagination_prev, .cart_pagination_next {
+  border: 0.5px solid gray;
+  border-radius: 3px;
+  background-color: rgb(236, 236, 236);
+  color: rgb(36, 36, 36);
+}
+
+.cart_item_amount_less:hover, .cart_item_amount_more:hover, .cart_pagination_prev:hover, .cart_pagination_next:hover {
+  background-color: rgb(216, 216, 216);
+}
+
+.cart_item_amount_less:active, .cart_item_amount_more:active, .cart_pagination_prev:active, .cart_pagination_next:active {
+  background-color: rgb(162, 182, 131);
+}
+
+.clear_cart {
+  border: 0.5px solid rgb(182, 182, 182);
+  border-radius: 3px;
+  background-color: white;
+  color: rgb(36, 36, 36);
+}
+
+.clear_cart:hover {
+  background-color: rgb(255, 221, 193);
+}

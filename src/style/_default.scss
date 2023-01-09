@@ -61,10 +61,52 @@ h1, h2, h3, h4, h5, h6, p {
   justify-content: space-between;
   padding-top: 16px;
   padding-bottom: 12px;
+  position: relative;
 }
 
 .header_logo {
   font-family: 'Fredoka One';
+  color: rgb(73, 73, 73);
+  font-size: 36px;
+  letter-spacing: 1px;
+}
+
+.header::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  bottom: -5px;
+  width: calc(100% - 20px);
+  height: 2px;
+  background: linear-gradient(to right, orange, white);
+  margin: 10px 0;
+}
+
+.cart_btn {
+  position: relative;
+  border: 0.5px solid gray;
+  border-radius: 5px;
+  background-color: transparent;
+  color: rgb(95, 94, 94);
+}
+
+.header_cart_amount {
+  position: absolute;
+  left: 37px;
+  bottom: 3px;
+  width: 23px;
+  height: 23px;
+  padding: 2px;
+  font-size: 15px;
+  text-align: center;
+  border: none;
+  background-color: white;
+}
+
+.header_cart_total {
+  margin-left: 30px;
+  font-weight: 800;
+  color: gray;
 }
 
 .footer {

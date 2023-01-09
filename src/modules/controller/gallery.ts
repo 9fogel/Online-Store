@@ -228,12 +228,12 @@ class Gallery {
     if (itemsFound && galleryWrap) {
       if (results.length === 0) {
         galleryWrap.textContent = 'Sorry. Nothing was found.';
-        itemsFound.textContent = `${results.length} items found.`;
+        itemsFound.textContent = `${results.length} items found`;
       } else {
         if (results.length === 1) {
           itemsFound.textContent = `${results.length} item found.`;
         } else {
-          itemsFound.textContent = `${results.length} items found.`;
+          itemsFound.textContent = `${results.length} items found`;
         }
       }
     }
