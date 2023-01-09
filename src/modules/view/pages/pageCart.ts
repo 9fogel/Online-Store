@@ -9,10 +9,7 @@ class CartPage extends Page {
   static textObj = {
     mainTitle: 'Cart',
   };
-  static pagination: TPagination = {
-    limit: 3,
-    page: 1,
-  };
+  static pagination: TPagination = {};
 
   constructor(id: string) {
     super(id);
@@ -20,7 +17,7 @@ class CartPage extends Page {
 
   private createQueryString(): string | undefined {
     if (localStorage.getItem('cart-pagination')) {
-      const paginationChanged = localStorage.getItem('cart-pagination') ?? {};
+      const paginationChanged: string = localStorage.getItem('cart-pagination') ?? '';
       const paginationData: TPagination = JSON.parse(paginationChanged.toString());
       let queryStr = `#cart-page?`;
       for (const [key, value] of Object.entries(paginationData)) {
@@ -42,19 +39,35 @@ class CartPage extends Page {
     paginationInput.type = 'number';
     paginationInput.min = '1';
     paginationInput.max = `${Cart.getUniqueAmount()}`;
-    if (!localStorage.getItem('cart-pagination')) {
-      paginationInput.value = '3';
-    } else {
-      const paginationChanged = localStorage.getItem('cart-pagination') ?? {};
+    if (localStorage.getItem('cart-pagination')) {
+      const paginationChanged: string = localStorage.getItem('cart-pagination') ?? '';
       const paginationData: TPagination = JSON.parse(paginationChanged.toString());
-      paginationInput.value = paginationData.limit.toString();
+      if (paginationData.limit) {
+        paginationInput.value = paginationData.limit.toString();
+        window.history.pushState({}, '', this.createQueryString());
+      } else {
+        paginationInput.value = '3';
+      }
+    } else {
+      paginationInput.value = '3';
     }
 
     paginationInput.step = '1';
 
     const curPageNum = document.createElement('span');
     curPageNum.classList.add('cart_current_page');
-    curPageNum.innerText = '1';
+    if (localStorage.getItem('cart-pagination')) {
+      const paginationChanged: string = localStorage.getItem('cart-pagination') ?? '';
+      const paginationData: TPagination = JSON.parse(paginationChanged.toString());
+      if (paginationData.page) {
+        curPageNum.innerText = paginationData.page.toString();
+        window.history.pushState({}, '', this.createQueryString());
+      } else {
+        curPageNum.innerText = '1';
+      }
+    } else {
+      curPageNum.innerText = '1';
+    }
 
     let maxPages = Cart.countPages(+paginationInput.value);
     paginationInput.addEventListener('change', (): void => {
@@ -74,7 +87,6 @@ class CartPage extends Page {
       window.history.pushState({}, '', this.createQueryString());
       this.clearCart();
       this.drawCardCart();
-      // }
     });
 
     const paginationSpan = document.createElement('span');
