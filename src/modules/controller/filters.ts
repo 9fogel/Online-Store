@@ -1,10 +1,10 @@
 import products from '../data/products.json';
-import { filtersT, IProduct } from '../types/types';
+import { Tfilters, IProduct } from '../types/types';
 import Gallery from './gallery';
 import { IFilters } from './controller-i';
 
 class Filters implements IFilters {
-  static filters: filtersT = {
+  static filters: Tfilters = {
     theme: [],
     interests: [],
     pieces: [],

@@ -1,6 +1,6 @@
 import { IProduct } from '../types/types';
 import products from '../data/products.json';
-import { filtersT } from '../types/types';
+import { Tfilters } from '../types/types';
 import Filters from './filters';
 
 class Gallery {
@@ -8,7 +8,7 @@ class Gallery {
   static filteredPortion: Array<IProduct> = [];
   static state = 'not filtered';
   static queryStr = '#main-page';
-  static filtersChecked: filtersT = {
+  static filtersChecked: Tfilters = {
     theme: [],
     interests: [],
     pieces: [],
@@ -46,7 +46,7 @@ class Gallery {
   private static createQueryString(): string | undefined {
     if (localStorage.getItem('legoFilters')) {
       const filtersUsed: string = localStorage.getItem('legoFilters') ?? '';
-      const filtersUsedObj: filtersT = JSON.parse(filtersUsed.toString());
+      const filtersUsedObj: Tfilters = JSON.parse(filtersUsed.toString());
       for (const [key, value] of Object.entries(filtersUsedObj)) {
         if (Array.isArray(value) && value.length !== 0) {
           Gallery.queryStr += `&${key}=${value}`;

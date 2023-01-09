@@ -1,7 +1,7 @@
 import Cart from '../../controller/cart';
 import Page from '../templates/pageTemplate';
 import Filters from '../../controller/filters';
-import { filtersT, IProduct } from '../../types/types';
+import { Tfilters, IProduct } from '../../types/types';
 import Gallery from '../../controller/gallery';
 import changeBtn from '../../controller/addInCart';
 
@@ -18,7 +18,7 @@ class StorePage extends Page {
   fillCheckedFilters(key: string, checkboxValue: string | number, checkboxEl: HTMLInputElement): void {
     if (localStorage.getItem('legoFilters')) {
       const filtersUsed: string = localStorage.getItem('legoFilters') ?? '';
-      const filtersUsedObj: filtersT = JSON.parse(filtersUsed.toString());
+      const filtersUsedObj: Tfilters = JSON.parse(filtersUsed.toString());
       const storageArray: Array<string | number> = filtersUsedObj[key];
 
       if (storageArray.includes(checkboxValue)) {
@@ -37,7 +37,7 @@ class StorePage extends Page {
   ): void {
     if (localStorage.getItem('legoFilters')) {
       const filtersUsed = localStorage.getItem('legoFilters') ?? {};
-      const filtersUsedObj: filtersT = JSON.parse(filtersUsed.toString());
+      const filtersUsedObj: Tfilters = JSON.parse(filtersUsed.toString());
       const storageArray: Array<string | number> = filtersUsedObj[key];
       if (storageArray.length !== 0) {
         Gallery.state === 'filtered';
@@ -53,7 +53,7 @@ class StorePage extends Page {
   fillSearchInput(searchInput: HTMLInputElement): void {
     if (localStorage.getItem('legoFilters')) {
       const filtersUsed = localStorage.getItem('legoFilters') ?? {};
-      const filtersUsedObj: filtersT = JSON.parse(filtersUsed.toString());
+      const filtersUsedObj: Tfilters = JSON.parse(filtersUsed.toString());
       if (filtersUsedObj.search) {
         Gallery.state === 'filtered';
         searchInput.value = filtersUsedObj.search.toString();
@@ -64,7 +64,7 @@ class StorePage extends Page {
   fillSortSelect(sortDropdown: HTMLSelectElement, defaultOption: HTMLOptionElement): void {
     if (localStorage.getItem('legoFilters')) {
       const filtersUsed = localStorage.getItem('legoFilters') ?? {};
-      const filtersUsedObj: filtersT = JSON.parse(filtersUsed.toString());
+      const filtersUsedObj: Tfilters = JSON.parse(filtersUsed.toString());
       if (filtersUsedObj.sort.length !== 0) {
         Gallery.state === 'filtered';
         defaultOption.removeAttribute('selected');
@@ -76,7 +76,7 @@ class StorePage extends Page {
   fillLayoutValue(bigTilesRadio: HTMLInputElement, smallTilesRadio: HTMLInputElement, galleryWrap: HTMLElement): void {
     if (localStorage.getItem('legoFilters')) {
       const filtersUsed = localStorage.getItem('legoFilters') ?? {};
-      const filtersUsedObj: filtersT = JSON.parse(filtersUsed.toString());
+      const filtersUsedObj: Tfilters = JSON.parse(filtersUsed.toString());
       if (filtersUsedObj.layout) {
         Gallery.state === 'filtered';
         if (filtersUsedObj.layout.toString() === 'big') {

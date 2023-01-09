@@ -16,7 +16,7 @@ export interface IProduct {
 
 export type TAge = { minAge: number; maxAge: number };
 
-export type filtersT = {
+export type Tfilters = {
   theme: Array<string>;
   interests: Array<string>;
   pieces: Array<number>;
