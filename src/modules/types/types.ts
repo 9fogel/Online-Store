@@ -24,11 +24,6 @@ export type Tfilters = {
   [key: string]: Array<string> | Array<number>;
 };
 
-export enum Actions {
-  Add = 'add',
-  Delete = 'delete',
-}
-
 export type TPagination = {
   [key: string]: number;
 };
