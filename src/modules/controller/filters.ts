@@ -1,9 +1,9 @@
 import products from '../data/products.json';
-import { filtersT } from '../types/types';
+import { Tfilters } from '../types/types';
 import Gallery from './gallery';
 
 class Filters {
-  static filters: filtersT = {
+  static filters: Tfilters = {
     theme: [],
     interests: [],
     pieces: [],
