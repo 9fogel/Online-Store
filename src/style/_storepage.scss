@@ -403,3 +403,48 @@ option:hover {
 .item_price {
   font-weight: bold;
 }
+
+.reset_btn, .copy_link_btn {
+  border: 0.5px solid gray;
+  border-radius: 5px;
+  background-color: rgb(236, 236, 236);
+  color: rgb(36, 36, 36);
+}
+
+.reset_btn:hover, .copy_link_btn:hover {
+  background-color: rgb(216, 216, 216);
+}
+
+.reset_btn:active, .copy_link_btn:active {
+  background-color: rgb(162, 182, 131);
+}
+
+.button_buy {
+  border: 0.5px solid gray;
+  border-radius: 5px;
+  background-color: rgb(243, 130, 0);
+  color: white;
+}
+
+.button_buy:hover {
+  background-color: rgb(243, 97, 0);
+}
+
+.button_buy:active {
+  background-color: rgb(74, 155, 37);
+}
+
+.button_discard {
+  border: 0.5px solid gray;
+  border-radius: 5px;
+  background-color: rgb(74, 155, 37);
+  color: white;
+}
+
+.button_discard:hover {
+  background-color: rgb(55, 126, 22);
+}
+
+.button_discard:active {
+  background-color: rgb(243, 130, 0);
+}

@@ -103,13 +103,7 @@ class Cart {
     return product[0];
   }
 
-  public static countPages(inputValue: number): number {
-    const pagesCount = Math.ceil(Cart.getUniqueItems().length / inputValue);
-
-    return pagesCount;
-  }
-
-  private static refresh(): void {
+  private static refresh() {
     const cartArr = localStorage.getItem('cart');
     if (cartArr === null) {
       this.itemsID = [];
@@ -119,6 +113,12 @@ class Cart {
       const arr = cartArr.split(',');
       arr.forEach((el: string): number => this.itemsID.push(+el));
     }
+  }
+
+  static countPages(inputValue: number): number {
+    const pagesCount = Math.ceil(Cart.getUniqueItems().length / inputValue);
+
+    return pagesCount;
   }
 }
 

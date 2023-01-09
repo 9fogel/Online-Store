@@ -18,7 +18,7 @@ class Gallery {
     sort: [],
   };
 
-  public static getAllUniqueItems(): Array<IProduct> {
+  static getAllUniqueItems(): Array<IProduct> {
     for (let i = 0; i < products.total; i++) {
       this.items = Array.from(products.products);
     }
@@ -26,26 +26,9 @@ class Gallery {
     return this.items;
   }
 
-  public static getFilteredItems(event?: Event): Array<IProduct> {
-    Gallery.queryStr = '#main-page?';
-
-    const itemsToFilter: Array<IProduct> = this.getFilteredByCheckbox();
-    const itemsFiltered: Array<IProduct> = this.getFilteredByRange(itemsToFilter);
-    const itemsSearched: Array<IProduct> = this.getSearchResults(itemsFiltered);
-    const itemsSorted: Array<IProduct> = this.getItemsSorted(itemsSearched);
-    if (event) {
-      this.changeLayout(event);
-    }
-
-    localStorage.setItem('legoFilters', JSON.stringify(Gallery.filtersChecked));
-    window.history.pushState({}, '', this.createQueryString());
-
-    return itemsSorted;
-  }
-
-  private static createQueryString(): string | undefined {
+  static createQueryString(): string | undefined {
     if (localStorage.getItem('legoFilters')) {
-      const filtersUsed: string = localStorage.getItem('legoFilters') ?? '';
+      const filtersUsed = localStorage.getItem('legoFilters') ?? {};
       const filtersUsedObj: filtersT = JSON.parse(filtersUsed.toString());
       for (const [key, value] of Object.entries(filtersUsedObj)) {
         if (Array.isArray(value) && value.length !== 0) {
@@ -62,14 +45,32 @@ class Gallery {
     }
   }
 
-  private static getFilteredByCheckbox(): Array<IProduct> {
+  static getFilteredItems(event?: Event): Array<IProduct> {
+    Gallery.queryStr = '#main-page?';
+
+    const itemsToFilter: Array<IProduct> = this.getFilteredByCheckbox();
+    const itemsFiltered: Array<IProduct> = this.getFilteredByRange(itemsToFilter);
+    const itemsSearched: Array<IProduct> = this.getSearchResults(itemsFiltered);
+    const itemsSorted: Array<IProduct> = this.getItemsSorted(itemsSearched);
+    if (event) {
+      this.changeLayout(event);
+    }
+
+    localStorage.setItem('legoFilters', JSON.stringify(Gallery.filtersChecked));
+
+    window.history.pushState({}, '', this.createQueryString());
+
+    return itemsSorted;
+  }
+
+  static getFilteredByCheckbox(): Array<IProduct> {
     const checkboxes: HTMLCollectionOf<Element> = document.getElementsByClassName('filter_checkbox');
     const checkedItems: Array<Element> = Array.from(checkboxes).filter((el: Element): boolean =>
       el.hasAttribute('checked'),
     );
     const firstFilterChecked: Array<string> = checkedItems
-      .filter((el: Element): boolean => el.id.startsWith('theme'))
-      .map((el: Element): string => el.id.split('_')[1]);
+      .filter((el: Element) => el.id.startsWith('theme'))
+      .map((el: Element) => el.id.split('_')[1]);
     Gallery.filtersChecked.theme = firstFilterChecked;
 
     const firstRes: Array<IProduct> = [];
@@ -90,7 +91,7 @@ class Gallery {
 
     const secondRes: Array<IProduct> = [];
     if (secondFilterChecked.length !== 0) {
-      secondFilterChecked.forEach((item: string): void => {
+      secondFilterChecked.forEach((item: string) => {
         const filteredPortion: Array<IProduct> = firstRes.filter((el: IProduct): boolean => el.interests === item);
         secondRes.push(...filteredPortion);
       });
@@ -98,11 +99,10 @@ class Gallery {
     } else {
       secondRes.push(...firstRes);
     }
-
     return secondRes;
   }
 
-  private static getFilteredByRange(items: Array<IProduct>): Array<IProduct> {
+  static getFilteredByRange(items: Array<IProduct>): Array<IProduct> {
     const [firstMin, secondMin]: HTMLCollectionOf<Element> = document.getElementsByClassName('range_value_min');
     const [firstMax, secondMax]: HTMLCollectionOf<Element> = document.getElementsByClassName('range_value_max');
 
@@ -153,7 +153,7 @@ class Gallery {
     return secondRes;
   }
 
-  private static getSearchResults(itemsFiltered: Array<IProduct>): Array<IProduct> {
+  static getSearchResults(itemsFiltered: Array<IProduct>): Array<IProduct> {
     let itemsSearched: Array<IProduct> = itemsFiltered;
     const searchInput: HTMLInputElement | null = document.querySelector('.search_input');
     if (searchInput) {
@@ -163,7 +163,7 @@ class Gallery {
         Gallery.filtersChecked.search = [searchValue];
         const searchRegX = new RegExp(searchValue, 'i');
 
-        itemsSearched = itemsFiltered.filter((item: IProduct): boolean => {
+        itemsSearched = itemsFiltered.filter((item: IProduct) => {
           for (const key in item) {
             const value: string = item[key].toString();
             if (searchRegX.test(value)) {
@@ -182,7 +182,7 @@ class Gallery {
     return itemsSearched;
   }
 
-  private static getItemsSorted(itemsSearched: Array<IProduct>): Array<IProduct> {
+  static getItemsSorted(itemsSearched: Array<IProduct>): Array<IProduct> {
     let itemsSorted: Array<IProduct> = itemsSearched;
     const sortDropdown: HTMLElement | null = document.getElementById('sort_select');
 
@@ -222,26 +222,26 @@ class Gallery {
     return itemsSorted;
   }
 
-  private static showFoundMessage(results: Array<IProduct>): void {
+  static showFoundMessage(results: Array<IProduct>): void {
     const itemsFound: HTMLElement | null = document.querySelector('.items_found');
     const galleryWrap: HTMLElement | null = document.querySelector('.gallery_wrapper');
     if (itemsFound && galleryWrap) {
       if (results.length === 0) {
         galleryWrap.textContent = 'Sorry. Nothing was found.';
-        itemsFound.textContent = `${results.length} items found.`;
+        itemsFound.textContent = `${results.length} items found`;
       } else {
         if (results.length === 1) {
           itemsFound.textContent = `${results.length} item found.`;
         } else {
-          itemsFound.textContent = `${results.length} items found.`;
+          itemsFound.textContent = `${results.length} items found`;
         }
       }
     }
   }
 
-  private static changeLayout(event: Event): void {
+  static changeLayout(event: Event): void {
     if (event.target instanceof HTMLInputElement && event.target.type === 'radio') {
-      const galleryWrap: HTMLElement | null = document.querySelector('.gallery_wrapper');
+      const galleryWrap = document.querySelector('.gallery_wrapper');
       if (galleryWrap) {
         galleryWrap.classList.toggle('small_tiles');
         galleryWrap.classList.toggle('big_tiles');

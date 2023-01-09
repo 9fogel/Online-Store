@@ -1,7 +1,7 @@
 import Cart from './cart';
 
 class Refresher {
-  public static refreshHeader(): void {
+  static refreshHeader(): void {
     const amount: HTMLElement | null = document.querySelector('.header_cart_amount');
     if (amount) {
       amount.innerText = `${Cart.getAmount()} `;
@@ -11,8 +11,7 @@ class Refresher {
       total.innerText = ` ${Cart.getTotal()} BYN`;
     }
   }
-
-  public static refreshCart(): void {
+  static refreshCart(): void {
     const amount: HTMLElement | null = document.querySelector('.summary_products');
     if (amount) {
       amount.innerText = `Total products: ${Cart.getAmount()} `;

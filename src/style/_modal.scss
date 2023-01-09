@@ -151,6 +151,19 @@
   margin-right: 4px;
 }
 
+.card_attributes {
+  display: flex;
+  gap: 16px;
+}
+
+.modal_window input:valid {
+  outline-color: rgb(120, 223, 120);
+}
+
+.modal_window input:invalid {
+  outline-color: rgb(240, 162, 174);
+}
+
 // .payment_confirm {
 //   align-self: center;
 //   padding: 4px 16px;
