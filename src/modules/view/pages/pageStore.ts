@@ -1,3 +1,4 @@
+import { IStorePage } from './pages-i';
 import Cart from '../../controller/cart';
 import Page from '../templates/pageTemplate';
 import Filters from '../../controller/filters';
@@ -5,17 +6,112 @@ import { Tfilters, IProduct } from '../../types/types';
 import Gallery from '../../controller/gallery';
 import changeBtn from '../../controller/addInCart';
 
-class StorePage extends Page {
-  static textObj = {
+class StorePage extends Page implements IStorePage {
+  public static textObj = {
     mainTitle: 'LEGO Store',
   };
-  filtersPart = new Filters();
+  private filtersPart = new Filters();
 
   constructor(id: string) {
     super(id);
   }
 
-  fillCheckedFilters(key: string, checkboxValue: string | number, checkboxEl: HTMLInputElement): void {
+  public drawCardStore(items: Array<IProduct>): void {
+    const fragment: DocumentFragment = document.createDocumentFragment();
+    const productCardTemplate: HTMLTemplateElement | null = document.querySelector('.item_template');
+
+    if (productCardTemplate) {
+      items.forEach((item: IProduct): void => {
+        const itemClone: DocumentFragment | Node = productCardTemplate.content.cloneNode(true);
+        if (itemClone instanceof DocumentFragment && itemClone) {
+          const info: HTMLElement | null = itemClone.querySelector('.item_info');
+          if (info) {
+            info.addEventListener('click', (): string => (window.location.hash = `#product-page/${item.id}`));
+          }
+
+          const itemName: HTMLElement | null = itemClone.querySelector('.item_name');
+          if (itemName) {
+            itemName.textContent = `${item.title}`;
+          }
+
+          const itemPicture: HTMLImageElement | null = itemClone.querySelector('.item_pic_img');
+          if (itemPicture) {
+            itemPicture.src = item.thumbnail;
+          }
+
+          const itemCategory: HTMLElement | null = itemClone.querySelector('.item_category');
+          if (itemCategory) {
+            itemCategory.textContent = `Theme: ${item.theme}`;
+          }
+
+          const itemSubCategory: HTMLElement | null = itemClone.querySelector('.item_subcategory');
+          if (itemSubCategory) {
+            itemSubCategory.textContent = `Interests: ${item.interests}`;
+          }
+
+          const itemBrand: HTMLElement | null = itemClone.querySelector('.item_brand');
+          if (itemBrand) {
+            itemBrand.textContent = `Brand: LEGO`;
+          }
+
+          const itemSetNumber: HTMLElement | null = itemClone.querySelector('.item_set_number');
+          if (itemSetNumber) {
+            itemSetNumber.textContent = `Set Number: ${item.key}`;
+          }
+
+          const itemCount: HTMLElement | null = itemClone.querySelector('.item_count');
+          if (itemCount) {
+            itemCount.textContent = `Pieces: ${item.detailsCount}`;
+          }
+
+          const itemAmount: HTMLElement | null = itemClone.querySelector('.item_amount');
+          if (itemAmount) {
+            itemAmount.textContent = `Stock: ${item.stock}`;
+          }
+
+          const itemAge: HTMLElement | null = itemClone.querySelector('.item_age');
+          if (itemAge) {
+            itemAge.textContent = `Age: ${item.age.minAge} to ${item.age.maxAge}`;
+          }
+
+          const itemPrice: HTMLElement | null = itemClone.querySelector('.item_price');
+          if (itemPrice) {
+            itemPrice.textContent = `${item.priceByn} BYN`;
+          }
+          const addBtn: HTMLButtonElement | null = itemClone.querySelector('.add_item_to_cart');
+
+          if (addBtn) {
+            if (Cart.getProductAmount(item.id)) {
+              addBtn.classList.add('button_discard');
+              addBtn.innerText = `Drop from Cart (${Cart.getProductAmount(item.id)})`;
+              addBtn.addEventListener('click', () => changeBtn(addBtn, 'discard', item.id));
+            } else {
+              addBtn.classList.add('button_buy');
+              addBtn.innerText = 'Add to cart';
+              addBtn.addEventListener('click', () => changeBtn(addBtn, 'add', item.id));
+            }
+          }
+
+          fragment.append(itemClone);
+        }
+      });
+    }
+
+    const galleryWrap: HTMLElement | null = document.querySelector('.gallery_wrapper');
+    if (galleryWrap) {
+      galleryWrap.append(fragment);
+    }
+
+    this.container.append(fragment);
+  }
+
+  public render(): HTMLElement {
+    this.renderFilters();
+    this.renderGallery();
+    return this.container;
+  }
+
+  private fillCheckedFilters(key: string, checkboxValue: string | number, checkboxEl: HTMLInputElement): void {
     if (localStorage.getItem('legoFilters')) {
       const filtersUsed: string = localStorage.getItem('legoFilters') ?? '';
       const filtersUsedObj: Tfilters = JSON.parse(filtersUsed.toString());
@@ -28,7 +124,7 @@ class StorePage extends Page {
     }
   }
 
-  fillChangedSlider(
+  private fillChangedSlider(
     key: string,
     rangeMin: HTMLInputElement,
     rangeMax: HTMLInputElement,
@@ -50,7 +146,7 @@ class StorePage extends Page {
     }
   }
 
-  fillSearchInput(searchInput: HTMLInputElement): void {
+  private fillSearchInput(searchInput: HTMLInputElement): void {
     if (localStorage.getItem('legoFilters')) {
       const filtersUsed = localStorage.getItem('legoFilters') ?? {};
       const filtersUsedObj: Tfilters = JSON.parse(filtersUsed.toString());
@@ -61,7 +157,7 @@ class StorePage extends Page {
     }
   }
 
-  fillSortSelect(sortDropdown: HTMLSelectElement, defaultOption: HTMLOptionElement): void {
+  private fillSortSelect(sortDropdown: HTMLSelectElement, defaultOption: HTMLOptionElement): void {
     if (localStorage.getItem('legoFilters')) {
       const filtersUsed = localStorage.getItem('legoFilters') ?? {};
       const filtersUsedObj: Tfilters = JSON.parse(filtersUsed.toString());
@@ -73,7 +169,11 @@ class StorePage extends Page {
     }
   }
 
-  fillLayoutValue(bigTilesRadio: HTMLInputElement, smallTilesRadio: HTMLInputElement, galleryWrap: HTMLElement): void {
+  private fillLayoutValue(
+    bigTilesRadio: HTMLInputElement,
+    smallTilesRadio: HTMLInputElement,
+    galleryWrap: HTMLElement,
+  ): void {
     if (localStorage.getItem('legoFilters')) {
       const filtersUsed = localStorage.getItem('legoFilters') ?? {};
       const filtersUsedObj: Tfilters = JSON.parse(filtersUsed.toString());
@@ -94,7 +194,7 @@ class StorePage extends Page {
     }
   }
 
-  renderFilters(): void {
+  private renderFilters(): void {
     this.filtersPart.fillFilters();
 
     const filtersWrap = document.createElement('aside');
@@ -243,7 +343,6 @@ class StorePage extends Page {
     copyLinkButton.textContent = 'Copy';
     filterBtnWrap.append(copyLinkButton);
     copyLinkButton.addEventListener('click', () => {
-      console.log(window.location.href);
       navigator.clipboard
         .writeText(window.location.href)
         .then((): void => {
@@ -261,14 +360,14 @@ class StorePage extends Page {
     });
   }
 
-  clearGallery(): void {
+  private clearGallery(): void {
     const galleryWrap: HTMLElement | null = document.querySelector('.gallery_wrapper');
     if (galleryWrap) {
       galleryWrap.innerHTML = ' ';
     }
   }
 
-  renderGallery(): HTMLDivElement {
+  private renderGallery(): HTMLDivElement {
     const gallery = document.createElement('section');
     gallery.classList.add('gallery');
 
@@ -409,101 +508,6 @@ class StorePage extends Page {
 
     this.container.append(gallery);
     return galleryWrap;
-  }
-
-  drawCardStore(items: Array<IProduct>): void {
-    const fragment: DocumentFragment = document.createDocumentFragment();
-    const productCardTemplate: HTMLTemplateElement | null = document.querySelector('.item_template');
-
-    if (productCardTemplate) {
-      items.forEach((item: IProduct): void => {
-        const itemClone: DocumentFragment | Node = productCardTemplate.content.cloneNode(true);
-        if (itemClone instanceof DocumentFragment && itemClone) {
-          const info: HTMLElement | null = itemClone.querySelector('.item_info');
-          if (info) {
-            info.addEventListener('click', (): string => (window.location.hash = `#product-page/${item.id}`));
-          }
-
-          const itemName: HTMLElement | null = itemClone.querySelector('.item_name');
-          if (itemName) {
-            itemName.textContent = `${item.title}`;
-          }
-
-          const itemPicture: HTMLImageElement | null = itemClone.querySelector('.item_pic_img');
-          if (itemPicture) {
-            itemPicture.src = item.thumbnail;
-          }
-
-          const itemCategory: HTMLElement | null = itemClone.querySelector('.item_category');
-          if (itemCategory) {
-            itemCategory.textContent = `Theme: ${item.theme}`;
-          }
-
-          const itemSubCategory: HTMLElement | null = itemClone.querySelector('.item_subcategory');
-          if (itemSubCategory) {
-            itemSubCategory.textContent = `Interests: ${item.interests}`;
-          }
-
-          const itemBrand: HTMLElement | null = itemClone.querySelector('.item_brand');
-          if (itemBrand) {
-            itemBrand.textContent = `Brand: LEGO`;
-          }
-
-          const itemSetNumber: HTMLElement | null = itemClone.querySelector('.item_set_number');
-          if (itemSetNumber) {
-            itemSetNumber.textContent = `Set Number: ${item.key}`;
-          }
-
-          const itemCount: HTMLElement | null = itemClone.querySelector('.item_count');
-          if (itemCount) {
-            itemCount.textContent = `Pieces: ${item.detailsCount}`;
-          }
-
-          const itemAmount: HTMLElement | null = itemClone.querySelector('.item_amount');
-          if (itemAmount) {
-            itemAmount.textContent = `Stock: ${item.stock}`;
-          }
-
-          const itemAge: HTMLElement | null = itemClone.querySelector('.item_age');
-          if (itemAge) {
-            itemAge.textContent = `Age: ${item.age.minAge} to ${item.age.maxAge}`;
-          }
-
-          const itemPrice: HTMLElement | null = itemClone.querySelector('.item_price');
-          if (itemPrice) {
-            itemPrice.textContent = `${item.priceByn} BYN`;
-          }
-          const addBtn: HTMLButtonElement | null = itemClone.querySelector('.add_item_to_cart');
-
-          if (addBtn) {
-            if (Cart.getProductAmount(item.id)) {
-              addBtn.classList.add('button_discard');
-              addBtn.innerText = `Drop from Cart (${Cart.getProductAmount(item.id)})`;
-              addBtn.addEventListener('click', () => changeBtn(addBtn, 'discard', item.id));
-            } else {
-              addBtn.classList.add('button_buy');
-              addBtn.innerText = 'Add to cart';
-              addBtn.addEventListener('click', () => changeBtn(addBtn, 'add', item.id));
-            }
-          }
-
-          fragment.append(itemClone);
-        }
-      });
-    }
-
-    const galleryWrap: HTMLElement | null = document.querySelector('.gallery_wrapper');
-    if (galleryWrap) {
-      galleryWrap.append(fragment);
-    }
-
-    this.container.append(fragment);
-  }
-
-  render(): HTMLElement {
-    this.renderFilters();
-    this.renderGallery();
-    return this.container;
   }
 }
 

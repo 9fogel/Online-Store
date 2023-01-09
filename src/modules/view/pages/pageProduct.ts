@@ -1,16 +1,30 @@
+import { IProductPage } from './pages-i';
 import Cart from '../../controller/cart';
 import Page from '../templates/pageTemplate';
 import { IProduct } from '../../types/types';
 import changeBtn from '../../controller/addInCart';
 import ModalWindow from '../../controller/modal';
 
-class ProductPage extends Page {
-  static textObj = {
+class ProductPage extends Page implements IProductPage {
+  public static textObj = {
     mainTitle: 'Product',
   };
 
   constructor(id: string) {
     super(id);
+  }
+
+  public render(item?: IProduct, id?: number): HTMLElement {
+    if (item) {
+      this.breadcrumbs(item);
+      this.renderProduct(item);
+      this.renderButtons(item);
+    } else {
+      if (id) {
+        this.renderEmptyProduct(id);
+      }
+    }
+    return this.container;
   }
 
   private breadcrumbs(item?: IProduct): void {
@@ -20,11 +34,9 @@ class ProductPage extends Page {
       store.innerText = 'store';
 
       const category = document.createElement('a');
-      // category.href = '#main-page'; // здесь должна быть ссылка на store с этим фильтром
       category.innerText = `${item.theme}`;
 
       const subcategory = document.createElement('a');
-      // subcategory.href = '#main-page'; // здесь должна быть ссылка на store с этим фильтром
       subcategory.innerText = `${item.interests}`;
 
       const name = document.createElement('span');
@@ -207,22 +219,6 @@ class ProductPage extends Page {
     emptyProdWrap.innerText = `Sorry. Product with id ${id} was not found`;
 
     this.container.append(emptyProdWrap);
-  }
-
-  public render(item?: IProduct, id?: number): HTMLElement {
-    if (item) {
-      this.breadcrumbs(item);
-      this.renderProduct(item);
-      this.renderButtons(item);
-    } else {
-      if (id) {
-        this.renderEmptyProduct(id);
-      }
-    }
-    // this.breadcrumbs(item);
-    // this.renderProduct(item);
-    // this.renderButtons(item);
-    return this.container;
   }
 }
 

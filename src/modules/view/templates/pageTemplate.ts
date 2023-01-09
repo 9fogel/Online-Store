@@ -7,13 +7,13 @@ abstract class Page {
     this.container.id = id;
   }
 
-  protected createHeaderTitle(text: string) {
+  protected createHeaderTitle(text: string): HTMLHeadingElement {
     const headerTitle = document.createElement('h1');
     headerTitle.innerText = text;
     return headerTitle;
   }
 
-  render() {
+  public render(): HTMLElement {
     return this.container;
   }
 }
