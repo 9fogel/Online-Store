@@ -2,7 +2,12 @@ import Cart from './cart';
 import Popup from './popup';
 
 class ModalWindow {
-  static fillField(
+  public static openModal(): void {
+    ModalWindow.renderModal();
+    ModalWindow.tracker();
+  }
+
+  private static fillField(
     innerText: string,
     fieldClass: string,
     type: string,
@@ -10,8 +15,12 @@ class ModalWindow {
     placeholder: string,
     required: boolean,
     pattern?: string,
+<<<<<<< HEAD
     size?: number,
   ) {
+=======
+  ): HTMLDivElement {
+>>>>>>> c80d8e9c60ceaf5f5233c2e38f06937d8826f6d8
     const label = document.createElement('label');
     label.innerText = innerText;
 
@@ -21,16 +30,24 @@ class ModalWindow {
     input.id = name;
     input.placeholder = placeholder;
     input.required = required;
+<<<<<<< HEAD
     if (pattern) input.pattern = pattern;
     if (size) input.size = size;
+=======
+    if (pattern) {
+      input.pattern = pattern;
+    }
+>>>>>>> c80d8e9c60ceaf5f5233c2e38f06937d8826f6d8
 
     const element = document.createElement('div');
     element.classList.add(fieldClass);
     element.append(label);
     element.append(input);
+
     return element;
   }
 
+<<<<<<< HEAD
   static tracker() {
     const phoneNumberField: HTMLElement | null = document.getElementById('phone');
     if (phoneNumberField instanceof HTMLInputElement) {
@@ -40,10 +57,13 @@ class ModalWindow {
       );
     }
 
+=======
+  private static tracker(): void {
+>>>>>>> c80d8e9c60ceaf5f5233c2e38f06937d8826f6d8
     const cardNumberField: HTMLElement | null = document.getElementById('card_number');
     const logo: HTMLElement | null = document.querySelector('.payment_logo');
     if (cardNumberField instanceof HTMLInputElement) {
-      cardNumberField.addEventListener('input', () => {
+      cardNumberField.addEventListener('input', (): void => {
         let string = cardNumberField.value;
         string = string.replace(/\D/g, '').substring(0, 16);
         string = string
@@ -79,36 +99,39 @@ class ModalWindow {
     }
 
     const CVVField: HTMLElement | null = document.getElementById('card_CVV');
-    if (CVVField instanceof HTMLInputElement)
-      CVVField.addEventListener('input', () => (CVVField.value = CVVField.value.replace(/\D/g, '').substring(0, 3)));
+    if (CVVField instanceof HTMLInputElement) {
+      CVVField.addEventListener(
+        'input',
+        (): string => (CVVField.value = CVVField.value.replace(/\D/g, '').substring(0, 3)),
+      );
+    }
   }
 
-  static handleFormSubmit(event: Event, form: HTMLFormElement) {
+  static handleFormSubmit(event: Event, form: HTMLFormElement): void {
     event.preventDefault();
-    console.log('Отправка!');
 
     const collection: HTMLFormControlsCollection = form.elements;
 
-    const arr = Array.from(collection);
-    arr.forEach((element) => {
+    const arr: Array<Element> = Array.from(collection);
+    arr.forEach((element: Element): void => {
       if (element instanceof HTMLInputElement) {
-        const { name, value } = element;
+        const { name, value }: HTMLInputElement = element;
         console.log(name, value);
       } else console.log(element);
     });
     ModalWindow.closeModal();
     Popup.renderPopup('Your order is accepted', 5000, 'order_confirmed');
-    setTimeout(() => {
+    setTimeout((): void => {
       window.location.hash = '#main-page';
       Cart.removeAll();
     }, 3000);
   }
 
-  static renderModal() {
+  private static renderModal(): void {
     const close = document.createElement('div');
     close.classList.add('close');
     close.id = 'closeModal';
-    // close.innerText = '𐄂';
+
     close.addEventListener('click', ModalWindow.closeModal);
 
     const title = document.createElement('h3');
@@ -151,6 +174,7 @@ class ModalWindow {
     cardWrap.append(this.fillField('Valid: ', 'form_field', 'text', 'card_date', '11/11', true, '^\\d{2}\\/\\d{2}', 6));
     cardWrap.append(this.fillField('CVV ', 'form_field', 'text', 'card_CVV', '000', true, '^\\d{3}', 6));
 
+
     const card = document.createElement('div');
     card.classList.add('modal_wrapper');
     card.append(cardHeader);
@@ -179,7 +203,7 @@ class ModalWindow {
     form.append(user);
     form.append(card);
     form.append(submit);
-    form.addEventListener('submit', (e) => this.handleFormSubmit(e, form));
+    form.addEventListener('submit', (e: SubmitEvent): void => this.handleFormSubmit(e, form));
 
     const modalWindow = document.createElement('div');
     modalWindow.classList.add('modal_window');
@@ -197,21 +221,16 @@ class ModalWindow {
 
     document.body.append(payment);
 
-    window.onclick = function (event) {
+    window.onclick = function (event: MouseEvent) {
       if (event.target == payment) {
         ModalWindow.closeModal();
       }
     };
   }
 
-  static closeModal() {
+  private static closeModal(): void {
     const modal: HTMLElement | null = document.querySelector('.payment');
     if (modal) modal.remove();
-  }
-
-  static openModal(): void {
-    ModalWindow.renderModal();
-    ModalWindow.tracker();
   }
 }
 
