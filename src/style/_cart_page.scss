@@ -54,6 +54,14 @@
   line-height: 0;
 }
 
+.cart_pagination_prev:disabled:hover,
+.cart_pagination_next:disabled:hover {
+  cursor: default;
+  color: $light-gray;
+  background-color: #ececec;
+  border-color: $light-gray;
+}
+
 .cart_gallery_body {
   display: flex;
   flex-direction: column;

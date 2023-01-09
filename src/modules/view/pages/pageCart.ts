@@ -102,10 +102,10 @@ class CartPage extends Page {
         paginationNext.removeAttribute('disabled');
       }
       if (+curPageNum.innerText === 1) {
-        paginationPrev.setAttribute('disabled', 'disabled');
+        paginationPrev.setAttribute('disabled', 'true');
       }
       if (+curPageNum.innerText === maxPages) {
-        paginationNext.setAttribute('disabled', 'disabled');
+        paginationNext.setAttribute('disabled', 'true');
       }
 
       CartPage.pagination.limit = +paginationInput.value;
@@ -123,14 +123,15 @@ class CartPage extends Page {
     paginationPrev.classList.add('cart_pagination_prev');
     paginationPrev.innerText = '‹';
     if (+curPageNum.innerText === 1) {
-      paginationPrev.setAttribute('disabled', 'disabled');
+      // paginationPrev.setAttribute('disabled', 'true');
+      paginationPrev.disabled = true;
     }
     paginationPrev.addEventListener('click', (): void => {
       if (+curPageNum.innerText > 1) {
         curPageNum.innerText = `${+curPageNum.innerText - 1}`;
       }
       if (+curPageNum.innerText === 1) {
-        paginationPrev.setAttribute('disabled', 'disabled');
+        paginationPrev.setAttribute('disabled', 'true');
       }
       if (+curPageNum.innerText !== maxPages) {
         paginationNext.removeAttribute('disabled');
@@ -154,10 +155,10 @@ class CartPage extends Page {
     }
     if (+curPageNum.innerText === maxPages) {
       console.log('WTF??');
-      paginationNext.setAttribute('disabled', 'disabled');
+      paginationNext.setAttribute('disabled', 'true');
     }
     if (+curPageNum.innerText === 1) {
-      paginationPrev.setAttribute('disabled', 'disabled');
+      paginationPrev.setAttribute('disabled', 'true');
     }
 
     paginationNext.addEventListener('click', (): void => {
@@ -167,7 +168,7 @@ class CartPage extends Page {
         paginationPrev.removeAttribute('disabled');
       }
       if (+curPageNum.innerText === maxPages) {
-        paginationNext.setAttribute('disabled', 'disabled');
+        paginationNext.setAttribute('disabled', 'true');
       }
       CartPage.pagination.page = +curPageNum.innerText;
       localStorage.setItem('cart-pagination', JSON.stringify(CartPage.pagination));
@@ -392,13 +393,13 @@ class CartPage extends Page {
                     if (curPageNum === maxPages) {
                       const paginationNext: HTMLButtonElement | null = document.querySelector('.cart_pagination_next');
                       if (paginationNext instanceof HTMLButtonElement) {
-                        paginationNext.setAttribute('disabled', 'disabled');
+                        paginationNext.setAttribute('disabled', 'true');
                       }
                     }
                     if (curPage.textContent && +curPage.textContent === 1) {
                       const paginationPrev: HTMLButtonElement | null = document.querySelector('.cart_pagination_prev');
                       if (paginationPrev instanceof HTMLButtonElement) {
-                        paginationPrev.setAttribute('disabled', 'disabled');
+                        paginationPrev.setAttribute('disabled', 'true');
                       }
                     }
                   }
