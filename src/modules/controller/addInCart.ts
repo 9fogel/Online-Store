@@ -1,5 +1,6 @@
 import Cart from './cart';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const changeBtn = function (addBtn: HTMLElement, btn: string, id: number) {
   if (btn === 'discard') {
     console.log('discard');

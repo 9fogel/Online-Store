@@ -9,7 +9,10 @@ class CartPage extends Page {
   static textObj = {
     mainTitle: 'Cart',
   };
-  static pagination: TPagination = {};
+  static pagination: TPagination = {
+    limit: 3,
+    page: 1,
+  };
 
   constructor(id: string) {
     super(id);
@@ -17,7 +20,7 @@ class CartPage extends Page {
 
   private createQueryString(): string | undefined {
     if (localStorage.getItem('cart-pagination')) {
-      const paginationChanged: string = localStorage.getItem('cart-pagination') ?? '';
+      const paginationChanged = localStorage.getItem('cart-pagination') ?? {};
       const paginationData: TPagination = JSON.parse(paginationChanged.toString());
       let queryStr = `#cart-page?`;
       for (const [key, value] of Object.entries(paginationData)) {
@@ -29,7 +32,7 @@ class CartPage extends Page {
     }
   }
 
-  public renderCartGalleryHeader(): HTMLDivElement {
+  private renderCartGalleryHeader(): HTMLDivElement {
     const title = document.createElement('h4');
     title.classList.add('cart_title');
     title.innerText = 'Products in cart';
@@ -39,65 +42,26 @@ class CartPage extends Page {
     paginationInput.type = 'number';
     paginationInput.min = '1';
     paginationInput.max = `${Cart.getUniqueAmount()}`;
-    if (localStorage.getItem('cart-pagination')) {
-      const paginationChanged: string = localStorage.getItem('cart-pagination') ?? '';
-      const paginationData: TPagination = JSON.parse(paginationChanged.toString());
-      if (paginationData.limit) {
-        paginationInput.value = paginationData.limit.toString();
-        window.history.pushState({}, '', this.createQueryString());
-      } else {
-        paginationInput.value = '3';
-      }
-    } else {
+    if (!localStorage.getItem('cart-pagination')) {
       paginationInput.value = '3';
-    }
-    if (+paginationInput.value > Cart.getUniqueAmount()) {
-      paginationInput.value = `${Cart.getUniqueAmount()}`;
-      CartPage.pagination.limit = +paginationInput.value;
-      localStorage.setItem('cart-pagination', JSON.stringify(CartPage.pagination));
-      window.history.pushState({}, '', this.createQueryString());
+    } else {
+      const paginationChanged = localStorage.getItem('cart-pagination') ?? {};
+      const paginationData: TPagination = JSON.parse(paginationChanged.toString());
+      paginationInput.value = paginationData.limit.toString();
     }
 
     paginationInput.step = '1';
 
-    let maxPages = Cart.countPages(+paginationInput.value);
-
     const curPageNum = document.createElement('span');
     curPageNum.classList.add('cart_current_page');
-    if (localStorage.getItem('cart-pagination')) {
-      const paginationChanged: string = localStorage.getItem('cart-pagination') ?? '';
-      const paginationData: TPagination = JSON.parse(paginationChanged.toString());
-      if (paginationData.page) {
-        curPageNum.innerText = paginationData.page.toString();
-        window.history.pushState({}, '', this.createQueryString());
-      } else {
-        curPageNum.innerText = '1';
-      }
-    } else {
-      curPageNum.innerText = '1';
-    }
-    if (+curPageNum.innerText > maxPages) {
-      curPageNum.innerText = maxPages.toString();
-      CartPage.pagination.page = +curPageNum.innerText;
-      localStorage.setItem('cart-pagination', JSON.stringify(CartPage.pagination));
-      window.history.pushState({}, '', this.createQueryString());
-    }
+    curPageNum.innerText = '1';
 
+    let maxPages = Cart.countPages(+paginationInput.value);
     paginationInput.addEventListener('change', (): void => {
-      if (+paginationInput.value < 1) {
-        paginationInput.value = '1';
-      }
-      if (+paginationInput.value > Cart.getUniqueAmount()) {
-        paginationInput.value = `${Cart.getUniqueAmount()}`;
-      }
-
       maxPages = Cart.countPages(+paginationInput.value);
-      console.log('mmm', maxPages);
       if (+curPageNum.innerText > maxPages) {
         curPageNum.innerText = maxPages.toString();
         CartPage.pagination.page = +curPageNum.innerText;
-        localStorage.setItem('cart-pagination', JSON.stringify(CartPage.pagination));
-        window.history.pushState({}, '', this.createQueryString());
       }
       if (+curPageNum.innerText < maxPages && paginationNext.hasAttribute('disabled')) {
         paginationNext.removeAttribute('disabled');
@@ -105,15 +69,12 @@ class CartPage extends Page {
       if (+curPageNum.innerText === 1) {
         paginationPrev.setAttribute('disabled', 'disabled');
       }
-      if (+curPageNum.innerText === maxPages) {
-        paginationNext.setAttribute('disabled', 'disabled');
-      }
-
       CartPage.pagination.limit = +paginationInput.value;
       localStorage.setItem('cart-pagination', JSON.stringify(CartPage.pagination));
       window.history.pushState({}, '', this.createQueryString());
       this.clearCart();
       this.drawCardCart();
+      // }
     });
 
     const paginationSpan = document.createElement('span');
@@ -126,7 +87,6 @@ class CartPage extends Page {
     if (+curPageNum.innerText === 1) {
       paginationPrev.setAttribute('disabled', 'disabled');
     }
-
     paginationPrev.addEventListener('click', (): void => {
       if (+curPageNum.innerText > 1) {
         curPageNum.innerText = `${+curPageNum.innerText - 1}`;
@@ -147,21 +107,6 @@ class CartPage extends Page {
     const paginationNext = document.createElement('button');
     paginationNext.classList.add('cart_pagination_next');
     paginationNext.innerText = '›';
-    maxPages = Cart.countPages(+paginationInput.value);
-    if (+curPageNum.innerText > maxPages) {
-      curPageNum.innerText = maxPages.toString();
-      CartPage.pagination.page = +curPageNum.innerText;
-      localStorage.setItem('cart-pagination', JSON.stringify(CartPage.pagination));
-      window.history.pushState({}, '', this.createQueryString());
-    }
-    if (+curPageNum.innerText === maxPages) {
-      console.log('WTF??');
-      paginationNext.setAttribute('disabled', 'disabled');
-    }
-    if (+curPageNum.innerText === 1) {
-      paginationPrev.setAttribute('disabled', 'disabled');
-    }
-
     paginationNext.addEventListener('click', (): void => {
       maxPages = Cart.countPages(+paginationInput.value);
       curPageNum.innerText = `${+curPageNum.innerText + 1}`;
@@ -387,9 +332,6 @@ class CartPage extends Page {
                     const maxPages = Cart.countPages(+paginationInput.value);
                     if (curPageNum > maxPages) {
                       curPage.textContent = maxPages.toString();
-                      CartPage.pagination.page = +curPage.textContent;
-                      localStorage.setItem('cart-pagination', JSON.stringify(CartPage.pagination));
-                      window.history.pushState({}, '', this.createQueryString());
                     }
                     if (curPageNum === maxPages) {
                       const paginationNext: HTMLButtonElement | null = document.querySelector('.cart_pagination_next');
