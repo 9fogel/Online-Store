@@ -78,14 +78,23 @@ class ModalWindow {
 
         const month = cardValidField.value.split(/(\d{2})/)[1];
         if (month) {
-          if (+month < 1 || +month > 12) cardValidField.setCustomValidity('Incorrect month');
+          if (+month < 1 || +month > 12) {
+            cardValidField.setCustomValidity('Incorrect month');
+          } else {
+            cardValidField.setCustomValidity('');
+          }
         }
         const year = cardValidField.value.split(/(\d{2})/)[3];
         if (year) {
           const today = new Date();
           const currentYear = today.getFullYear() - 2000;
-          if (+year < currentYear || +year > currentYear + 6) cardValidField.setCustomValidity('Incorrect year');
+          if (+year < currentYear || +year > currentYear + 6) {
+            cardValidField.setCustomValidity('Incorrect year');
+          } else {
+            cardValidField.setCustomValidity('');
+          }
         }
+        console.log(cardValidField.value.split(/(\d{2})/), month, year);
       });
     }
 
@@ -144,7 +153,7 @@ class ModalWindow {
         'address',
         'Minsk, Lenin Street 1',
         true,
-        '[a-zA-Z,]{3,}\\s[a-zA-Z]{3,}(\\s[a-zA-Z]{3,})+(\\s[a-zA-Z0-9.]{1,})+',
+        '[a-zA-Z,]{5,}\\s[a-zA-Z]{5,}(\\s[a-zA-Z]{5,})+',
       ),
     );
     user.append(this.fillField('e-mail: ', 'form_field', 'email', 'email', 'online-store@store.com', true));
