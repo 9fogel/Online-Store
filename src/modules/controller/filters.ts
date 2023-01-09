@@ -12,8 +12,6 @@ class Filters implements IFilters {
   };
 
   public fillFilters(): void {
-    console.log(products);
-
     const themeArr: Array<string> = Array.from(new Set(products.products.map((el: IProduct): string => el.theme)));
     themeArr.sort((a: string, b: string): number => a.localeCompare(b));
     Filters.filters.theme = [...themeArr];
