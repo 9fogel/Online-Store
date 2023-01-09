@@ -72,11 +72,8 @@ class AppView {
       if (pageWrap) {
         pageWrap.classList.add('product_page');
       }
-      // const id = +pageID.slice(13);
-      // console.log(window.location.hash.slice(14));
       const id = +window.location.hash.slice(14);
       const product = Cart.getProduct(id);
-      // console.log(product);
       page.render(product, id);
     }
 
@@ -85,16 +82,15 @@ class AppView {
       if (pageWrap) {
         pageWrap.classList.add('cart_page');
       }
-      // const itemsPerPage: HTMLInputElement | null = document.querySelector('.cart_pagination_input');
-      // if (itemsPerPage instanceof HTMLInputElement) {
-      //   console.log('items per Page', itemsPerPage.value);
-      // }
-      // const curPage: HTMLElement | null = document.querySelector('.cart_current_page');
-      // if (curPage) {
-      //   console.log('page Num', curPage.textContent);
-      // }
-
+      page.renderCartGalleryHeader();
       page.drawCardCart();
+    }
+
+    if (page instanceof ErrorPage) {
+      const pageWrap = document.querySelector('#current-page');
+      if (pageWrap) {
+        pageWrap.classList.add('error_page');
+      }
     }
   }
 
@@ -119,8 +115,6 @@ class AppView {
     AppView.container.append(this.header.render());
     AppView.container.append(this.main.render());
     this.checkPageToLoad();
-    // console.log(window.location.hash);
-    // this.renderNewPage('main-page');
     AppView.container.append(this.footer.render());
     this.enableRoughtChange();
   }

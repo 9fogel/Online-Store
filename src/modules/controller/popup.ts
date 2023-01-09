@@ -1,5 +1,5 @@
 class Popup {
-  static renderPopup(text: string, delay: number, classname: string) {
+  public static renderPopup(text: string, delay: number, classname: string): void {
     const textField = document.createElement('div');
     textField.classList.add('popup_text');
     textField.innerText = text;
@@ -25,16 +25,20 @@ class Popup {
 
     document.body.append(popup);
 
-    window.onclick = function (event) {
-      if (event.target == popup) Popup.removePopup;
+    window.onclick = function (event: MouseEvent) {
+      if (event.target == popup) {
+        Popup.removePopup;
+      }
     };
 
     setTimeout(Popup.removePopup, delay);
   }
 
-  static removePopup() {
+  private static removePopup(): void {
     const popup: HTMLElement | null = document.querySelector('.popup');
-    if (popup) popup.remove();
+    if (popup) {
+      popup.remove();
+    }
   }
 }
 

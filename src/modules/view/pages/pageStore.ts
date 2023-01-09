@@ -17,7 +17,7 @@ class StorePage extends Page {
 
   fillCheckedFilters(key: string, checkboxValue: string | number, checkboxEl: HTMLInputElement): void {
     if (localStorage.getItem('legoFilters')) {
-      const filtersUsed = localStorage.getItem('legoFilters') ?? {};
+      const filtersUsed: string = localStorage.getItem('legoFilters') ?? '';
       const filtersUsedObj: filtersT = JSON.parse(filtersUsed.toString());
       const storageArray: Array<string | number> = filtersUsedObj[key];
 
@@ -65,7 +65,6 @@ class StorePage extends Page {
     if (localStorage.getItem('legoFilters')) {
       const filtersUsed = localStorage.getItem('legoFilters') ?? {};
       const filtersUsedObj: filtersT = JSON.parse(filtersUsed.toString());
-      console.log(filtersUsedObj.sort);
       if (filtersUsedObj.sort.length !== 0) {
         Gallery.state === 'filtered';
         defaultOption.removeAttribute('selected');
@@ -233,10 +232,7 @@ class StorePage extends Page {
     resetButton.textContent = 'Reset';
     filterBtnWrap.append(resetButton);
     resetButton.addEventListener('click', (): void => {
-      console.log('reset');
       localStorage.removeItem('legoFilters');
-      console.log(Gallery.queryStr);
-      console.log(Gallery.filtersChecked);
       this.clearGallery();
       window.location.hash = '#main-page';
       return this.drawCardStore(Gallery.getAllUniqueItems());
@@ -483,7 +479,9 @@ class StorePage extends Page {
             if (Cart.getProductAmount(item.id)) {
               addBtn.classList.add('button_discard');
               addBtn.innerText = `Drop from Cart (${Cart.getProductAmount(item.id)})`;
-              addBtn.addEventListener('click', () => changeBtn(addBtn, 'discard', item.id));
+              addBtn.addEventListener('click', () => {
+                changeBtn(addBtn, 'discard', item.id);
+              });
             } else {
               addBtn.classList.add('button_buy');
               addBtn.innerText = 'Add to cart';
