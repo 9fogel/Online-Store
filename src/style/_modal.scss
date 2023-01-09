@@ -158,10 +158,12 @@
 
 .modal_window input:valid {
   outline-color: rgb(120, 223, 120);
+  background: greenyellow;
 }
 
 .modal_window input:invalid {
   outline-color: rgb(240, 162, 174);
+  background: pink;
 }
 
 // .payment_confirm {
