@@ -77,24 +77,16 @@ class ModalWindow {
         cardValidField.value = string;
 
         const month = cardValidField.value.split(/(\d{2})/)[1];
-        if (month) {
-          if (+month < 1 || +month > 12) {
-            cardValidField.setCustomValidity('Incorrect month');
-          } else {
-            cardValidField.setCustomValidity('');
-          }
-        }
         const year = cardValidField.value.split(/(\d{2})/)[3];
-        if (year) {
-          const today = new Date();
-          const currentYear = today.getFullYear() - 2000;
-          if (+year < currentYear || +year > currentYear + 6) {
-            cardValidField.setCustomValidity('Incorrect year');
-          } else {
-            cardValidField.setCustomValidity('');
-          }
+        const today = new Date();
+        const currentYear = today.getFullYear() - 2000;
+        if (+month < 1 || +month > 12) {
+          cardValidField.setCustomValidity('Incorrect month');
+        } else if (+year < currentYear || +year > currentYear + 6) {
+          cardValidField.setCustomValidity('Incorrect year');
+        } else {
+          cardValidField.setCustomValidity('');
         }
-        console.log(cardValidField.value.split(/(\d{2})/), month, year);
       });
     }
 
@@ -147,7 +139,7 @@ class ModalWindow {
         'name',
         'Name Surname',
         true,
-        '[a-zA-Zа-яА-Я]{3,}(\\s[a-zA-Zа-яА-Я]{3,})+',
+        '[a-zA-Zа-яА-Яё]{3,}(\\s[a-zA-Zа-яА-Яё]{3,})+',
       ),
     );
     user.append(this.fillField('phone: ', 'form_field', 'text', 'phone', '+99999999999', true, '^\\+\\d{9,}'));
@@ -159,7 +151,7 @@ class ModalWindow {
         'address',
         'Minsk, Lenin Street 1',
         true,
-        '[a-zA-Zа-яА-Я,]{5,}\\s[a-zA-Zа-яА-Я]{5,}(\\s[a-zA-Zа-яА-Я]{5,})+',
+        '[a-zA-Zа-яА-Яё,]{5,}\\s[a-zA-Zа-яА-Яё]{5,}(\\s[a-zA-Zа-яА-Яё]{5,})+',
       ),
     );
     user.append(this.fillField('e-mail: ', 'form_field', 'email', 'email', 'online-store@store.com', true));
