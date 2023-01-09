@@ -105,7 +105,6 @@ class ModalWindow {
 
   static handleFormSubmit(event: Event, form: HTMLFormElement) {
     event.preventDefault();
-    console.log('Отправка!');
 
     const collection: HTMLFormControlsCollection = form.elements;
 
@@ -128,7 +127,6 @@ class ModalWindow {
     const close = document.createElement('div');
     close.classList.add('close');
     close.id = 'closeModal';
-    // close.innerText = '𐄂';
     close.addEventListener('click', ModalWindow.closeModal);
 
     const title = document.createElement('h3');
@@ -142,7 +140,15 @@ class ModalWindow {
     user.classList.add('modal_wrapper');
     user.append(userHeader);
     user.append(
-      this.fillField('name: ', 'form_field', 'text', 'name', 'Name Surname', true, '[a-zA-Z]{3,}(\\s[a-zA-Z]{3,})+'),
+      this.fillField(
+        'name: ',
+        'form_field',
+        'text',
+        'name',
+        'Name Surname',
+        true,
+        '[a-zA-Zа-яА-Я]{3,}(\\s[a-zA-Zа-яА-Я]{3,})+',
+      ),
     );
     user.append(this.fillField('phone: ', 'form_field', 'text', 'phone', '+99999999999', true, '^\\+\\d{9,}'));
     user.append(
@@ -153,7 +159,7 @@ class ModalWindow {
         'address',
         'Minsk, Lenin Street 1',
         true,
-        '[a-zA-Z,]{5,}\\s[a-zA-Z]{5,}(\\s[a-zA-Z]{5,})+',
+        '[a-zA-Zа-яА-Я,]{5,}\\s[a-zA-Zа-яА-Я]{5,}(\\s[a-zA-Zа-яА-Я]{5,})+',
       ),
     );
     user.append(this.fillField('e-mail: ', 'form_field', 'email', 'email', 'online-store@store.com', true));
