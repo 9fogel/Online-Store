@@ -5,24 +5,12 @@ class Main extends Component {
     super(tagName, className);
   }
 
-  // renderMain() {
-  //   const wrapper = document.createElement('div');
-  //   wrapper.classList.add('wrapper1');
-  //   this.container.append(wrapper);
-  // }
-
-  append(node: HTMLElement) {
-    // const wrapper = document.createElement('div');
-    // wrapper.classList.add('wrapper2');
-    // wrapper.append(node);
-    // this.container.append(wrapper);
-    // return this.container;
+  public append(node: HTMLElement): HTMLElement {
     this.container.append(node);
     return this.container;
   }
 
-  render() {
-    // this.renderMain();
+  public render(): HTMLElement {
     return this.container;
   }
 }

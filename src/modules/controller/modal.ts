@@ -95,18 +95,8 @@ class ModalWindow {
       CVVField.addEventListener('input', () => (CVVField.value = CVVField.value.replace(/\D/g, '').substring(0, 3)));
   }
 
-  static handleFormSubmit(event: Event, form: HTMLFormElement) {
+  static handleFormSubmit(event: Event) {
     event.preventDefault();
-
-    const collection: HTMLFormControlsCollection = form.elements;
-
-    const arr = Array.from(collection);
-    arr.forEach((element) => {
-      if (element instanceof HTMLInputElement) {
-        const { name, value } = element;
-        console.log(name, value);
-      } else console.log(element);
-    });
     ModalWindow.closeModal();
     Popup.renderPopup('Your order is accepted', 5000, 'order_confirmed');
     setTimeout(() => {
@@ -199,7 +189,7 @@ class ModalWindow {
     form.append(user);
     form.append(card);
     form.append(submit);
-    form.addEventListener('submit', (e) => this.handleFormSubmit(e, form));
+    form.addEventListener('submit', (e) => this.handleFormSubmit(e));
 
     const modalWindow = document.createElement('div');
     modalWindow.classList.add('modal_window');

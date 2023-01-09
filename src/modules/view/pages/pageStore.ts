@@ -243,7 +243,6 @@ class StorePage extends Page {
     copyLinkButton.textContent = 'Copy';
     filterBtnWrap.append(copyLinkButton);
     copyLinkButton.addEventListener('click', () => {
-      console.log(window.location.href);
       navigator.clipboard
         .writeText(window.location.href)
         .then((): void => {

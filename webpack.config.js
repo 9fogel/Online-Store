@@ -5,23 +5,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const EslintPlugin = require('eslint-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-// const devMode = baseConfig.mode === 'development';//if current mode is development
-// const target = devMode ? 'web' : 'browserslist';
-
-
 const baseConfig = {
   entry: path.resolve(__dirname, 'src', 'index.ts'),
   mode: 'development',
-  // target,
   output: {
     path: path.resolve(__dirname, 'dist'),
-    // assetModuleFilename: 'assets/[hash][ext]',// or 'assets/[name][ext]' to save initial names
   },
-  // devServer: {
-  //     port: 3000,
-  //     open: true,
-  //     host: 'localhost',
-  // },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src', 'index.html'),
@@ -33,7 +22,7 @@ const baseConfig = {
       extensions: 'ts',
     }),
     new CleanWebpackPlugin({
-      // cleanOnceBeforeBuildPatterns: [ //TODO: раскомментить перед деплоем
+      // cleanOnceBeforeBuildPatterns: [ //TODO: раскомментить перед деплоем GitHub
       //   '**/*',
       //   '!.git',
       // ],
@@ -52,13 +41,9 @@ const baseConfig = {
         exclude: ['/node_modules/'],
       },
       {
-        test: /\.(c|sa|sc)ss$/i,//can handle css/sass/scss files
+        test: /\.(c|sa|sc)ss$/i,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
-      // { //TODO: раскомментрить для чистого css
-      //   test: /\.css$/i,
-      //   use: ['style-loader', 'css-loader'],
-      // },
       {
         test: /\.(woff(2)?|eot|ttf|otf)$/i,
         type: 'asset/resource',
@@ -67,7 +52,7 @@ const baseConfig = {
         }
       },
       {
-        test: /\.(jpe?g|png|webp|gif|svg)$/i,//formats of images
+        test: /\.(jpe?g|png|webp|gif|svg)$/i,
         use: [
           {
             loader: 'image-webpack-loader',
@@ -75,7 +60,6 @@ const baseConfig = {
               mozjpeg: {
                 progressive: true,
               },
-              // optipng.enabled: false will disable optipng
               optipng: {
                 enabled: false,
               },
@@ -86,7 +70,6 @@ const baseConfig = {
               gifsicle: {
                 interlaced: false,
               },
-              // the webp option will enable WEBP
               webp: {
                 quality: 75
               }
@@ -98,13 +81,6 @@ const baseConfig = {
           filename: 'assets/images/[name][ext]'
         }
       },
-      // {
-      //   test: /\.(jpe?g|png|webp|gif|svg)$/i,
-      //   type: 'asset',
-      //   generator: {
-      //     filename: 'assets/[name][ext]'
-      //   }
-      // },
     ],
   },
   resolve: {

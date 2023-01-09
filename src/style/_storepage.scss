@@ -88,7 +88,6 @@
   -webkit-appearance: none;
   pointer-events: all;
   cursor: pointer;
-  // z-index: 2;
   width: 12px;
   height: 12px;
   background-color: yellow;
@@ -128,7 +127,6 @@
 .filters_fieldset {
   padding: 16px 20px;
   border-radius: $border-radius-small;
-  // border: $border;
   border: 1px solid $orange;
 }
 

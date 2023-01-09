@@ -1,13 +1,14 @@
 import Page from '../templates/pageTemplate';
+import { IErrorPage } from './pages-i';
 
 export const enum ErrorTypes {
   Error_404 = 404,
 }
 
-class ErrorPage extends Page {
-  private errorType: ErrorTypes | string;
+class ErrorPage extends Page implements IErrorPage {
+  private readonly errorType: ErrorTypes | string;
 
-  static textObj: { [prop: string]: string } = {
+  public static textObj: { [prop: string]: string } = {
     '404': 'Error! The page was not found',
   };
 
@@ -16,7 +17,7 @@ class ErrorPage extends Page {
     this.errorType = errorType;
   }
 
-  render() {
+  public render(): HTMLElement {
     const title = this.createHeaderTitle(ErrorPage.textObj[this.errorType]);
     this.container.append(title);
     return this.container;

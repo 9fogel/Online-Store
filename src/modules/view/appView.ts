@@ -2,13 +2,13 @@ import Page from './templates/pageTemplate';
 import Header from './templates/header';
 import StorePage from './pages/pageStore';
 import CartPage from './pages/pageCart';
-import AboutPage from './pages/pageAbout';
 import ErrorPage, { ErrorTypes } from './pages/page404';
 import ProductPage from './pages/pageProduct';
 import Footer from './templates/footer';
 import Main from './templates/main';
 import Gallery from '../controller/gallery';
 import Cart from '../controller/cart';
+import { IProduct } from '../types/types';
 
 export const enum pageIDs {
   StorePage = 'main-page',
@@ -30,8 +30,8 @@ class AppView {
     this.footer = new Footer('footer', 'footer container');
   }
 
-  private renderNewPage(pageID: string) {
-    const currentPageHTML = document.querySelector(`#${AppView.defaultPageID}`);
+  private renderNewPage(pageID: string): void {
+    const currentPageHTML: HTMLElement | null = document.querySelector(`#${AppView.defaultPageID}`);
     if (currentPageHTML) {
       currentPageHTML.remove();
     }
@@ -42,8 +42,6 @@ class AppView {
       page = new StorePage(pageID);
     } else if (pageID.includes(pageIDs.CartPage)) {
       page = new CartPage(pageID);
-    } else if (pageID === pageIDs.AboutPage) {
-      page = new AboutPage(pageID);
     } else if (pageID.includes(pageIDs.ProductPage)) {
       page = new ProductPage(pageID);
     } else page = new ErrorPage(pageID, ErrorTypes.Error_404);
@@ -55,7 +53,7 @@ class AppView {
     }
 
     if (page instanceof StorePage) {
-      const pageWrap = document.querySelector('#current-page');
+      const pageWrap: HTMLElement | null = document.querySelector('#current-page');
       if (pageWrap) {
         pageWrap.classList.add('store_page');
       }
@@ -72,7 +70,7 @@ class AppView {
     }
 
     if (page instanceof ProductPage) {
-      const pageWrap = document.querySelector('#current-page');
+      const pageWrap: HTMLElement | null = document.querySelector('#current-page');
       if (pageWrap) {
         pageWrap.classList.add('product_page');
       }
@@ -81,12 +79,12 @@ class AppView {
         cartBtn.classList.remove('invisible');
       }
       const id = +window.location.hash.slice(14);
-      const product = Cart.getProduct(id);
+      const product: IProduct = Cart.getProduct(id);
       page.render(product, id);
     }
 
     if (page instanceof CartPage) {
-      const pageWrap = document.querySelector('#current-page');
+      const pageWrap: HTMLElement | null = document.querySelector('#current-page');
       if (pageWrap) {
         pageWrap.classList.add('cart_page');
       }
@@ -111,14 +109,14 @@ class AppView {
     }
   }
 
-  private enableRoughtChange() {
-    window.addEventListener('hashchange', () => {
-      const hash = window.location.hash.slice(1);
+  private enableRoughtChange(): void {
+    window.addEventListener('hashchange', (): void => {
+      const hash: string = window.location.hash.slice(1);
       this.renderNewPage(hash);
     });
   }
 
-  private checkPageToLoad() {
+  private checkPageToLoad(): void {
     if (window.location.hash.includes(pageIDs.ProductPage)) {
       this.renderNewPage('product-page');
     } else if (window.location.hash.includes(pageIDs.CartPage)) {
@@ -128,12 +126,10 @@ class AppView {
     }
   }
 
-  renderApp() {
+  public renderApp(): void {
     AppView.container.append(this.header.render());
     AppView.container.append(this.main.render());
     this.checkPageToLoad();
-    // console.log(window.location.hash);
-    // this.renderNewPage('main-page');
     AppView.container.append(this.footer.render());
     this.enableRoughtChange();
   }

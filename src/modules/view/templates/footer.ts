@@ -40,7 +40,6 @@ class Footer extends Component {
     RSSchool.classList.add('rs_logo');
     RSSchool.href = 'https://rs.school/js/';
     RSSchool.target = '_blank';
-    // RSSchool.innerText = 'RSSchool';
 
     const wrapper = document.createElement('div');
     wrapper.classList.add('footer_content');
