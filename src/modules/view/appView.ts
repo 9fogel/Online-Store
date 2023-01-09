@@ -95,6 +95,7 @@ class AppView {
         cartBtn.classList.remove('invisible');
       }
 
+      page.renderCartGalleryHeader();
       page.drawCardCart();
     }
 

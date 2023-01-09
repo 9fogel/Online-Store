@@ -65,7 +65,6 @@ class StorePage extends Page {
     if (localStorage.getItem('legoFilters')) {
       const filtersUsed = localStorage.getItem('legoFilters') ?? {};
       const filtersUsedObj: Tfilters = JSON.parse(filtersUsed.toString());
-      console.log(filtersUsedObj.sort);
       if (filtersUsedObj.sort.length !== 0) {
         Gallery.state === 'filtered';
         defaultOption.removeAttribute('selected');
