@@ -17,7 +17,7 @@ class Cart {
   }
 
   public static removeItem(id: number): void {
-    const index = this.itemsID.indexOf(id);
+    const index: number = this.itemsID.indexOf(id);
     this.itemsID.splice(index, 1);
     localStorage.setItem('cart', this.itemsID.join(','));
     Refresher.refreshHeader();
@@ -26,7 +26,7 @@ class Cart {
 
   public static removeProduct(id: number): void {
     while (Cart.getProductAmount(id) > 0) {
-      const index = this.itemsID.indexOf(id);
+      const index: number = this.itemsID.indexOf(id);
       this.itemsID.splice(index, 1);
       localStorage.setItem('cart', this.itemsID.join(','));
     }
@@ -48,10 +48,10 @@ class Cart {
 
   public static getUniqueItems(): Array<IProduct> {
     Cart.refresh();
-    const uniqueItemsID = Array.from(new Set(this.itemsID));
-    const uniqueItems: IProduct[] = [];
+    const uniqueItemsID: Array<number> = Array.from(new Set(this.itemsID));
+    const uniqueItems: Array<IProduct> = [];
     uniqueItemsID.forEach((el: number): void => {
-      const add = Cart.getProduct(el);
+      const add: IProduct = Cart.getProduct(el);
       uniqueItems.push(add);
     });
 
@@ -66,7 +66,7 @@ class Cart {
 
   public static getUniqueAmount(): number {
     Cart.refresh();
-    const uniqueItems = Array.from(new Set(this.itemsID));
+    const uniqueItems: Array<number> = Array.from(new Set(this.itemsID));
 
     return uniqueItems.length;
   }
@@ -84,41 +84,41 @@ class Cart {
   public static getTotal(): number {
     Cart.refresh();
     let total = 0;
-    Cart.itemsID.forEach((el) => (total += Cart.getProduct(el).priceByn));
+    Cart.itemsID.forEach((el: number) => (total += Cart.getProduct(el).priceByn));
 
     return +total.toFixed(2);
   }
 
   public static getPromoTotal(couponAmount: number): number {
     Cart.refresh();
-    const total = Cart.getTotal();
-    const discount = couponAmount * 0.1;
+    const total: number = Cart.getTotal();
+    const discount: number = couponAmount * 0.1;
 
     return +((1 - discount) * total).toFixed(2);
   }
 
   public static getProduct(searchID: number): IProduct {
-    const product = Array.from(new Set(products.products.filter((el) => el.id == searchID)));
+    const product: Array<IProduct> = Array.from(new Set(products.products.filter((el: IProduct) => el.id == searchID)));
 
     return product[0];
   }
 
+  public static countPages(inputValue: number): number {
+    const pagesCount: number = Math.ceil(Cart.getUniqueItems().length / inputValue);
+
+    return pagesCount;
+  }
+
   private static refresh() {
-    const cartArr = localStorage.getItem('cart');
+    const cartArr: string | null = localStorage.getItem('cart');
     if (cartArr === null) {
       this.itemsID = [];
     }
     if (cartArr) {
       this.itemsID = [];
-      const arr = cartArr.split(',');
+      const arr: Array<string> = cartArr.split(',');
       arr.forEach((el: string): number => this.itemsID.push(+el));
     }
-  }
-
-  static countPages(inputValue: number): number {
-    const pagesCount = Math.ceil(Cart.getUniqueItems().length / inputValue);
-
-    return pagesCount;
   }
 }
 
