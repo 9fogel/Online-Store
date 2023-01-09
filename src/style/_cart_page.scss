@@ -163,7 +163,7 @@
   gap: 16px;
   margin-top: 40px;
   padding: 40px 16px;
-  border: solid 1px orange;
+  border: solid 1px $orange;
   border-radius: $border-radius;
 }
 
@@ -190,8 +190,8 @@
 
 .coupon_info:hover {
   cursor: pointer;
-  color: orange;
-  border-color: orange;
+  color: $orange;
+  border-color: $orange;
 }
 
 .old_price {
@@ -204,7 +204,7 @@
 }
 
 .coupon_input:focus {
-  outline-color: orange;
+  outline-color: $orange;
 }
 
 .coupon_button,

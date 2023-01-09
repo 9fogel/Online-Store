@@ -337,17 +337,17 @@ class CartPage extends Page {
 
               const itemCategory: HTMLElement | null = itemClone.querySelector('.cart_item_category');
               if (itemCategory) {
-                itemCategory.textContent = `Category: ${item.theme}`;
+                itemCategory.textContent = `Theme: ${item.theme}`;
               }
 
               const itemSubCategory: HTMLElement | null = itemClone.querySelector('.item_subcategory');
               if (itemSubCategory) {
-                itemSubCategory.textContent = `SubCategory: ${item.interests}`;
+                itemSubCategory.textContent = `Interests: ${item.interests}`;
               }
 
-              const itemBrand: HTMLElement | null = itemClone.querySelector('.item_brand');
-              if (itemBrand) {
-                itemBrand.textContent = `Brand: LEGO`;
+              const setNumber: HTMLElement | null = itemClone.querySelector('.item_brand');
+              if (setNumber) {
+                setNumber.textContent = `Set Number: ${item.key}`;
               }
 
               const itemCount: HTMLElement | null = itemClone.querySelector('.item_count');
