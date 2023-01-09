@@ -39,6 +39,9 @@ button {
 
 button:disabled {
   cursor: default;
+  color: $light-gray;
+  background-color: #ececec;
+  border-color: $light-gray;
 }
 
 h1, h2, h3, h4, h5, h6, p {
