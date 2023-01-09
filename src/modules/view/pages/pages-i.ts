@@ -13,3 +13,8 @@ export interface ICartPage {
   drawCardCart(): void;
   render(): HTMLElement;
 }
+
+export interface IStorePage {
+  drawCardStore(items: Array<IProduct>): void;
+  render(): HTMLElement;
+}
