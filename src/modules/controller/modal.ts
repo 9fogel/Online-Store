@@ -75,6 +75,17 @@ class ModalWindow {
           .filter((item) => item !== '')
           .join('/');
         cardValidField.value = string;
+
+        const month = cardValidField.value.split(/(\d{2})/)[1];
+        if (month) {
+          if (+month < 1 || +month > 12) cardValidField.setCustomValidity('Incorrect month');
+        }
+        const year = cardValidField.value.split(/(\d{2})/)[3];
+        if (year) {
+          const today = new Date();
+          const currentYear = today.getFullYear() - 2000;
+          if (+year < currentYear || +year > currentYear + 6) cardValidField.setCustomValidity('Incorrect year');
+        }
       });
     }
 
@@ -121,7 +132,9 @@ class ModalWindow {
     const user = document.createElement('div');
     user.classList.add('modal_wrapper');
     user.append(userHeader);
-    user.append(this.fillField('name: ', 'form_field', 'text', 'name', 'Name Surname', true, '^\\w{3,}\\s\\w{3,}'));
+    user.append(
+      this.fillField('name: ', 'form_field', 'text', 'name', 'Name Surname', true, '[a-zA-Z]{3,}(\\s[a-zA-Z]{3,})+'),
+    );
     user.append(this.fillField('phone: ', 'form_field', 'text', 'phone', '+99999999999', true, '^\\+\\d{9,}'));
     user.append(
       this.fillField(
@@ -131,7 +144,7 @@ class ModalWindow {
         'address',
         'Minsk, Lenin Street 1',
         true,
-        '^\\w{5,}\\s\\w{5,}\\s\\w{5,}',
+        '[a-zA-Z,]{3,}\\s[a-zA-Z]{3,}(\\s[a-zA-Z]{3,})+(\\s[a-zA-Z0-9.]{1,})+',
       ),
     );
     user.append(this.fillField('e-mail: ', 'form_field', 'email', 'email', 'online-store@store.com', true));
