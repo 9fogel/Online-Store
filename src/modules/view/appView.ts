@@ -8,7 +8,6 @@ import ProductPage from './pages/pageProduct';
 import Footer from './templates/footer';
 import Main from './templates/main';
 import Gallery from '../controller/gallery';
-// import { IProduct } from '../types/types';
 import Cart from '../controller/cart';
 
 export const enum pageIDs {
@@ -60,7 +59,12 @@ class AppView {
       if (pageWrap) {
         pageWrap.classList.add('store_page');
       }
+      const cartBtn: HTMLElement | null = document.querySelector('.cart_btn');
+      if (cartBtn) {
+        cartBtn.classList.remove('invisible');
+      }
       if (!localStorage.getItem('legoFilters')) {
+        window.location.hash = '#main-page';
         page.drawCardStore(Gallery.items);
       } else {
         page.drawCardStore(Gallery.getFilteredItems());
@@ -72,11 +76,12 @@ class AppView {
       if (pageWrap) {
         pageWrap.classList.add('product_page');
       }
-      // const id = +pageID.slice(13);
-      // console.log(window.location.hash.slice(14));
+      const cartBtn: HTMLElement | null = document.querySelector('.cart_btn');
+      if (cartBtn) {
+        cartBtn.classList.remove('invisible');
+      }
       const id = +window.location.hash.slice(14);
       const product = Cart.getProduct(id);
-      // console.log(product);
       page.render(product, id);
     }
 
@@ -85,16 +90,23 @@ class AppView {
       if (pageWrap) {
         pageWrap.classList.add('cart_page');
       }
-      // const itemsPerPage: HTMLInputElement | null = document.querySelector('.cart_pagination_input');
-      // if (itemsPerPage instanceof HTMLInputElement) {
-      //   console.log('items per Page', itemsPerPage.value);
-      // }
-      // const curPage: HTMLElement | null = document.querySelector('.cart_current_page');
-      // if (curPage) {
-      //   console.log('page Num', curPage.textContent);
-      // }
+      const cartBtn: HTMLElement | null = document.querySelector('.cart_btn');
+      if (cartBtn) {
+        cartBtn.classList.remove('invisible');
+      }
 
       page.drawCardCart();
+    }
+
+    if (page instanceof ErrorPage) {
+      const pageWrap: HTMLElement | null = document.querySelector('#current-page');
+      if (pageWrap) {
+        pageWrap.classList.add('error_page');
+      }
+      const cartBtn: HTMLElement | null = document.querySelector('.cart_btn');
+      if (cartBtn) {
+        cartBtn.classList.add('invisible');
+      }
     }
   }
 
