@@ -214,7 +214,7 @@ class ModalWindow {
     };
   }
 
-  static closeModal() {
+  static closeModal(): void {
     const modal: HTMLElement | null = document.querySelector('.payment');
     if (modal) modal.remove();
   }
