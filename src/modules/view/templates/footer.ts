@@ -5,7 +5,7 @@ class Footer extends Component {
     super(tagName, className);
   }
 
-  renderFooter() {
+  renderFooter(): void {
     const team = document.createElement('div');
     team.classList.add('footer_team');
 
@@ -49,7 +49,7 @@ class Footer extends Component {
     this.container.append(wrapper);
   }
 
-  render() {
+  render(): HTMLElement {
     this.renderFooter();
     return this.container;
   }

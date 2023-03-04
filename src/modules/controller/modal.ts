@@ -11,7 +11,7 @@ class ModalWindow {
     required: boolean,
     pattern?: string,
     size?: number,
-  ) {
+  ): HTMLDivElement {
     const label = document.createElement('label');
     label.innerText = innerText;
 
@@ -31,7 +31,7 @@ class ModalWindow {
     return element;
   }
 
-  static tracker() {
+  static trackFields(): void {
     const phoneNumberField: HTMLElement | null = document.getElementById('phone');
     if (phoneNumberField instanceof HTMLInputElement) {
       phoneNumberField.addEventListener(
@@ -95,7 +95,7 @@ class ModalWindow {
       CVVField.addEventListener('input', () => (CVVField.value = CVVField.value.replace(/\D/g, '').substring(0, 3)));
   }
 
-  static handleFormSubmit(event: Event) {
+  static handleFormSubmit(event: Event): void {
     event.preventDefault();
     ModalWindow.closeModal();
     Popup.renderPopup('Your order is accepted', 5000, 'order_confirmed');
@@ -105,7 +105,7 @@ class ModalWindow {
     }, 3000);
   }
 
-  static renderModal() {
+  static renderModal(): void {
     const close = document.createElement('div');
     close.classList.add('close');
     close.id = 'closeModal';
@@ -221,7 +221,7 @@ class ModalWindow {
 
   static openModal(): void {
     ModalWindow.renderModal();
-    ModalWindow.tracker();
+    ModalWindow.trackFields();
   }
 }
 

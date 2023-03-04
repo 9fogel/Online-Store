@@ -7,7 +7,7 @@ class Header extends Component {
   }
   private static defaultLogo = 'The Bricks';
 
-  renderLogo() {
+  renderLogo(): void {
     const link = document.createElement('a');
     link.href = '#main-page';
     link.classList.add('header_logo');
@@ -18,7 +18,7 @@ class Header extends Component {
     this.container.append(title);
   }
 
-  renderCart() {
+  renderCart(): void {
     const amount = document.createElement('span');
     amount.classList.add('header_cart_amount');
     amount.innerText = `${Cart.getAmount()} `;
@@ -37,7 +37,7 @@ class Header extends Component {
     this.container.append(button);
   }
 
-  render() {
+  render(): HTMLElement {
     this.renderLogo();
     this.renderCart();
     return this.container;

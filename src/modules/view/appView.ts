@@ -10,7 +10,7 @@ import Gallery from '../controller/gallery';
 import Cart from '../controller/cart';
 import { IProduct } from '../types/types';
 
-export const enum pageIDs {
+export const enum PageIDs {
   StorePage = 'main-page',
   ProductPage = 'product-page',
   AboutPage = 'about-page',
@@ -18,16 +18,24 @@ export const enum pageIDs {
 }
 
 class AppView {
-  private static container: HTMLElement = document.body;
-  private static defaultPageID = 'current-page';
-  private header: Header;
-  private main: Main;
-  private footer: Footer;
+  private static readonly container: HTMLElement = document.body;
+  private static readonly defaultPageID = 'current-page';
+  private readonly header: Header;
+  private readonly main: Main;
+  private readonly footer: Footer;
 
   constructor() {
     this.header = new Header('header', 'header container');
     this.main = new Main('main', 'main container');
     this.footer = new Footer('footer', 'footer container');
+  }
+
+  public renderApp(): void {
+    AppView.container.append(this.header.render());
+    AppView.container.append(this.main.render());
+    this.checkPageToLoad();
+    AppView.container.append(this.footer.render());
+    this.enableRoughtChange();
   }
 
   private renderNewPage(pageID: string): void {
@@ -38,11 +46,11 @@ class AppView {
 
     let page: Page | null = null;
 
-    if (pageID.includes(pageIDs.StorePage)) {
+    if (pageID.includes(PageIDs.StorePage)) {
       page = new StorePage(pageID);
-    } else if (pageID.includes(pageIDs.CartPage)) {
+    } else if (pageID.includes(PageIDs.CartPage)) {
       page = new CartPage(pageID);
-    } else if (pageID.includes(pageIDs.ProductPage)) {
+    } else if (pageID.includes(PageIDs.ProductPage)) {
       page = new ProductPage(pageID);
     } else page = new ErrorPage(pageID, ErrorTypes.Error_404);
 
@@ -117,21 +125,13 @@ class AppView {
   }
 
   private checkPageToLoad(): void {
-    if (window.location.hash.includes(pageIDs.ProductPage)) {
+    if (window.location.hash.includes(PageIDs.ProductPage)) {
       this.renderNewPage('product-page');
-    } else if (window.location.hash.includes(pageIDs.CartPage)) {
+    } else if (window.location.hash.includes(PageIDs.CartPage)) {
       this.renderNewPage('cart-page');
     } else {
       this.renderNewPage('main-page');
     }
-  }
-
-  public renderApp(): void {
-    AppView.container.append(this.header.render());
-    AppView.container.append(this.main.render());
-    this.checkPageToLoad();
-    AppView.container.append(this.footer.render());
-    this.enableRoughtChange();
   }
 }
 

@@ -6,7 +6,7 @@ import changeBtn from '../../controller/addInCart';
 import ModalWindow from '../../controller/modal';
 
 class ProductPage extends Page implements IProductPage {
-  public static textObj = {
+  public static title = {
     mainTitle: 'Product',
   };
 

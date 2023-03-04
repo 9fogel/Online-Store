@@ -1,7 +1,7 @@
 import AppView from './view/appView';
 
 class App {
-  private view: AppView;
+  private readonly view: AppView;
 
   constructor() {
     this.view = new AppView();

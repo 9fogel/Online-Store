@@ -4,6 +4,7 @@ abstract class Component {
     this.container = document.createElement(tagName);
     this.container.className = className;
   }
+
   render() {
     return this.container;
   }

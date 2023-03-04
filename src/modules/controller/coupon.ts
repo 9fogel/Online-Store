@@ -1,7 +1,7 @@
 import Cart from './cart';
 
 class Coupon {
-  static promo: Array<string> = ['RSSchool', '9fogel', '4Quark'];
+  static readonly promo: Array<string> = ['RSSchool', '9fogel', '4Quark'];
 
   public static checkСoupon(): void {
     const couponInput: HTMLElement | null = document.querySelector('.coupon_input');
