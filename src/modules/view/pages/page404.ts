@@ -8,7 +8,7 @@ export const enum ErrorTypes {
 class ErrorPage extends Page implements IErrorPage {
   private readonly errorType: ErrorTypes | string;
 
-  public static textObj: { [prop: string]: string } = {
+  public static title: { [prop: string]: string } = {
     '404': 'Error! The page was not found',
   };
 
@@ -18,7 +18,7 @@ class ErrorPage extends Page implements IErrorPage {
   }
 
   public render(): HTMLElement {
-    const title = this.createHeaderTitle(ErrorPage.textObj[this.errorType]);
+    const title = this.createHeaderTitle(ErrorPage.title[this.errorType]);
     this.container.append(title);
     return this.container;
   }

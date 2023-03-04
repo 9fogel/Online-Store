@@ -7,7 +7,7 @@ import Gallery from '../../controller/gallery';
 import changeBtn from '../../controller/addInCart';
 
 class StorePage extends Page implements IStorePage {
-  public static textObj = {
+  public static title = {
     mainTitle: 'LEGO Store',
   };
   private filtersPart = new Filters();

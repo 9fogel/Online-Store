@@ -21,12 +21,6 @@ const baseConfig = {
     new EslintPlugin({
       extensions: 'ts',
     }),
-    new CleanWebpackPlugin({
-      // cleanOnceBeforeBuildPatterns: [ //TODO: раскомментить перед деплоем GitHub
-      //   '**/*',
-      //   '!.git',
-      // ],
-    }),
   ],
   module: {
     rules: [

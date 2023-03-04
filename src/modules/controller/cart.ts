@@ -4,7 +4,7 @@ import Refresher from './refresher';
 import Popup from './popup';
 
 class Cart {
-  static itemsID: Array<number> = [];
+  private static itemsID: Array<number> = [];
 
   public static addItem(id: number): void {
     Cart.refresh();
@@ -109,7 +109,7 @@ class Cart {
     return pagesCount;
   }
 
-  private static refresh() {
+  private static refresh(): void {
     const cartArr: string | null = localStorage.getItem('cart');
     if (cartArr === null) {
       this.itemsID = [];

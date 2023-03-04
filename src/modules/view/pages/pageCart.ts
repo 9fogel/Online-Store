@@ -7,7 +7,7 @@ import ModalWindow from '../../controller/modal';
 import Popup from '../../controller/popup';
 
 class CartPage extends Page implements ICartPage {
-  public static textObj = {
+  public static title = {
     mainTitle: 'Cart',
   };
   private static pagination: TPagination = {};
