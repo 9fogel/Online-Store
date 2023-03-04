@@ -1,0 +1,116 @@
+.product_page {
+  margin: 24px 0;
+  padding: 0;
+
+  & .empty_product {
+    padding: 40px;
+    height: 80vh;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  & .item_name {
+    grid-column-start: 1;
+    grid-row-start: 1;
+  }
+
+  & .item_main_picture {
+    grid-column-start: 1;
+    grid-row-start: 2;
+    margin: 0 auto;
+    padding: 16px;
+    width: auto;
+    height: 100%;
+    transition: ease-in-out 0.3s;
+  }
+
+  & .pictures_wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    grid-column-start: 1;
+    grid-row-start: 3;
+    width: 100%;
+  }
+
+  & .item_additional_picture {
+    align-self: center;
+    padding: 12px;
+    width: auto;
+    height: 100%;
+  }
+
+  & .item_additional_picture:hover {
+    cursor: pointer;
+    border: solid 2px $orange;
+    border-radius: $border-radius-small;
+    transform: scale(1.02);
+    transition: transform ease-in-out 0.3s;
+  }
+
+  & .item_additional_picture.selected {
+    border: solid 2px $orange;
+    border-radius: $border-radius-small;
+  }
+
+  & .item_additional_picture.selected:hover {
+    cursor: default;
+    transform: none;
+    transition: none;
+  }
+
+  & .item_parameters {
+    grid-column-start: 2;
+    grid-row-start: 2;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+
+  & .details_wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 24px;
+  }
+
+  & .item_characteristic {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-weight: bold;
+
+    & span {
+      font-weight: 400;
+    }
+  }
+
+  & .item_price {
+    grid-column-start: 2;
+    grid-row-start: 3;
+    align-self: flex-end;
+    justify-self: flex-end;
+  }
+
+  & .buttons_wrapper {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+  }
+}
+
+.breadcrumbs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  text-transform: capitalize;
+}
+
+.item_wrapper {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 28px 500px 100px;
+  column-gap: 24px;
+  row-gap: 8px;
+  margin-bottom: 16px;
+}
