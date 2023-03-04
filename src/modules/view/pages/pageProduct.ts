@@ -27,7 +27,7 @@ class ProductPage extends Page implements IProductPage {
     return this.container;
   }
 
-  private breadcrumbs(item?: IProduct): void {
+  private breadcrumbs<T extends IProduct>(item?: T): void {
     if (item) {
       const store = document.createElement('a');
       store.href = '#main-page';
@@ -213,7 +213,7 @@ class ProductPage extends Page implements IProductPage {
     this.container.append(product);
   }
 
-  private renderEmptyProduct(id: number) {
+  private renderEmptyProduct(id: number): void {
     const emptyProdWrap = document.createElement('div');
     emptyProdWrap.classList.add('empty_product');
     emptyProdWrap.innerText = `Sorry. Product with id ${id} was not found`;

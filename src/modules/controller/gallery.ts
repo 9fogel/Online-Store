@@ -217,7 +217,7 @@ class Gallery {
     return itemsSorted;
   }
 
-  static showFoundMessage(results: Array<IProduct>): void {
+  static showFoundMessage<T extends Array<IProduct>>(results: T): void {
     const itemsFound: HTMLElement | null = document.querySelector('.items_found');
     const galleryWrap: HTMLElement | null = document.querySelector('.gallery_wrapper');
     if (itemsFound && galleryWrap) {

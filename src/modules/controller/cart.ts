@@ -97,7 +97,7 @@ class Cart {
     return +((1 - discount) * total).toFixed(2);
   }
 
-  public static getProduct(searchID: number): IProduct {
+  public static getProduct<T>(searchID: T): IProduct {
     const product: Array<IProduct> = Array.from(new Set(products.products.filter((el: IProduct) => el.id == searchID)));
 
     return product[0];
